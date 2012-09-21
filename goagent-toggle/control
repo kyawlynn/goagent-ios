@@ -1,0 +1,9 @@
+Package: goagent-toggle
+Name: goagent-toggle
+Depends: sbsettings
+Version: 0.7.0
+Architecture: iphoneos-arm
+Description: goagent sbsettings toggle, quick enable and disable goagent running in background
+Maintainer: hewig
+Author: hewig
+Section: Addons (SBSettings)
