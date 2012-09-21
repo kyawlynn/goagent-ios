@@ -1,5 +1,5 @@
 export THEOS_DEVICE_IP=192.168.3.101
-
+export TARGET=iphone:5.1
 include theos/makefiles/common.mk
 
 BUNDLE_NAME = goagentwidget
