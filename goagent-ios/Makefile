@@ -4,6 +4,7 @@ PROJECT=goagent-ios.xcodeproj
 TARGETS=goagent-ios
 XCODEBUILD=/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild 
 CONFIGURATION=Release
+BUILD_SDK=iphoneos5.1
 
 .PHONY: all
 all: goagent-ios	

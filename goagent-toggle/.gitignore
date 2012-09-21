@@ -3,3 +3,5 @@ theos
 obj/
 .theos/
 *.deb
+deb-pkg-root/DEBIAN/control
+deb-pkg-root/var/mobile/Library/SBSettings/Toggles/Goagent/Toggle.dylib
