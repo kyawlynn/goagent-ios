@@ -33,7 +33,6 @@ extern void init_codecs(void);
 extern void init_weakref(void);
 extern void initzipimport(void);
 extern void init_symtable(void);
-extern void init_ssl(void);
 extern void initxxsubtype(void);
 /* -- ADDMODULE MARKER 1 -- */
 
@@ -55,7 +54,6 @@ struct _inittab _PyImport_Inittab[] = {
 {"_weakref", init_weakref},
 {"zipimport", initzipimport},
 {"_symtable", init_symtable},
-{"_ssl", init_ssl},
 {"xxsubtype", initxxsubtype},
 /* -- ADDMODULE MARKER 2 -- */
 

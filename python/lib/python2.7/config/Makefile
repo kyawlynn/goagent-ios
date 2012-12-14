@@ -21,7 +21,7 @@
 
 # === Variables set by makesetup ===
 
-MODOBJS=          Modules/threadmodule.o  Modules/signalmodule.o  Modules/posixmodule.o  Modules/errnomodule.o  Modules/pwdmodule.o  Modules/_sre.o  Modules/_codecsmodule.o  Modules/_weakref.o  Modules/zipimport.o  Modules/symtablemodule.o  Modules/_ssl.o  Modules/xxsubtype.o
+MODOBJS=          Modules/threadmodule.o  Modules/signalmodule.o  Modules/posixmodule.o  Modules/errnomodule.o  Modules/pwdmodule.o  Modules/_sre.o  Modules/_codecsmodule.o  Modules/_weakref.o  Modules/zipimport.o  Modules/symtablemodule.o  Modules/xxsubtype.o
 MODLIBS=        $(LOCALMODLIBS) $(BASEMODLIBS)
 
 # === Variables set by configure
@@ -29,13 +29,16 @@ VERSION=	2.7
 srcdir=		.
 
 
-CC=		/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/arm-apple-darwin10-llvm-gcc-4.2
-CXX=		c++
+CC=		/usr/bin/arm-apple-darwin9-gcc-4.2.1
+CXX=		/usr/bin/arm-apple-darwin9-g++-4.2.1
 MAINCC=		$(CC)
 LINKCC=		$(PURIFY) $(MAINCC)
 AR=		ar
 RANLIB=		ranlib
 SVNVERSION=	svnversion $(srcdir)
+HGVERSION=	
+HGTAG=		
+HGBRANCH=	
 
 GNULD=          no
 
@@ -46,7 +49,7 @@ SHELL=		/bin/sh
 LN=		ln
 
 # Portable install script (configure doesn't always guess right)
-INSTALL=	/usr/bin/install -c
+INSTALL=	/opt/local/bin/ginstall -c
 INSTALL_PROGRAM=${INSTALL}
 INSTALL_SCRIPT= ${INSTALL}
 INSTALL_DATA=	${INSTALL} -m 644
@@ -58,21 +61,21 @@ INSTALL_SHARED= ${INSTALL} -m 555
 MAKESETUP=      $(srcdir)/Modules/makesetup
 
 # Compiler options
-OPT=		-DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes
+OPT=		-DNDEBUG -g  -O3 -Wall -Wstrict-prototypes
 BASECFLAGS=	 -fno-strict-aliasing
-CFLAGS=		$(BASECFLAGS) -I/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/lib/gcc/arm-apple-darwin10/4.2.1/include/ -I/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/include/ -pipe -no-cpp-precomp -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk $(OPT) $(EXTRA_CFLAGS)
+CFLAGS=		$(BASECFLAGS) -I/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/usr/include/ -I/Users/linusyang/Documents/Code/python/python-for-ios/prelib/usr/include -arch armv6 -pipe -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk $(OPT) $(EXTRA_CFLAGS)
 # Both CPPFLAGS and LDFLAGS need to contain the shell's value for setup.py to
 # be able to build extension modules using the directories specified in the
 # environment variables
-CPPFLAGS=	-I. -IInclude -I$(srcdir)/Include -I/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/lib/gcc/arm-apple-darwin10/4.2.1/include/ -I/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/include/
-LDFLAGS=	-isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk -Lextralibs/
+CPPFLAGS=	-I. -IInclude -I$(srcdir)/Include -I/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/usr/include/ -I/Users/linusyang/Documents/Code/python/python-for-ios/prelib/usr/include
+LDFLAGS=	-isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk -miphoneos-version-min=3.0 -L/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/usr/lib/ -L/Users/linusyang/Documents/Code/python/python-for-ios/prelib/usr/lib
 LDLAST=		
 SGI_ABI=	
 CCSHARED=	
 LINKFORSHARED=	
 ARFLAGS=	rc
 # Extra C flags added for building the interpreter object files.
-CFLAGSFORSHARED=
+CFLAGSFORSHARED=$(CCSHARED)
 # C flags used for building the interpreter object files
 PY_CFLAGS=	$(CFLAGS) $(CPPFLAGS) $(CFLAGSFORSHARED) -DPy_BUILD_CORE
 
@@ -81,7 +84,7 @@ PY_CFLAGS=	$(CFLAGS) $(CPPFLAGS) $(CFLAGSFORSHARED) -DPy_BUILD_CORE
 MACHDEP=	darwin
 
 # Install prefix for architecture-independent files
-prefix=		/python
+prefix=		/usr
 
 # Install prefix for architecture-dependent files
 exec_prefix=	${prefix}
@@ -106,9 +109,9 @@ LIBP=		$(LIBDIR)/python$(VERSION)
 
 # Symbols used for using shared libraries
 SO=		.so
-LDSHARED=	$(CC) $(LDFLAGS) -bundle -undefined dynamic_lookup $(LDFLAGS)
-BLDSHARED=	$(CC) $(LDFLAGS) -bundle -undefined dynamic_lookup $(LDFLAGS)
-LDCXXSHARED=	$(CXX) $(LDFLAGS) -bundle -undefined dynamic_lookup
+LDSHARED=	$(CC) -bundle -undefined dynamic_lookup $(LDFLAGS)
+BLDSHARED=	$(CC) -bundle -undefined dynamic_lookup $(LDFLAGS)
+LDCXXSHARED=	$(CXX) -bundle -undefined dynamic_lookup
 DESTSHARED=	$(BINLIBDEST)/lib-dynload
 
 # Executable suffix (.exe on Windows and Mac OS X)
@@ -131,7 +134,7 @@ export MACOSX_DEPLOYMENT_TARGET
 OTHER_LIBTOOL_OPT=
 
 # Environment to run shared python without installed libraries
-RUNSHARED=       
+RUNSHARED=       DYLD_LIBRARY_PATH=`pwd`:${DYLD_LIBRARY_PATH}
 
 # Modes for directories, executables and data files created by the
 # install process.  Default to user-only-writable for all file types.
@@ -140,7 +143,7 @@ EXEMODE=	755
 FILEMODE=	644
 
 # configure script arguments
-CONFIG_ARGS=	 'CC=/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/arm-apple-darwin10-llvm-gcc-4.2' 'LD=/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/ld' '--disable-toolbox-glue' '--host=armv6-apple-darwin' '--prefix=/python' '--enable-ipv6' 'host_alias=armv6-apple-darwin' 'CFLAGS=-I/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/lib/gcc/arm-apple-darwin10/4.2.1/include/ -I/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/include/ -pipe -no-cpp-precomp -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk' 'LDFLAGS=-isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk -Lextralibs/' 'CPPFLAGS=-I/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/lib/gcc/arm-apple-darwin10/4.2.1/include/ -I/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/include/' 'CPP=/usr/bin/cpp -I/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/lib/gcc/arm-apple-darwin10/4.2.1/include/ -I/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/include/'
+CONFIG_ARGS=	 '--prefix=/usr' '--enable-ipv6' '--host=armv6-apple-darwin' '--enable-shared' '--disable-toolbox-glue' '--with-signal-module' '--with-system-ffi' 'host_alias=armv6-apple-darwin' 'CC=/usr/bin/arm-apple-darwin9-gcc-4.2.1' 'CFLAGS=-I/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/usr/include/ -I/Users/linusyang/Documents/Code/python/python-for-ios/prelib/usr/include -arch armv6 -pipe -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk' 'LDFLAGS=-isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk -miphoneos-version-min=3.0 -L/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/usr/lib/ -L/Users/linusyang/Documents/Code/python/python-for-ios/prelib/usr/lib' 'CPPFLAGS=-I/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/usr/include/ -I/Users/linusyang/Documents/Code/python/python-for-ios/prelib/usr/include'
 
 
 # Subdirectories with code
@@ -157,8 +160,8 @@ DIST=		$(DISTFILES) $(DISTDIRS)
 
 
 LIBRARY=	libpython$(VERSION).a
-LDLIBRARY=      libpython$(VERSION).a
-BLDLIBRARY=     $(LDLIBRARY)
+LDLIBRARY=      libpython$(VERSION).dylib
+BLDLIBRARY=     -L. -lpython$(VERSION)
 DLLLIBRARY=	
 LDLIBRARYDIR=   
 INSTSONAME=	$(LDLIBRARY)
@@ -188,7 +191,7 @@ PROFILE_TASK=	$(srcdir)/Tools/pybench/pybench.py -n 2 --with-gc --with-syscheck
 
 # === Definitions added by makesetup ===
 
-LOCALMODLIBS=            -L$(SSL)/lib -lssl -lcrypto 
+LOCALMODLIBS=           
 BASEMODLIBS=
 GLHACK=-Dclear=__GLclear
 PYTHONPATH=$(COREPYTHONPATH)
@@ -306,6 +309,7 @@ PYTHON_OBJS=	\
 		Python/pymath.o \
 		Python/pystate.o \
 		Python/pythonrun.o \
+                Python/random.o \
 		Python/structmember.o \
 		Python/symtable.o \
 		Python/sysmodule.o \
@@ -473,17 +477,11 @@ $(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK): \
 		$(LIBRARY) \
 		$(RESSRCDIR)/Info.plist
 	$(INSTALL) -d -m $(DIRMODE) $(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)
-	if test "${UNIVERSALSDK}"; then \
-		$(CC) -o $(LDLIBRARY)  -dynamiclib \
-			-isysroot "${UNIVERSALSDK}" \
-			-all_load $(LIBRARY) -Wl,-single_module \
-			-install_name $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK) \
-			-compatibility_version $(VERSION) \
-			-current_version $(VERSION); \
-        else \
-		/usr/bin/libtool -o $(LDLIBRARY) -dynamic $(OTHER_LIBTOOL_OPT) $(LIBRARY) \
-			 -lSystem -lSystemStubs -arch_only i386 -install_name $(PYTHONFRAMEWORKINSTALLDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK) -compatibility_version $(VERSION) -current_version $(VERSION) ;\
-	fi
+	$(CC) -o $(LDLIBRARY) $(LDFLAGS)  -dynamiclib \
+		-all_load $(LIBRARY) -Wl,-single_module \
+		-install_name $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK) \
+		-compatibility_version $(VERSION) \
+		-current_version $(VERSION);
 	$(INSTALL) -d -m $(DIRMODE)  \
 		$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/Resources/English.lproj
 	$(INSTALL_DATA) $(RESSRCDIR)/Info.plist \
@@ -541,7 +539,12 @@ Modules/getbuildinfo.o: $(PARSER_OBJS) \
 		$(SIGNAL_OBJS) \
 		$(MODOBJS) \
 		$(srcdir)/Modules/getbuildinfo.c
-	$(CC) -c $(PY_CFLAGS) -DSVNVERSION="\"`LC_ALL=C $(SVNVERSION)`\"" -o $@ $(srcdir)/Modules/getbuildinfo.c
+	$(CC) -c $(PY_CFLAGS) \
+	      -DSVNVERSION="\"`LC_ALL=C $(SVNVERSION)`\"" \
+	      -DHGVERSION="\"`LC_ALL=C $(HGVERSION)`\"" \
+	      -DHGTAG="\"`LC_ALL=C $(HGTAG)`\"" \
+	      -DHGBRANCH="\"`LC_ALL=C $(HGBRANCH)`\"" \
+	      -o $@ $(srcdir)/Modules/getbuildinfo.c
 
 Modules/getpath.o: $(srcdir)/Modules/getpath.c Makefile
 	$(CC) -c $(PY_CFLAGS) -DPYTHONPATH='"$(PYTHONPATH)"' \
@@ -555,9 +558,12 @@ Modules/python.o: $(srcdir)/Modules/python.c
 	$(MAINCC) -c $(PY_CFLAGS) -o $@ $(srcdir)/Modules/python.c
 
 
-$(GRAMMAR_H) $(GRAMMAR_C): $(PGEN) $(GRAMMAR_INPUT)
+# Use a stamp file to prevent make -j invoking pgen twice
+$(GRAMMAR_H) $(GRAMMAR_C): Parser/pgen.stamp
+Parser/pgen.stamp: $(PGEN) $(GRAMMAR_INPUT)
 		-@$(INSTALL) -d Include
 		-$(HOSTPGEN) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
+		-touch Parser/pgen.stamp
 
 $(PGEN):	$(PGENOBJS)
 		$(CC) $(OPT) $(LDFLAGS) $(PGENOBJS) $(LIBS) -o $(PGEN)
@@ -753,7 +759,7 @@ buildbottest:	all platform
 		-@if which pybuildbot.identify >/dev/null 2>&1; then \
 			pybuildbot.identify "CC='$(CC)'" "CXX='$(CXX)'"; \
 		fi
-		$(TESTPYTHON) $(TESTPROG) -uall -rwW $(TESTOPTS)
+		$(TESTPYTHON) -R $(TESTPROG) -uall -rwW $(TESTOPTS)
 
 QUICKTESTOPTS=	$(TESTOPTS) -x test_subprocess test_io test_lib2to3 \
 		test_multibytecodec test_urllib2_localnet test_itertools \
@@ -800,18 +806,26 @@ $(DESTSHARED):
 		done
 
 
-# Install the interpreter (by creating a hard link to python$(VERSION))
+# Install the interpreter by creating a symlink chain:
+#  $(PYTHON) -> python2 -> python$(VERSION))
+# Also create equivalent chains for other installed files
 bininstall:	altbininstall
 	-if test -f $(DESTDIR)$(BINDIR)/$(PYTHON) -o -h $(DESTDIR)$(BINDIR)/$(PYTHON); \
 	then rm -f $(DESTDIR)$(BINDIR)/$(PYTHON); \
 	else true; \
 	fi
-	(cd $(DESTDIR)$(BINDIR); $(LN) python$(VERSION)$(EXE) $(PYTHON))
+	(cd $(DESTDIR)$(BINDIR); $(LN) -s python2$(EXE) $(PYTHON))
+	-rm -f $(DESTDIR)$(BINDIR)/python2$(EXE)
+	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)$(EXE) python2$(EXE))
+	-rm -f $(DESTDIR)$(BINDIR)/python2-config
+	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)-config python2-config)
 	-rm -f $(DESTDIR)$(BINDIR)/python-config
-	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)-config python-config)
+	(cd $(DESTDIR)$(BINDIR); $(LN) -s python2-config python-config)
 	-test -d $(DESTDIR)$(LIBPC) || $(INSTALL) -d -m $(DIRMODE) $(DESTDIR)$(LIBPC)
+	-rm -f $(DESTDIR)$(LIBPC)/python2.pc
+	(cd $(DESTDIR)$(LIBPC); $(LN) -s python-$(VERSION).pc python2.pc)
 	-rm -f $(DESTDIR)$(LIBPC)/python.pc
-	(cd $(DESTDIR)$(LIBPC); $(LN) -s python-$(VERSION).pc python.pc)
+	(cd $(DESTDIR)$(LIBPC); $(LN) -s python2.pc python.pc)
 
 # Install the interpreter with $(VERSION) affixed
 # This goes into $(exec_prefix)
@@ -867,8 +881,8 @@ PLATMACDIRS= plat-mac plat-mac/Carbon plat-mac/lib-scriptpackages \
 	plat-mac/lib-scriptpackages/Terminal 
 PLATMACPATH=:plat-mac:plat-mac/lib-scriptpackages
 LIBSUBDIRS=	lib-tk lib-tk/test lib-tk/test/test_tkinter \
-                lib-tk/test/test_ttk site-packages test test/data \
-		test/decimaltestdata test/xmltestdata \
+		lib-tk/test/test_ttk site-packages test test/data \
+		test/cjkencodings test/decimaltestdata test/xmltestdata test/subprocessdata \
 		test/tracedmodules \
 		encodings compiler hotshot \
 		email email/mime email/test email/test/data \
@@ -883,7 +897,7 @@ LIBSUBDIRS=	lib-tk lib-tk/test lib-tk/test/test_tkinter \
 		unittest unittest/test \
 		lib-old \
 		curses pydoc_data $(MACHDEPS)
-libinstall:	build_all $(srcdir)/Lib/$(PLATDIR)
+libinstall:	build_all $(srcdir)/Lib/$(PLATDIR) $(srcdir)/Modules/xxmodule.c
 	@for i in $(SCRIPTDIR) $(LIBDEST); \
 	do \
 		if test ! -d $(DESTDIR)$$i; then \
@@ -939,6 +953,10 @@ libinstall:	build_all $(srcdir)/Lib/$(PLATDIR)
 		done; \
 	done
 	$(INSTALL_DATA) $(srcdir)/LICENSE $(DESTDIR)$(LIBDEST)/LICENSE.txt
+	if test -d $(DESTDIR)$(LIBDEST)/distutils/tests; then \
+		$(INSTALL_DATA) $(srcdir)/Modules/xxmodule.c \
+			$(DESTDIR)$(LIBDEST)/distutils/tests ; \
+	fi
 	-PYTHONPATH=$(DESTDIR)$(LIBDEST)  $(RUNSHARED) \
 		$(HOSTPYTHON) -Wi -tt $(DESTDIR)$(LIBDEST)/compileall.py \
 		-d $(LIBDEST) -f \
@@ -1069,7 +1087,7 @@ sharedinstall: sharedmods
 	   	--prefix=$(prefix) \
 		--install-scripts=$(BINDIR) \
 		--install-platlib=$(DESTSHARED) \
-		--root=/$(DESTDIR)
+		--root=$(DESTDIR)/
 
 # Here are a couple of targets for MacOSX again, to install a full
 # framework-based Python. frameworkinstall installs everything, the
@@ -1141,7 +1159,7 @@ scriptsinstall:
 	./$(BUILDPYTHON) $(srcdir)/Tools/scripts/setup.py install \
 	--prefix=$(prefix) \
 	--install-scripts=$(BINDIR) \
-	--root=/$(DESTDIR)
+	--root=$(DESTDIR)/
 
 # Build the toplevel Makefile
 Makefile.pre: Makefile.pre.in config.status
@@ -1205,7 +1223,7 @@ profile-removal:
 
 clobber: clean profile-removal
 	-rm -f $(BUILDPYTHON) $(PGEN) $(LIBRARY) $(LDLIBRARY) $(DLLLIBRARY) \
-		tags TAGS \
+		tags TAGS Parser/pgen.stamp \
 		config.cache config.log pyconfig.h Modules/config.c
 	-rm -rf build platform
 	-rm -rf $(PYTHONFRAMEWORKDIR)
@@ -1219,7 +1237,7 @@ distclean: clobber
 	done
 	-rm -f core Makefile Makefile.pre config.status \
 		Modules/Setup Modules/Setup.local Modules/Setup.config \
-		Modules/ld_so_aix Misc/python.pc
+		Modules/ld_so_aix Modules/python.exp Misc/python.pc
 	-rm -f python*-gdb.py
 	find $(srcdir) '(' -name '*.fdc' -o -name '*~' \
 			   -o -name '[@,#]*' -o -name '*.old' \
@@ -1234,7 +1252,7 @@ smelly: all
 
 # Find files with funny names
 funny:
-	find $(DISTDIRS) -type d \
+	find $(SUBDIRS) $(SUBDIRSTOO) -type d \
 		-o -name '*.[chs]' \
 		-o -name '*.py' \
 		-o -name '*.doc' \
@@ -1303,7 +1321,5 @@ Modules/zipimport.o: $(srcdir)/Modules/zipimport.c; $(CC) $(PY_CFLAGS)  -c $(src
 Modules/zipimport$(SO):  Modules/zipimport.o; $(BLDSHARED)  Modules/zipimport.o   -o Modules/zipimport$(SO)
 Modules/symtablemodule.o: $(srcdir)/Modules/symtablemodule.c; $(CC) $(PY_CFLAGS)  -c $(srcdir)/Modules/symtablemodule.c -o Modules/symtablemodule.o
 Modules/_symtablemodule$(SO):  Modules/symtablemodule.o; $(BLDSHARED)  Modules/symtablemodule.o   -o Modules/_symtablemodule$(SO)
-Modules/_ssl.o: $(srcdir)/Modules/_ssl.c; $(CC) $(PY_CFLAGS)  -DUSE_SSL -I$(SSL)/include -I$(SSL)/include/openssl -c $(srcdir)/Modules/_ssl.c -o Modules/_ssl.o
-Modules/_ssl$(SO):  Modules/_ssl.o; $(BLDSHARED)  Modules/_ssl.o  -L$(SSL)/lib -lssl -lcrypto  -o Modules/_ssl$(SO)
 Modules/xxsubtype.o: $(srcdir)/Modules/xxsubtype.c; $(CC) $(PY_CFLAGS)  -c $(srcdir)/Modules/xxsubtype.c -o Modules/xxsubtype.o
 Modules/xxsubtype$(SO):  Modules/xxsubtype.o; $(BLDSHARED)  Modules/xxsubtype.o   -o Modules/xxsubtype$(SO)
