@@ -11,6 +11,7 @@
 		BB31118D15D782E20047E5F1 /* python in Resources */ = {isa = PBXBuildFile; fileRef = BB31118B15D782E20047E5F1 /* python */; };
 		BB31119C15D7C3DA0047E5F1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB31119B15D7C3DA0047E5F1 /* CFNetwork.framework */; };
 		BB3111C015D7C59C0047E5F1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB3111BF15D7C59C0047E5F1 /* SystemConfiguration.framework */; };
+		BBB609981657803800D823C3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBB609971657803800D823C3 /* Default-568h@2x.png */; };
 		BBF04DB315D3DC180000BD41 /* dictionary.c in Sources */ = {isa = PBXBuildFile; fileRef = BBF04DAD15D3DC180000BD41 /* dictionary.c */; };
 		BBF04DB415D3DC180000BD41 /* iniparser.c in Sources */ = {isa = PBXBuildFile; fileRef = BBF04DAF15D3DC180000BD41 /* iniparser.c */; };
 		CE0A6CFB157B5B0C00C46A20 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE0A6CF7157B5B0C00C46A20 /* MainStoryboard_iPad.storyboard */; };
@@ -36,6 +37,7 @@
 		BB31118B15D782E20047E5F1 /* python */ = {isa = PBXFileReference; lastKnownFileType = folder; name = python; path = ../../python; sourceTree = "<group>"; };
 		BB31119B15D7C3DA0047E5F1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BB3111BF15D7C59C0047E5F1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BBB609971657803800D823C3 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BBEFC40A15D537F5000ADA28 /* GConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GConfig.h; sourceTree = "<group>"; };
 		BBF04DAD15D3DC180000BD41 /* dictionary.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dictionary.c; sourceTree = "<group>"; };
 		BBF04DAE15D3DC180000BD41 /* dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dictionary.h; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 		CE91290E157B4382008C98B1 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				BBB609971657803800D823C3 /* Default-568h@2x.png */,
 				BB31118A15D782E20047E5F1 /* goagent-local */,
 				BB31118B15D782E20047E5F1 /* python */,
 				CE0A6CFD157B5C7200C46A20 /* icon_57.png */,
@@ -200,7 +203,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = G;
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "goagent project";
 			};
 			buildConfigurationList = CE9128C8157B4171008C98B1 /* Build configuration list for PBXProject "goagent-ios" */;
@@ -235,6 +238,7 @@
 				CE0A6D04157B5C7200C46A20 /* icon_144.png in Resources */,
 				BB31118C15D782E20047E5F1 /* goagent-local in Resources */,
 				BB31118D15D782E20047E5F1 /* python in Resources */,
+				BBB609981657803800D823C3 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,7 +313,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos5.1;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -332,7 +336,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos5.1;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
