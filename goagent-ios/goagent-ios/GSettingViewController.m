@@ -275,16 +275,16 @@
             NSLog(@"perform change system proxy action");
             
             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:APPLICATION_NAME
-                                                             message:@"Type your password to allow changing system proxy"
+                                                             message:@"It won't change proxy setting for running Apps"
                                                             delegate:self
                                                    cancelButtonTitle:@"Cancel"
                                                    otherButtonTitles:@"OK",nil];
             
-            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            /*alert.alertViewStyle = UIAlertViewStylePlainTextInput;
             UITextField * alertTextField = [alert textFieldAtIndex:0];
             alertTextField.keyboardType = UIKeyboardTypeDefault;
             alertTextField.secureTextEntry = YES;
-            alertTextField.placeholder = @"Your password";
+            alertTextField.placeholder = @"Your password";*/
             [alert show];
             
             break;
@@ -296,11 +296,11 @@
             NSString* CA_URL=nil;
             if ([[NSFileManager defaultManager] fileExistsAtPath:GOAGENT_PID_PATH])
             {
-                CA_URL = @"http://127.0.0.1:8089/CA.crt";
+                CA_URL = LOCAL_CA_URL;
             }
             else
             {
-                CA_URL = @"http://goagent.googlecode.com/files/CA.crt";
+                CA_URL = REMOTE_CA_URL;
             }
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:CA_URL]];
             break;
@@ -317,9 +317,9 @@
     if (buttonIndex == 1)
     {
         NSString* changeSh = [[NSBundle mainBundle] pathForResource:CHANGE_SYSPROXY_SCRIPT
-                                                             ofType:CONTROL_SCRIPT_TYPE
+                                                             ofType:CONTROL_SCRIPT_PY
                                                         inDirectory:GOAGENT_LOCAL_PATH];
-        [GUtility runTaskWithArgs:[NSArray arrayWithObjects:changeSh,[[alertView textFieldAtIndex:0] text],nil] waitExit:NO];
+        [GUtility runTaskWithArgs:[NSMutableArray arrayWithObjects:changeSh, nil] taskType:PythonTask waitExit:NO];
     }
 }
 

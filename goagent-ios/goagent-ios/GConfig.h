@@ -11,10 +11,12 @@
 
 #define CONFIG_FILE_NAME                @"proxy"
 #define CONFIG_FILE_TYPE                @"ini"
+#define GOAGENT_HOME                    @"/Applications/goagent-ios.app"
 #define GOAGENT_LOCAL_PATH              @"goagent-local"
 #define GOAGENT_PID_PATH                @"/tmp/goagent.pid"
 #define CONTROL_SCRIPT_NAME             @"proxy"
 #define CONTROL_SCRIPT_TYPE             @"sh"
+#define CONTROL_SCRIPT_PY               @"py"
 #define CONTROL_CMD_START               @"start"
 #define CONTROL_CMD_STOP                @"stop"
 #define CONTROL_CMD_RESTART             @"restart"
@@ -30,5 +32,7 @@
 #define KEY_SETTING_INSTALL_CERT        @"Install GoAgent CA"
 
 #define APPLICATION_NAME                @"GoAgent for iOS"
+#define LOCAL_CA_URL                    @"http://127.0.0.1:8086/CA.crt"
+#define REMOTE_CA_URL                   @"http://goagent.googlecode.com/files/CA.crt"
 
 #endif

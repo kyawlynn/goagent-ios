@@ -63,11 +63,8 @@
     NSString* controlSh = [[NSBundle mainBundle] pathForResource:CONTROL_SCRIPT_NAME
                                                           ofType:CONTROL_SCRIPT_TYPE
                                                      inDirectory:GOAGENT_LOCAL_PATH];
-    [GUtility runTaskWithArgs:[NSArray arrayWithObjects:controlSh,actionCmd,nil] waitExit:YES];
+    [GUtility runTaskWithArgs:[NSMutableArray arrayWithObjects:controlSh,actionCmd,nil] taskType:ShellTask waitExit:YES];
     
-    if ([actionCmd isEqualToString:CONTROL_CMD_START]) {
-        [self loadHomePage];
-    }
     [self updateUIStatus];
 }
 
@@ -87,6 +84,8 @@
         [webViewRef setHidden:NO];
         [statusMessage setHidden:YES];
         [copyleftMessage setHidden:YES];
+        
+        [self loadHomePage];
     }
     else
     {
@@ -102,40 +101,20 @@
 -(BOOL)isRunning
 {
     if ([[NSFileManager defaultManager] fileExistsAtPath:GOAGENT_PID_PATH])
+    {
         return YES;
+    }
     else return NO;
 }
 
 -(void)loadHomePage
 {
+    NSLog(@"load goagent homepage");
+    //wait for goagent ready, otherwise it will connect directly
+    sleep(1);
     NSURL* url = [NSURL URLWithString:@"http://code.google.com/p/goagent"];
-    CFHTTPMessageRef request =  CFHTTPMessageCreateRequest(NULL, CFSTR("GET"), (__bridge CFURLRef)url, kCFHTTPVersion1_1);
-    CFReadStreamRef requestStream =  CFReadStreamCreateForHTTPRequest(NULL, request);
-    CFReadStreamSetProperty(requestStream, kCFStreamPropertyHTTPShouldAutoredirect, kCFBooleanTrue);
-    CFReadStreamSetProperty(requestStream, kCFProxyHostNameKey, @"127.0.0.1");
-    CFReadStreamSetProperty(requestStream, kCFProxyPortNumberKey, (__bridge CFNumberRef)([NSNumber numberWithInt:8087]));
-    CFReadStreamSetProperty(requestStream, kCFProxyTypeHTTP, kCFProxyTypeHTTP);
-    
-    NSMutableData *responseBytes = [NSMutableData data];
-    
-    if (CFReadStreamOpen(requestStream))
-    {
-        CFIndex numBytesRead = 0 ;
-        do
-        {
-            UInt8 buf[1024];
-            numBytesRead = CFReadStreamRead(requestStream, buf, sizeof(buf));
-            
-            
-            if(numBytesRead > 0)
-                [responseBytes appendBytes:buf length:numBytesRead];
-            
-            
-        } while(numBytesRead > 0);
-    }
-    [webViewRef loadData:responseBytes MIMEType:@"text/html" textEncodingName:@"utf-8" baseURL:nil];
-    CFReadStreamClose(requestStream);
-    CFRelease(requestStream);
-    CFRelease(request);
+    NSURLRequest* request = [NSURLRequest requestWithURL:url];
+    [webViewRef loadRequest:request];
+    [webViewRef setNeedsDisplay];
 }
 @end
