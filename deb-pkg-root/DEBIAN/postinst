@@ -10,10 +10,8 @@ export PYTHONHOME=/Applications/goagent-ios.app/python
 function change_permissions()
 {
     chown -R root:wheel "$GOAGENT_HOME"
-    chmod 6755 "$GOAGENT_HOME"/goagent-ios
+    chmod 6755 "$GOAGENT_HOME"/goagent-ios_
     chmod 6756 "$GOAGENT_HOME"/authrunner
-    mv "$GOAGENT_HOME"/goagent-ios "$GOAGENT_HOME"/goagent-ios_
-    mv "$GOAGENT_HOME"/goagent-ios.sh "$GOAGENT_HOME"/goagent-ios
 }
 
 function try_restore_setting()
