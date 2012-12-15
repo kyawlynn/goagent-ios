@@ -8,21 +8,32 @@
 
 #import "GUtility.h"
 #import "NSTask.h"
+#import "GConfig.h"
 
 @implementation GUtility
 
-+(BOOL)runTaskWithArgs:(NSArray *)args waitExit:(BOOL)waitExit
++(BOOL) runTaskWithArgs:(NSMutableArray *)args taskType:(enum GTaskType)type waitExit:(BOOL)waitExit
 {
     if (args == nil)
     {
         return NO;
     }
-    NSString* workingDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
+    //NSString* workingDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    //we are running as root now
+    NSString* workingDir = GOAGENT_HOME;
+    NSLog(@"working dir is %@",workingDir);
     @try
     {
         NSTask* task = [NSTask alloc];
-        [task setLaunchPath:@"/bin/sh"];
+        if (type == PythonTask) {
+            //[task setLaunchPath:[NSString stringWithFormat:@"%@/python/bin/python",workingDir]];
+            [args insertObject:[NSString stringWithFormat:@"%@/python/bin/python",workingDir] atIndex:0];
+            [task setEnvironment:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%@/python",workingDir] forKey:@"PYTHONHOME"]];
+        }
+        else{
+            [args insertObject:@"/bin/sh" atIndex:0];
+        }
+        [task setLaunchPath:[NSString stringWithFormat:@"%@/authrunner",workingDir]];
         [task setArguments:args];
         [task setCurrentDirectoryPath:workingDir];
         [task launch];
@@ -38,5 +49,4 @@
 
     return YES;
 }
-
 @end

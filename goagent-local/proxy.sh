@@ -3,15 +3,13 @@
 # control script for goagent-local
 #
 DBGLOG=/tmp/goagent.log
+LAUNCHD_PLIST=org.goagent.local.ios.plist
 start() {
     touch /tmp/goagent.pid
-    cd "$(dirname "$0")"
-    export PYTHONHOME=../python
-    ../python/bin/python proxy.py >$DBGLOG  2>$DBGLOG &
 }
 stop() {
-    killall python > /dev/null 2>/dev/null
     rm -rf /tmp/goagent.pid
+    killall python > /dev/null 2>/dev/null
 }
 # See how we were called.
 case "$1" in

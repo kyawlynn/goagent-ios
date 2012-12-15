@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+enum GTaskType{
+    ShellTask = 1,
+    PythonTask
+};
+
 @interface GUtility : NSObject
 
-+(BOOL) runTaskWithArgs:(NSArray*)args waitExit:(BOOL)waitExit;
-
++(BOOL) runTaskWithArgs:(NSMutableArray*)args taskType:(enum GTaskType)type waitExit:(BOOL)waitExit;
 @end

@@ -1,12 +1,18 @@
 #!/bin/bash
-PROXY_CONFIG=/Applications/goagent-ios.app/goagent-local/proxy.ini
+GOAGENT_HOME=/Applications/goagent-ios.app
+PROXY_CONFIG="$GOAGENT_HOME"/goagent-local/proxy.ini
+LAUNCHD_PLIST="$GOAGENT_HOME"/goagent-local/org.goagent.local.ios.plist
+GOAGENT_PID=/tmp/goagent.pid
 BACKUP_CONFIG=/tmp/proxy.ini.bak
 
-if [ -e "$PROXY_CONFIG" ];then 
+if [ -e "$GOAGENT_PID" ];then 
     echo "stop goagent"
-    killall python > /dev/null 2>/dev/null
     rm -rf /tmp/goagent.pid
+    killall python > /dev/null 2>/dev/null
+    launchctl unload "$LAUNCHD_PLIST"
+fi
 
+if [ -e "$PROXY_CONFIG" ];then 
     echo "backup proxy.ini"
     cp -f "$PROXY_CONFIG" "$BACKUP_CONFIG"
 fi
