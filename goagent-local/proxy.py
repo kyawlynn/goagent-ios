@@ -1562,7 +1562,7 @@ def pacserver_handler(sock, address, hls={}):
             return rfile.close()
         raise
 
-    filename = os.path.join(os.path.dirname(__file__), common.PAC_FILE)
+    filename = os.path.join(os.path.dirname(__file__), path.replace('/',''))
     if 'mtime' not in hls:
         hls['mtime'] = os.path.getmtime(filename)
     if time.time() - hls['mtime'] > 60*60*12:
@@ -1571,18 +1571,27 @@ def pacserver_handler(sock, address, hls={}):
 
     remote_addr, remote_port = address
     wfile = sock.makefile('wb', 0)
-    if path != '/'+common.PAC_FILE or not os.path.isfile(filename):
+    if path == '/'+common.PAC_FILE and os.path.isfile(filename):
+        send_file(wfile, filename,'application/x-ns-proxy-autoconfig')
+        logging.info('%s:%s "%s %s HTTP/1.1" 200 -' % (remote_addr, remote_port, method, path))
+        sock.close()
+        return
+    elif path == '/CA.crt' and os.path.isfile(filename):
+        send_file(wfile, filename, 'application/octet-stream')
+        logging.info('%s:%s "%s %s HTTP/1.1" 200 -' % (remote_addr, remote_port, method, path))
+        sock.close()
+        return
+    else:
         wfile.write('HTTP/1.1 404\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n404 Not Found')
         wfile.close()
         logging.info('%s:%s "%s %s HTTP/1.1" 404 -' % (remote_addr, remote_port, method, path))
-        return
+
+def send_file(wfile, filename, mimetype):
     with open(filename, 'rb') as fp:
         data = fp.read()
-        wfile.write('HTTP/1.1 200\r\nContent-Type: application/x-ns-proxy-autoconfig\r\nConnection: close\r\n\r\n')
-        logging.info('%s:%s "%s %s HTTP/1.1" 200 -' % (remote_addr, remote_port, method, path))
+        wfile.write('HTTP/1.1 200\r\nContent-Type: %s\r\nConnection: close\r\n\r\n' % (mimetype))
         wfile.write(data)
         wfile.close()
-    sock.close()
 
 class DNSServer(getattr(gevent.server, 'DatagramServer', gevent.server.StreamServer)):
     """DNS Proxy over TCP to avoid DNS poisoning"""
