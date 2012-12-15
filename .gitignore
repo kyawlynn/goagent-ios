@@ -1,7 +1,9 @@
 .DS_Store
 *~
 build/
+authrunner/
 project.xcworkspace/
 xcuserdata/
 *.swp
 *.pyc
+*.pyo

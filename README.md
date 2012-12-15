@@ -14,7 +14,7 @@ GoAgent iOS Project
 
 ##Dependecncy
 
-*  Xcode4 + iOS5 SDK  
+*  Xcode4 + iOS5.1 SDK  
 *  theos  
 
 ##How to build
