@@ -1,4 +1,4 @@
-APPS = goagent-ios goagent-widget
+APPS = goagent-ios
 DEB_ID = org.goagent.local.ios
 PKG_ROOT = deb-pkg-root
 APP_ROOT = $(PKG_ROOT)/Applications/goagent-ios.app
