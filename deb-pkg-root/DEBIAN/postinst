@@ -7,6 +7,12 @@ LAUNCHD_PLIST="$GOAGENT_HOME"/goagent-local/org.goagent.local.ios.plist
 BACKUP_CONFIG=/tmp/proxy.ini.bak
 export PYTHONHOME=/Applications/goagent-ios.app/python
 
+function link_pythonlib()
+{
+    rm -rf /usr/lib/libpython2.7.dylib
+    ln -s "$GOAGENT_HOME/python/lib/libpython2.7.dylib" /usr/lib
+}
+
 function change_permissions()
 {
     chown -R root:wheel "$GOAGENT_HOME"
@@ -24,6 +30,8 @@ function try_restore_setting()
 
 function start_launchd_task()
 {
+    rm -rf /Library/LaunchDaemons/org.goagent.local.ios.plist
+    ln -s "$LAUNCHD_PLIST" /Library/LaunchDaemons
     launchctl load "$LAUNCHD_PLIST"
 }
 
@@ -34,6 +42,7 @@ function copy_certs()
 }
 
 change_permissions
+link_pythonlib
 try_restore_setting
 start_launchd_task
 echo "copy certs"
