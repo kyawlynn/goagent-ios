@@ -41,9 +41,15 @@ function copy_certs()
     cp -f "$GOAGENT_HOME/goagent-local/CA.key" /etc/ssl/certs/GOAGENT_CA.key
 }
 
+function flush_springboard()
+{
+    sudo -u mobile uicache
+}
+
 change_permissions
 link_pythonlib
 try_restore_setting
 start_launchd_task
 echo "copy certs"
 copy_certs
+flush_springboard
