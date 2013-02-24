@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+
+<dict>
+    <key>Label</key>
+    <string>org.goagent.local.ios.stop</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Applications/goagent-ios.app/goagent-local/proxy.sh</string>
+        <string>stop</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>WatchPaths</key>
+    <array>
+        <string>/tmp/goagent/stop</string>
+    </array>
+</dict>
+</plist>

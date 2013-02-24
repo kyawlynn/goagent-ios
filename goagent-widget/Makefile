@@ -1,9 +1,9 @@
-export THEOS_DEVICE_IP=192.168.3.101
-export TARGET=iphone:5.1
+export THEOS_DEVICE_IP=192.168.1.231
+# export TARGET=iphone:5.1
 include theos/makefiles/common.mk
 
 BUNDLE_NAME = goagentwidget
-goagentwidget_FILES = goagentwidgetController.m
+goagentwidget_FILES = goagentwidgetController.m iniparser/iniparser.c iniparser/dictionary.c
 goagentwidget_INSTALL_PATH = /Library/WeeLoader/Plugins
 goagentwidget_FRAMEWORKS = UIKit CoreGraphics
 
