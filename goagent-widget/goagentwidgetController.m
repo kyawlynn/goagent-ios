@@ -71,6 +71,7 @@ static NSBundle *_goagentwidgetWeeAppBundle = nil;
 
 - (void)setupUI
 {
+    NSLog(@"entering setupUI");
     NSString* ini_filepath = @"/Applications/goagent-ios.app/goagent-local/proxy.ini";
     //NSLog(@"%@", ini_filepath);
     if(!iniDic)
@@ -89,15 +90,20 @@ static NSBundle *_goagentwidgetWeeAppBundle = nil;
 
     NSString* version_str = [data substringWithRange:[result rangeAtIndex:result.numberOfRanges-1]];
     
-    NSLog(@"%@",version_str);
+    //NSLog(@"%@",version_str);
     
-    CGRect rootRect = [self.view frame];
+    CGRect rootRect = [_view frame];
     float left_x_offset = 15.0;
     float left_y_offset = 15.0;
     float left_font_size = 12.0;
     float right_border_offset = 20.0;
     float button_offset = 85.0;
     float title_label_offset = 102.0;
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        title_label_offset = -40.0;
+        button_offset = -65.0;
+    }
     
     NSLog(@"self.view frame is %@",NSStringFromCGRect(rootRect));
     
@@ -189,7 +195,7 @@ static NSBundle *_goagentwidgetWeeAppBundle = nil;
     }
 	
     
-    NSLog(@"toggle_btn frame is %@",NSStringFromCGRect(toggle_btn.frame));
+    //NSLog(@"toggle_btn frame is %@",NSStringFromCGRect(toggle_btn.frame));
     
     [_view addSubview:version_label];
     [_view addSubview:listen_label];

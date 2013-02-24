@@ -1,3 +1,3 @@
 #!/bin/sh
 
-make clean && make package #&& make install
+make clean && make package && make install
