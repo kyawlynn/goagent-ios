@@ -4,7 +4,7 @@
 
 <dict>
     <key>Label</key>
-    <string>com.goagent.local.ios</string>
+    <string>org.goagent.local.ios</string>
     <key>WorkingDirectory</key>
     <string>/Applications/goagent-ios.app/goagent-local</string>
     <key>ProgramArguments</key>

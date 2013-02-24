@@ -2,7 +2,7 @@ APPS = goagent-ios
 DEB_ID = org.goagent.local.ios
 PKG_ROOT = deb-pkg-root
 APP_ROOT = $(PKG_ROOT)/Applications/goagent-ios.app
-DEVICE_IP=10.64.81.41
+DEVICE_IP=192.168.1.231
 VERSION = $(shell grep Version $(PKG_ROOT)/DEBIAN/control | cut -d ":" -f2 | tr -d " ")
 DEB_NAME = $(DEB_ID)_$(VERSION)_iphoneos-arm.deb 
 

@@ -4,6 +4,7 @@ GOAGENT_HOME=/Applications/goagent-ios.app
 PROXY_CONFIG="$GOAGENT_HOME"/goagent-local/proxy.ini
 RESTORE_PY="$GOAGENT_HOME"/goagent-local/restore_setting.py
 LAUNCHD_PLIST="$GOAGENT_HOME"/goagent-local/org.goagent.local.ios.plist
+STOP_LAUNCHD_PLIST="$GOAGENT_HOME"/goagent-local/org.goagent.local.ios.stop.plist
 BACKUP_CONFIG=/tmp/proxy.ini.bak
 export PYTHONHOME=/Applications/goagent-ios.app/python
 
@@ -31,8 +32,17 @@ function try_restore_setting()
 function start_launchd_task()
 {
     rm -rf /Library/LaunchDaemons/org.goagent.local.ios.plist
+    rm -rf /Library/LaunchDaemons/org.goagent.local.ios.stop.plist
     ln -s "$LAUNCHD_PLIST" /Library/LaunchDaemons
+    ln -s "$STOP_LAUNCHD_PLIST" /Library/LaunchDaemons
+
+    mkdir -p /tmp/goagent
+    touch /tmp/goagent/stop
+
+    chown -R mobile /tmp/goagent
+
     launchctl load "$LAUNCHD_PLIST"
+    launchctl load "$STOP_LAUNCHD_PLIST"
 }
 
 function copy_certs()
