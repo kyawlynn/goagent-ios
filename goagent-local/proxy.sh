@@ -2,13 +2,14 @@
 #
 # control script for goagent-local
 #
-DBGLOG=/tmp/goagent.log
+DBGLOG=/var/mobile/goagent/goagent.log
+GOAGENT_PID=/var/mobile/goagent/goagent.pid
 LAUNCHD_PLIST=org.goagent.local.ios.plist
 start() {
-    touch /tmp/goagent.pid
+    touch "$GOAGENT_PID"
 }
 stop() {
-    rm -rf /tmp/goagent.pid
+    rm -rf "$GOAGENT_PID"
     killall python > /dev/null 2>/dev/null
 }
 # See how we were called.

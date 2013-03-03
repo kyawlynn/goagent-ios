@@ -21,13 +21,13 @@
     <dict>
         <key>PathState</key>
         <dict>
-            <key>/tmp/goagent.pid</key>
+            <key>/var/mobile/goagent/goagent.pid</key>
             <true/>
         </dict>
     </dict>
     <key>StandardOutPath</key>
-    <string>/tmp/goagent.log</string>
+    <string>/var/mobile/goagent/goagent.log</string>
     <key>StandardErrorPath</key>
-    <string>/tmp/goagent.log</string>
+    <string>/var/mobile/goagent/goagent.log</string>
 </dict>
 </plist>

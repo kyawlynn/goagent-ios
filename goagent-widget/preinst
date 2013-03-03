@@ -1,0 +1,23 @@
+#!/bin/bash
+
+GOAGENT_HOME="/Applications/goagent-ios.app"
+STOP_LAUNCHD_PLIST="$GOAGENT_HOME"/goagent-local/org.goagent.local.ios.stop.plist
+
+if [[ ! -e "$STOP_LAUNCHD_PLIST" ]]; then
+    echo "goagent-ios is not installed completely, please reinstall it."
+    exit -1
+else
+    launchctl unload "$STOP_LAUNCHD_PLIST" 2>/dev/null
+    rm -rf /Library/LaunchDaemons/org.goagent.local.ios.stop.plist 2>/dev/null
+
+    ln -s "$STOP_LAUNCHD_PLIST" /Library/LaunchDaemons
+
+    mkdir -p /var/mobile/goagent
+    touch /var/mobile/goagent/stop
+
+    chown -R mobile /var/mobile/goagent
+
+    launchctl load "$STOP_LAUNCHD_PLIST"
+fi
+
+exit 0

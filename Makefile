@@ -32,9 +32,8 @@ package:
 
 deploy: 
 	@#ssh -p 22 root\@$(DEVICE_IP) "dpkg -r $(DEB_ID)" ;
-	scp $(PKG_ROOT)/$(DEB_NAME) root\@$(DEVICE_IP):/ ; \
-	ssh -p 22 root\@$(DEVICE_IP) "dpkg -i /$(DEB_NAME)" ; \
-	ssh -p 22 root\@$(DEVICE_IP) "killall -9 SpringBoard" ; \
+	scp $(PKG_ROOT)/$(DEB_NAME) root\@$(DEVICE_IP):~/workspace ; \
+	ssh -p 22 root\@$(DEVICE_IP) "dpkg -i ~/workspace/$(DEB_NAME)" ; \
 
 clean:
 	@for i in $(APPS) ; do \

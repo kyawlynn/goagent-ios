@@ -14,7 +14,7 @@
     <true/>
     <key>WatchPaths</key>
     <array>
-        <string>/tmp/goagent/stop</string>
+        <string>/var/mobile/goagent/stop</string>
     </array>
 </dict>
 </plist>

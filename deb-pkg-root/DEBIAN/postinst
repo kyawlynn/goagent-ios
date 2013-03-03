@@ -36,10 +36,10 @@ function start_launchd_task()
     ln -s "$LAUNCHD_PLIST" /Library/LaunchDaemons
     ln -s "$STOP_LAUNCHD_PLIST" /Library/LaunchDaemons
 
-    mkdir -p /tmp/goagent
-    touch /tmp/goagent/stop
+    mkdir -p /var/mobile/goagent
+    touch /var/mobile/goagent/stop
 
-    chown -R mobile /tmp/goagent
+    chown -R mobile /var/mobile/goagent
 
     launchctl load "$LAUNCHD_PLIST"
     launchctl load "$STOP_LAUNCHD_PLIST"

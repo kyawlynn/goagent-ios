@@ -3,6 +3,9 @@
 #import <sys/stat.h>
 #import "iniparser/iniparser.h"
 
+#define GOAGENT_PID "/var/mobile/goagent/goagent.pid"
+#define GOAGENT_STOP "/var/mobile/goagent/stop"
+
 static NSBundle *_goagentwidgetWeeAppBundle = nil;
 
 @interface goagentwidgetController: NSObject <BBWeeAppController> {
@@ -185,7 +188,7 @@ static NSBundle *_goagentwidgetWeeAppBundle = nil;
     [toggle_btn addTarget:self action:@selector(runGoAgent:) forControlEvents:UIControlEventValueChanged];
     
     struct stat st;
-	if(stat("/tmp/goagent.pid",&st)==0)
+	if(stat(GOAGENT_PID,&st)==0)
     {
         [toggle_btn setOn:YES];
     }
@@ -220,11 +223,12 @@ static NSBundle *_goagentwidgetWeeAppBundle = nil;
     UISwitch* btn = (UISwitch*)sender;
     if ([btn isOn])
     {
-        system("touch /tmp/goagent.pid");
+        system("touch /var/mobile/goagent/goagent.pid");
     }
     else 
     {
-        system("echo 'stop' >> /tmp/goagent/stop");
+        system("echo 'stop' >> /var/mobile/goagent/stop");
     }
 }
+
 @end

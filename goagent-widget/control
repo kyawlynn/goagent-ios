@@ -1,7 +1,7 @@
 Package: org.goagent.local.widget
 Name: goagent-widget
-Depends: firmware (>= 5.0), com.saurik.substrate.safemode, com.chpwn.weeloader, org.goagent.local.ios
-Version: 0.5.0
+Depends: firmware (>= 5.0), com.saurik.substrate.safemode, com.chpwn.weeloader, org.goagent.local.ios, mobilesubstrate
+Version: 0.5.2
 Architecture: iphoneos-arm
 Description: An notification center widget for quick start/stop goagent
 Maintainer: @hewigovens

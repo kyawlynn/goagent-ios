@@ -5,14 +5,14 @@ LAUNCHD_PLIST="$GOAGENT_HOME"/goagent-local/org.goagent.local.ios.plist
 LAUNCHD_LABEL="org.goagent.local.ios"
 STOP_LAUNCHD_PLIST="$GOAGENT_HOME"/goagent-local/org.goagent.local.ios.stop.plist
 STOP_LAUNCHD_LABEL="org.goagent.local.ios.stop"
-GOAGENT_PID=/tmp/goagent.pid
+GOAGENT_PID=/var/mobile/goagent/goagent.pid
+OLD_GOAGENT_PID=/tmp/goagent.pid
 BACKUP_CONFIG=/tmp/proxy.ini.bak
 
-if [ -e "$GOAGENT_PID" ];then 
-    echo "stop goagent"
-    rm -rf /tmp/goagent.pid
-    killall python > /dev/null 2>/dev/null
-fi
+echo "stop goagent"
+rm -rf "$GOAGENT_PID" 2>/dev/null
+rm -rf "$OLD_GOAGENT_PID" 2>/dev/null
+killall python > /dev/null 2>/dev/null
 
 if [ -e "$PROXY_CONFIG" ];then 
     echo "backup proxy.ini"
@@ -20,7 +20,7 @@ if [ -e "$PROXY_CONFIG" ];then
 fi
 
 #legacy reason
-launchctl remove "com.goagent.local.ios" 2>dev/null
+launchctl remove "com.goagent.local.ios" 2>/dev/null
 launchctl remove "com.goagent.local.ios.stop" 2>/dev/null
 
 launchctl remove "$LAUNCHD_LABEL" 2>/dev/null
