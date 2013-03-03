@@ -7,16 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "3rdparty/iniparser/iniparser.h"
+#import "iniparser.h"
 
 @interface GSettingViewController : UIViewController<UITableViewDelegate,
                                                     UITableViewDataSource,
                                                     UITextFieldDelegate,
                                                     UIDocumentInteractionControllerDelegate,
                                                     UIAlertViewDelegate>
-{
-    dictionary* iniDic;
-}
 
 @property (nonatomic,strong) IBOutlet UITableView* settingTableView;
 @property (nonatomic,strong) IBOutlet UINavigationItem *titleBar;
@@ -26,7 +23,7 @@
 @property (nonatomic,retain) NSMutableDictionary* settingDic;
 @property (nonatomic,strong) UIDocumentInteractionController *docInteractionController;
 
--(IBAction)performBackAction:(id)sender;
--(IBAction)performEditAction:(id)sender;
-
+- (IBAction)performBackAction:(id)sender;
+- (IBAction)performEditAction:(id)sender;
+- (void)openIniFile:(NSString*)filepath;
 @end

@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "iniparser.h"
 
 @interface GAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic,strong) UIWindow *window;
 
++ (GAppDelegate*)getInstance;
++ (dictionary*)loadGoAgentSettings;
+- (void)showAlert:(NSString*)message withTitle:(NSString*)title;
 @end

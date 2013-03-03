@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB13878F16E1E39700D7679E /* fwd.png in Resources */ = {isa = PBXBuildFile; fileRef = BB13878D16E1E39700D7679E /* fwd.png */; };
+		BB13879016E1E39700D7679E /* prev.png in Resources */ = {isa = PBXBuildFile; fileRef = BB13878E16E1E39700D7679E /* prev.png */; };
+		BB13879316E22D5900D7679E /* AppProxyCap.m in Sources */ = {isa = PBXBuildFile; fileRef = BB13879216E22D5900D7679E /* AppProxyCap.m */; };
+		BB13879916E22EDC00D7679E /* interpose.c in Sources */ = {isa = PBXBuildFile; fileRef = BB13879716E22EDC00D7679E /* interpose.c */; };
 		BB31118C15D782E20047E5F1 /* goagent-local in Resources */ = {isa = PBXBuildFile; fileRef = BB31118A15D782E20047E5F1 /* goagent-local */; };
 		BB31118D15D782E20047E5F1 /* python in Resources */ = {isa = PBXBuildFile; fileRef = BB31118B15D782E20047E5F1 /* python */; };
 		BB31119C15D7C3DA0047E5F1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB31119B15D7C3DA0047E5F1 /* CFNetwork.framework */; };
@@ -35,6 +39,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BB13878D16E1E39700D7679E /* fwd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fwd.png; sourceTree = "<group>"; };
+		BB13878E16E1E39700D7679E /* prev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prev.png; sourceTree = "<group>"; };
+		BB13879116E22D5800D7679E /* AppProxyCap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppProxyCap.h; path = 3rdparty/AppProxyCap/lib/AppProxyCap.h; sourceTree = "<group>"; };
+		BB13879216E22D5900D7679E /* AppProxyCap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppProxyCap.m; path = 3rdparty/AppProxyCap/lib/AppProxyCap.m; sourceTree = "<group>"; };
+		BB13879416E22D7400D7679E /* interpose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = interpose.h; path = 3rdparty/AppProxyCap/lib/inject_and_interpose/interpose.h; sourceTree = "<group>"; };
+		BB13879716E22EDC00D7679E /* interpose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = interpose.c; path = 3rdparty/AppProxyCap/lib/inject_and_interpose/interpose.c; sourceTree = "<group>"; };
 		BB31118A15D782E20047E5F1 /* goagent-local */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "goagent-local"; path = "../../goagent-local"; sourceTree = "<group>"; };
 		BB31118B15D782E20047E5F1 /* python */ = {isa = PBXFileReference; lastKnownFileType = folder; name = python; path = ../../python; sourceTree = "<group>"; };
 		BB31119B15D7C3DA0047E5F1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -90,6 +100,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB13879B16E22EFE00D7679E /* AppProxyCap */ = {
+			isa = PBXGroup;
+			children = (
+				BB13879716E22EDC00D7679E /* interpose.c */,
+				BB13879416E22D7400D7679E /* interpose.h */,
+				BB13879116E22D5800D7679E /* AppProxyCap.h */,
+				BB13879216E22D5900D7679E /* AppProxyCap.m */,
+			);
+			name = AppProxyCap;
+			path = "goagent-ios";
+			sourceTree = "<group>";
+		};
 		BBF04DAB15D3DC180000BD41 /* iniparser */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,12 +121,14 @@
 				BBF04DB015D3DC180000BD41 /* iniparser.h */,
 			);
 			name = iniparser;
-			path = 3rdparty/iniparser;
+			path = "goagent-ios/3rdparty/iniparser";
 			sourceTree = "<group>";
 		};
 		CE9128C3157B4171008C98B1 = {
 			isa = PBXGroup;
 			children = (
+				BB13879B16E22EFE00D7679E /* AppProxyCap */,
+				BBF04DAB15D3DC180000BD41 /* iniparser */,
 				CE9128D8157B4171008C98B1 /* goagent-ios */,
 				CE9128D1157B4171008C98B1 /* Frameworks */,
 				CE9128CF157B4171008C98B1 /* Products */,
@@ -135,7 +159,6 @@
 		CE9128D8157B4171008C98B1 /* goagent-ios */ = {
 			isa = PBXGroup;
 			children = (
-				BBF04DAB15D3DC180000BD41 /* iniparser */,
 				BBEFC40A15D537F5000ADA28 /* GConfig.h */,
 				CE33B66B15D4A4A300D00CF8 /* NSTask.h */,
 				CED3CDDB15DB374500FA4742 /* GUtility.h */,
@@ -166,6 +189,8 @@
 		CE91290E157B4382008C98B1 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				BB13878D16E1E39700D7679E /* fwd.png */,
+				BB13878E16E1E39700D7679E /* prev.png */,
 				BBBF8273167C9795002FBED5 /* goagent */,
 				BBBF825F167C52A6002FBED5 /* authrunner */,
 				BBB609971657803800D823C3 /* Default-568h@2x.png */,
@@ -247,6 +272,8 @@
 				BBB609981657803800D823C3 /* Default-568h@2x.png in Resources */,
 				BBBF8260167C52A6002FBED5 /* authrunner in Resources */,
 				BBBF8274167C9795002FBED5 /* goagent in Resources */,
+				BB13878F16E1E39700D7679E /* fwd.png in Resources */,
+				BB13879016E1E39700D7679E /* prev.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +291,8 @@
 				BBF04DB315D3DC180000BD41 /* dictionary.c in Sources */,
 				BBF04DB415D3DC180000BD41 /* iniparser.c in Sources */,
 				CED3CDDD15DB374500FA4742 /* GUtility.m in Sources */,
+				BB13879316E22D5900D7679E /* AppProxyCap.m in Sources */,
+				BB13879916E22EDC00D7679E /* interpose.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,7 +402,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos5.1;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -394,7 +423,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos5.1;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

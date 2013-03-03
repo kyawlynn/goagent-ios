@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C2034" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
+        <deployment defaultVersion="1552" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="5">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="MainViewController" modalTransitionStyle="crossDissolve" id="2" customClass="GViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -33,39 +34,66 @@
                                 </items>
                             </navigationBar>
                             <webView contentMode="scaleToFill" id="ntx-Ab-ll3">
-                                <rect key="frame" x="0.0" y="44" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="71" width="320" height="389"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="GoAgent for iOS is open source and freely distributable." textAlignment="center" id="w4q-Lj-qQk">
-                                <rect key="frame" x="50" y="389" width="221" height="51"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="lp1-XJ-xf9">
+                                <rect key="frame" x="-6" y="44" width="332" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" id="HD7-5K-zdz">
-                                <rect key="frame" x="20" y="155" width="280" height="37"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="61x-av-e4N">
+                                <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem image="prev.png" style="plain" id="soD-Lz-jIj">
+                                        <connections>
+                                            <action selector="performBackAction:" destination="2" id="6HJ-cn-Ykm"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="rvH-0u-ONV"/>
+                                    <barButtonItem enabled="NO" image="fwd.png" style="plain" id="0oo-0T-TVZ">
+                                        <connections>
+                                            <action selector="performFowardAction:" destination="2" id="Ejf-35-XcB"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="qZj-Kc-v0c"/>
+                                    <barButtonItem style="plain" systemItem="refresh" id="w8a-hf-faR">
+                                        <connections>
+                                            <action selector="performReloadAction:" destination="2" id="Fih-2y-TKg"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="xwH-SW-MTY"/>
+                                    <barButtonItem style="plain" systemItem="action" id="Wme-38-MWS">
+                                        <connections>
+                                            <action selector="performShareAction:" destination="2" id="F2f-wn-vaE"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="pzK-TP-bXH"/>
+                                </items>
+                            </toolbar>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="gray" id="ZCX-hK-Opw">
+                                <rect key="frame" x="151" y="229" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="5qe-qo-hgy"/>
                     <connections>
-                        <outlet property="copyleftMessage" destination="w4q-Lj-qQk" id="aOx-8V-DaH"/>
+                        <outlet property="addressField" destination="lp1-XJ-xf9" id="hYk-bL-yYU"/>
+                        <outlet property="backBtn" destination="soD-Lz-jIj" id="Ec3-MD-cd8"/>
+                        <outlet property="busyWebIcon" destination="ZCX-hK-Opw" id="fOO-Kn-E6r"/>
+                        <outlet property="fowardBtn" destination="0oo-0T-TVZ" id="x37-u2-Vec"/>
                         <outlet property="settingBtn" destination="CiM-u1-45a" id="v7b-N5-tZT"/>
                         <outlet property="startBtn" destination="Mqi-uS-tRR" id="C0T-1u-73P"/>
-                        <outlet property="statusMessage" destination="HD7-5K-zdz" id="AkK-og-BcU"/>
                         <outlet property="titleBar" destination="wP0-qf-xtV" id="wM2-SD-w39"/>
+                        <outlet property="toolBar" destination="61x-av-e4N" id="AoV-lx-8Jt"/>
                         <outlet property="webViewRef" destination="ntx-Ab-ll3" id="Qui-NL-iQ7"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="186" y="137"/>
         </scene>
@@ -130,6 +158,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="fwd.png" width="30" height="30"/>
+        <image name="prev.png" width="30" height="30"/>
         <image name="settings.png" width="24" height="24"/>
     </resources>
     <classes>
@@ -147,13 +177,20 @@
         <class className="GViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GViewController.h"/>
             <relationships>
+                <relationship kind="action" name="performBackAction:"/>
+                <relationship kind="action" name="performFowardAction:"/>
+                <relationship kind="action" name="performReloadAction:"/>
                 <relationship kind="action" name="performSettingAction:"/>
+                <relationship kind="action" name="performShareAction:"/>
                 <relationship kind="action" name="performStartAction:"/>
-                <relationship kind="outlet" name="copyleftMessage" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="addressField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="backBtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="busyWebIcon" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="fowardBtn" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="settingBtn" candidateClass="UINavigationItem"/>
                 <relationship kind="outlet" name="startBtn" candidateClass="UINavigationItem"/>
-                <relationship kind="outlet" name="statusMessage" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="titleBar" candidateClass="UINavigationItem"/>
+                <relationship kind="outlet" name="toolBar" candidateClass="UIToolbar"/>
                 <relationship kind="outlet" name="webViewRef" candidateClass="UIWebView"/>
             </relationships>
         </class>

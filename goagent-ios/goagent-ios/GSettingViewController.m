@@ -9,6 +9,7 @@
 #import "GSettingViewController.h"
 #import "GConfig.h"
 #import "GUtility.h"
+#import "GAppDelegate.h"
 
 @implementation GSettingViewController
 @synthesize settingSections,settingDic,settingTableView,titleBar,BackBtn,EditBtn,docInteractionController;
@@ -20,8 +21,7 @@
 
 -(void)dealloc
 {
-    if(iniDic)
-        iniparser_freedict(iniDic);
+    //
 }
 
 - (void)viewDidLoad
@@ -116,6 +116,8 @@
         }
     }
     
+    dictionary* iniDic = [GAppDelegate loadGoAgentSettings];
+    
     NSLog(@"tag is %d,section is %d,row is %d",textTag,section,row);
     
     
@@ -166,28 +168,12 @@
     }
 }
 
--(dictionary*)getGoAgentSettings
-{
-    NSString* iniFile = [[NSBundle mainBundle] pathForResource:CONFIG_FILE_NAME
-                                                        ofType:CONFIG_FILE_TYPE
-                                                   inDirectory:GOAGENT_LOCAL_PATH];
-    if (iniDic)
-    {
-        return iniDic;
-    }
-    else
-    {
-        iniDic = iniparser_load([iniFile UTF8String]);
-        return iniDic;
-    }
-}
-
 -(void)prepareSettingForDisplay
 {
     self.settingSections = [[NSMutableArray alloc] init];
     self.settingDic = [[NSMutableDictionary alloc] init];
     
-    [self getGoAgentSettings];
+    dictionary* iniDic = [GAppDelegate loadGoAgentSettings];
     
     //basic settings
     NSMutableDictionary* appidDic = [NSMutableDictionary dictionaryWithObjects:
@@ -225,7 +211,19 @@
                                         [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@_1_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_1_value",KEY_SETTING_ADVANCED],nil]
                                         ];
     
-    NSArray* advancedArray = [NSArray arrayWithObjects:sysproxyDic,installCertDic,nil];
+    NSMutableDictionary* openLocalLogDic = [NSMutableDictionary dictionaryWithObjects:
+                                           [NSArray arrayWithObjects:KEY_SETTING_OPEN_LOCAL_LOG,KEY_SETTING_OPEN_LOCAL_LOG,nil]
+                                                                             forKeys:
+                                           [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@_2_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_2_value",KEY_SETTING_ADVANCED],nil]
+                                           ];
+    
+    NSMutableDictionary* openGoAgentLogDic = [NSMutableDictionary dictionaryWithObjects:
+                                           [NSArray arrayWithObjects:KEY_SETTING_OPEN_LOG,KEY_SETTING_OPEN_LOG,nil]
+                                                                             forKeys:
+                                           [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@_3_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_3_value",KEY_SETTING_ADVANCED],nil]
+                                           ];
+    
+    NSArray* advancedArray = [NSArray arrayWithObjects:sysproxyDic,installCertDic, openLocalLogDic, openGoAgentLogDic,nil];
     
     [self.settingDic setObject:advancedArray forKey:KEY_SETTING_ADVANCED];
     
@@ -241,27 +239,10 @@
 
 -(IBAction)performEditAction:(id)sender
 {
-    NSString* iniFile = [[NSBundle mainBundle] pathForResource:CONFIG_FILE_NAME
+    NSString* proxyIni = [[NSBundle mainBundle] pathForResource:CONFIG_FILE_NAME
                                                         ofType:CONFIG_FILE_TYPE
                                                    inDirectory:GOAGENT_LOCAL_PATH];
-    
-    NSURL* ifileReq = [NSURL URLWithString:[NSString stringWithFormat:@"ifile://localhost%@",iniFile]];
-    
-    if (![[UIApplication sharedApplication] openURL:ifileReq])
-    {
-        [self setupDocumentControllerWithURL:[NSURL fileURLWithPath:iniFile]];
-        
-        if (![self.docInteractionController presentOpenInMenuFromRect:CGRectZero
-                                                               inView:self.view.window
-                                                             animated:YES])
-        {
-            UIAlertView* alert = [[UIAlertView alloc] init];
-            [alert setTitle:APPLICATION_NAME];
-            [alert setMessage:[NSString stringWithFormat:@"Sorry, No other App can edit %@.%@",CONFIG_FILE_NAME,CONFIG_FILE_TYPE]];
-            [alert addButtonWithTitle:@"OK"];
-            [alert show];
-        }
-    }
+    [self openIniFile:proxyIni];
 }
 
 -(void)performPressAciton:(id)sender
@@ -305,6 +286,18 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:CA_URL]];
             break;
         }
+        case 102:
+        {
+            NSLog(@"open goagent ios log");
+            [self openIniFile:GOAGENT_LOCAL_LOG];
+            break;
+        }
+        case 103:
+        {
+            NSLog(@"open goagent log");
+            [self openIniFile:GOAGENT_LOG];
+            break;
+        }
         default:
             break;
     }
@@ -320,6 +313,25 @@
                                                              ofType:CONTROL_SCRIPT_PY
                                                         inDirectory:GOAGENT_LOCAL_PATH];
         [GUtility runTaskWithArgs:[NSMutableArray arrayWithObjects:changeSh, nil] taskType:PythonTask waitExit:NO];
+    }
+}
+
+- (void)openIniFile:(NSString *)filepath
+{
+    //try iFire first, then other apps
+    NSURL* ifileReq = [NSURL URLWithString:[NSString stringWithFormat:@"ifile://localhost%@",filepath]];
+
+    if (![[UIApplication sharedApplication] openURL:ifileReq])
+    {
+        [self setupDocumentControllerWithURL:[NSURL fileURLWithPath:filepath]];
+        
+        if (![self.docInteractionController presentOpenInMenuFromRect:CGRectZero
+                                                               inView:self.view.window
+                                                             animated:YES])
+        {
+            GAppDelegate* appDelegate = [GAppDelegate getInstance];
+            [appDelegate showAlert:[NSString stringWithFormat:@"Sorry, No other App can open %@",filepath] withTitle:APPLICATION_NAME];
+        }
     }
 }
 
