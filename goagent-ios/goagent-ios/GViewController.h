@@ -11,15 +11,14 @@
 
 @interface GViewController : UIViewController <UIWebViewDelegate, UITextFieldDelegate, UIActionSheetDelegate>
 
-@property (nonatomic,strong) IBOutlet UINavigationItem *titleBar;
-@property (nonatomic,strong) IBOutlet UINavigationItem *startBtn;
-@property (nonatomic,strong) IBOutlet UINavigationItem *settingBtn;
-@property (nonatomic,strong) IBOutlet UIWebView* webViewRef;
-@property (nonatomic,strong) IBOutlet UITextField* addressField;
-@property (nonatomic,strong) IBOutlet UIToolbar *toolBar;
-@property (nonatomic,strong) IBOutlet UIBarButtonItem *backBtn;
-@property (nonatomic,strong) IBOutlet UIBarButtonItem *fowardBtn;
-@property (nonatomic,strong) IBOutlet UIActivityIndicatorView *busyWebIcon;
+@property (nonatomic,strong) UIBarButtonItem *startBtn;
+@property (nonatomic,strong) UIBarButtonItem *settingBtn;
+@property (nonatomic,weak) IBOutlet UIWebView* webViewRef;
+@property (nonatomic,weak) IBOutlet UITextField* addressField;
+@property (nonatomic,weak) IBOutlet UIToolbar *toolBar;
+@property (nonatomic,weak) IBOutlet UIBarButtonItem *backBtn;
+@property (nonatomic,weak) IBOutlet UIBarButtonItem *fowardBtn;
+@property (nonatomic,weak) IBOutlet UIActivityIndicatorView *busyWebIcon;
 @property (nonatomic,strong) UIViewController* settingViewController;
 
 

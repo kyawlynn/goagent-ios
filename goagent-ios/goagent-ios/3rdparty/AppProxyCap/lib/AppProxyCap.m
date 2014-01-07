@@ -37,24 +37,18 @@ static CFDictionaryRef new_SCDynamicStoreCopyProxies (SCDynamicStoreRef store) {
 	//[proxyPref release];
 	switch (type) {
 		case AppProxy_HTTP:
-			proxyPref = [[NSDictionary alloc] initWithObjectsAndKeys:
-							//[NSNumber numberWithInt:1], @"HTTPProxyType",
-							//[NSNumber numberWithInt:0], @"ProxyAutoConfigEnable",
-							[NSNumber numberWithInt:1], @"HTTPEnable",
-							host, @"HTTPProxy",
-							[NSNumber numberWithInt:port], @"HTTPPort",
-							[NSNumber numberWithInt:1], @"HTTPSEnable",
-							host, @"HTTPSProxy",
-							[NSNumber numberWithInt:port], @"HTTPSPort",
-							nil];
+			proxyPref = @{@"HTTPEnable": @1,
+							@"HTTPProxy": host,
+							@"HTTPPort": @(port),
+							@"HTTPSEnable": @1,
+							@"HTTPSProxy": host,
+							@"HTTPSPort": @(port)};
 
 			break;
         case AppProxy_SOCKS:
-			proxyPref = [[NSDictionary alloc ]initWithObjectsAndKeys:
-                          [NSNumber numberWithInt:1], @"SOCKSEnable",
-                          host, @"SOCKSProxy",
-                          [NSNumber numberWithInt:port], @"SOCKSPort",
-                          nil];
+			proxyPref = @{@"SOCKSEnable": @1,
+                          @"SOCKSProxy": host,
+                          @"SOCKSPort": @(port)};
             break;
             
 			

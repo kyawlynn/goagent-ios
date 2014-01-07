@@ -25,8 +25,10 @@ static dictionary* iniDic = NULL;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#if Release
     freopen([GOAGENT_LOCAL_LOG UTF8String],"a",stderr);
     NSLog(@"redirect logs to %@", GOAGENT_LOCAL_LOG);
+#endif
     return YES;
 }
 							

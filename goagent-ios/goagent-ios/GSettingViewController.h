@@ -15,12 +15,11 @@
                                                     UIDocumentInteractionControllerDelegate,
                                                     UIAlertViewDelegate>
 
-@property (nonatomic,strong) IBOutlet UITableView* settingTableView;
-@property (nonatomic,strong) IBOutlet UINavigationItem *titleBar;
-@property (nonatomic,strong) IBOutlet UIBarItem *BackBtn;
-@property (nonatomic,strong) IBOutlet UIBarItem *EditBtn;
-@property (nonatomic,retain) NSMutableArray* settingSections;
-@property (nonatomic,retain) NSMutableDictionary* settingDic;
+@property (nonatomic,weak) IBOutlet UITableView* settingTableView;
+@property (nonatomic,strong) UIBarButtonItem *BackBtn;
+@property (nonatomic,strong) UIBarButtonItem *EditBtn;
+@property (nonatomic,strong) NSMutableArray* settingSections;
+@property (nonatomic,strong) NSMutableDictionary* settingDic;
 @property (nonatomic,strong) UIDocumentInteractionController *docInteractionController;
 
 - (IBAction)performBackAction:(id)sender;

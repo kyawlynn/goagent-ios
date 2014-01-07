@@ -12,7 +12,6 @@
 #import "GAppDelegate.h"
 
 @implementation GSettingViewController
-@synthesize settingSections,settingDic,settingTableView,titleBar,BackBtn,EditBtn,docInteractionController;
 
 -(void)awakeFromNib
 {
@@ -27,6 +26,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.BackBtn = [[UIBarButtonItem alloc] init];
+    self.BackBtn.title = @"Back";
+    self.BackBtn.target = self;
+    self.BackBtn.action = @selector(performBackAction:);
+    
+    self.EditBtn = [[UIBarButtonItem alloc] init];
+    self.EditBtn.title = @"Edit File";
+    self.EditBtn.target = self;
+    self.EditBtn.action = @selector(performEditAction:);
+    
+    self.navigationItem.leftBarButtonItem = self.BackBtn;
+    self.navigationItem.rightBarButtonItem = self.EditBtn;
+    
+
 }
 
 - (void)viewDidUnload
@@ -45,12 +59,12 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [settingSections count];
+    return [_settingSections count];
 }
 
 -(NSInteger)tableView:(UITableView *)tabbleView numberOfRowsInSection:(NSInteger)section
 {
-    return [[settingDic objectForKey:[settingSections objectAtIndex:section]] count];
+    return [_settingDic[_settingSections[section]] count];
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -60,9 +74,9 @@
     int currentSection = [indexPath section];
     int itemTag = (int)pow(10, currentSection+1)+currentRow;
     
-    NSString* key = [settingSections objectAtIndex:currentSection];
-    NSArray* contents = [settingDic objectForKey:key];
-    NSDictionary* item = [contents objectAtIndex:currentRow];
+    NSString* key = _settingSections[currentSection];
+    NSArray* contents = _settingDic[key];
+    NSDictionary* item = contents[currentRow];
     
     if ([key isEqualToString:KEY_SETTING_BASIC])
     {
@@ -76,17 +90,17 @@
         valueField.returnKeyType = UIReturnKeyDone;
         valueField.clearButtonMode = UITextFieldViewModeNever;
         valueField.delegate = self;
-        valueField.text = [item objectForKey:[NSString stringWithFormat:@"%@_%d_value",key,currentRow]];
+        valueField.text = item[[NSString stringWithFormat:@"%@_%d_value",key,currentRow]];
         valueField.tag = itemTag;
         cell.accessoryView = valueField;
-        cell.textLabel.text = [item objectForKey:[NSString stringWithFormat:@"%@_%d_key",key,currentRow]];
+        cell.textLabel.text = item[[NSString stringWithFormat:@"%@_%d_key",key,currentRow]];
     }
     else if ([key isEqualToString:KEY_SETTING_ADVANCED])
     {
         UIButton *button = [[UIButton alloc] initWithFrame:[cell frame]];
         [button addTarget:self action:@selector(performPressAciton:) forControlEvents:UIControlEventTouchUpInside];
         [button setTag:itemTag];
-        [button setTitle:[item objectForKey:[NSString stringWithFormat:@"%@_%d_value",key,currentRow]] forState:UIControlStateNormal];
+        [button setTitle:item[[NSString stringWithFormat:@"%@_%d_value",key,currentRow]] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 
         [cell.contentView addSubview:button];
@@ -97,9 +111,8 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [settingSections objectAtIndex:section];
+    return _settingSections[section];
 }
-
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -121,9 +134,9 @@
     NSLog(@"tag is %d,section is %d,row is %d",textTag,section,row);
     
     
-    NSString* key = [settingSections objectAtIndex:section];
-    NSArray* contents = [settingDic objectForKey:key];
-    NSDictionary* item = [contents objectAtIndex:row];
+    NSString* key = _settingSections[section];
+    NSArray* contents = _settingDic[key];
+    NSDictionary* item = contents[row];
     
     [item setValue:[textField text] forKey:[NSString stringWithFormat:@"%@_%d_value",key,row]];
     char *iniKey = NULL;
@@ -177,55 +190,55 @@
     
     //basic settings
     NSMutableDictionary* appidDic = [NSMutableDictionary dictionaryWithObjects:
-                                     [NSArray arrayWithObjects:KEY_SETTING_APPID,[NSString stringWithUTF8String:iniparser_getstring(iniDic, "gae:appid", NULL)],nil]
+                                     @[KEY_SETTING_APPID,@(iniparser_getstring(iniDic, "gae:appid", NULL))]
                                                                        forKeys:
-                                     [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@_0_key",KEY_SETTING_BASIC], [NSString stringWithFormat:@"%@_0_value",KEY_SETTING_BASIC],nil]
+                                     @[[NSString stringWithFormat:@"%@_0_key",KEY_SETTING_BASIC], [NSString stringWithFormat:@"%@_0_value",KEY_SETTING_BASIC]]
                                      ];
     
     NSMutableDictionary* profileDic = [NSMutableDictionary dictionaryWithObjects:
-                                       [NSArray arrayWithObjects:KEY_SETTING_PROFILE,[NSString stringWithUTF8String:iniparser_getstring(iniDic, "gae:profile", NULL)],nil]
+                                       @[KEY_SETTING_PROFILE,@(iniparser_getstring(iniDic, "gae:profile", NULL))]
                                                                          forKeys:
-                                       [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@_1_key",KEY_SETTING_BASIC], [NSString stringWithFormat:@"%@_1_value",KEY_SETTING_BASIC],nil]
+                                       @[[NSString stringWithFormat:@"%@_1_key",KEY_SETTING_BASIC], [NSString stringWithFormat:@"%@_1_value",KEY_SETTING_BASIC]]
                                        ];
     
     NSMutableDictionary* pacDic = [NSMutableDictionary dictionaryWithObjects:
-                                   [NSArray arrayWithObjects:KEY_SETTING_PAC,[NSString stringWithUTF8String:iniparser_getstring(iniDic, "pac:enable", NULL)],nil]
+                                   @[KEY_SETTING_PAC,@(iniparser_getstring(iniDic, "pac:enable", NULL))]
                                                                      forKeys:
-                                   [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@_2_key",KEY_SETTING_BASIC], [NSString stringWithFormat:@"%@_2_value",KEY_SETTING_BASIC],nil]
+                                   @[[NSString stringWithFormat:@"%@_2_key",KEY_SETTING_BASIC], [NSString stringWithFormat:@"%@_2_value",KEY_SETTING_BASIC]]
                                    ];
     
-    NSArray* basicArray = [NSArray arrayWithObjects:appidDic,profileDic,pacDic,nil];
+    NSArray* basicArray = @[appidDic,profileDic,pacDic];
     
-    [self.settingDic setObject:basicArray forKey:KEY_SETTING_BASIC];
+    (self.settingDic)[KEY_SETTING_BASIC] = basicArray;
     
     //advanced settings
     NSMutableDictionary* sysproxyDic = [NSMutableDictionary dictionaryWithObjects:
-                                        [NSArray arrayWithObjects:KEY_SETTING_SET_SYSPROXY,KEY_SETTING_SET_SYSPROXY,nil]
+                                        @[KEY_SETTING_SET_SYSPROXY,KEY_SETTING_SET_SYSPROXY]
                                                                           forKeys:
-                                        [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@_0_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_0_value",KEY_SETTING_ADVANCED],nil]
+                                        @[[NSString stringWithFormat:@"%@_0_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_0_value",KEY_SETTING_ADVANCED]]
                                  ];
     
     NSMutableDictionary* installCertDic = [NSMutableDictionary dictionaryWithObjects:
-                                        [NSArray arrayWithObjects:KEY_SETTING_INSTALL_CERT,KEY_SETTING_INSTALL_CERT,nil]
+                                        @[KEY_SETTING_INSTALL_CERT,KEY_SETTING_INSTALL_CERT]
                                                                           forKeys:
-                                        [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@_1_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_1_value",KEY_SETTING_ADVANCED],nil]
+                                        @[[NSString stringWithFormat:@"%@_1_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_1_value",KEY_SETTING_ADVANCED]]
                                         ];
     
     NSMutableDictionary* openLocalLogDic = [NSMutableDictionary dictionaryWithObjects:
-                                           [NSArray arrayWithObjects:KEY_SETTING_OPEN_LOCAL_LOG,KEY_SETTING_OPEN_LOCAL_LOG,nil]
+                                           @[KEY_SETTING_OPEN_LOCAL_LOG,KEY_SETTING_OPEN_LOCAL_LOG]
                                                                              forKeys:
-                                           [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@_2_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_2_value",KEY_SETTING_ADVANCED],nil]
+                                           @[[NSString stringWithFormat:@"%@_2_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_2_value",KEY_SETTING_ADVANCED]]
                                            ];
     
     NSMutableDictionary* openGoAgentLogDic = [NSMutableDictionary dictionaryWithObjects:
-                                           [NSArray arrayWithObjects:KEY_SETTING_OPEN_LOG,KEY_SETTING_OPEN_LOG,nil]
+                                           @[KEY_SETTING_OPEN_LOG,KEY_SETTING_OPEN_LOG]
                                                                              forKeys:
-                                           [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@_3_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_3_value",KEY_SETTING_ADVANCED],nil]
+                                           @[[NSString stringWithFormat:@"%@_3_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_3_value",KEY_SETTING_ADVANCED]]
                                            ];
     
-    NSArray* advancedArray = [NSArray arrayWithObjects:sysproxyDic,installCertDic, openLocalLogDic, openGoAgentLogDic,nil];
+    NSArray* advancedArray = @[sysproxyDic,installCertDic, openLocalLogDic, openGoAgentLogDic];
     
-    [self.settingDic setObject:advancedArray forKey:KEY_SETTING_ADVANCED];
+    (self.settingDic)[KEY_SETTING_ADVANCED] = advancedArray;
     
     [self.settingSections addObject:KEY_SETTING_BASIC];
     [self.settingSections addObject:KEY_SETTING_ADVANCED];
@@ -234,7 +247,7 @@
 -(IBAction)performBackAction:(id)sender
 {
     NSLog(@"back to main view");
-    [self dismissModalViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(IBAction)performEditAction:(id)sender

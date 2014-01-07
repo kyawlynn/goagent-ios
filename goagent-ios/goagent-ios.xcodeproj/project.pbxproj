@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BB13878F16E1E39700D7679E /* fwd.png in Resources */ = {isa = PBXBuildFile; fileRef = BB13878D16E1E39700D7679E /* fwd.png */; };
-		BB13879016E1E39700D7679E /* prev.png in Resources */ = {isa = PBXBuildFile; fileRef = BB13878E16E1E39700D7679E /* prev.png */; };
 		BB13879316E22D5900D7679E /* AppProxyCap.m in Sources */ = {isa = PBXBuildFile; fileRef = BB13879216E22D5900D7679E /* AppProxyCap.m */; };
 		BB13879916E22EDC00D7679E /* interpose.c in Sources */ = {isa = PBXBuildFile; fileRef = BB13879716E22EDC00D7679E /* interpose.c */; };
 		BB31118C15D782E20047E5F1 /* goagent-local in Resources */ = {isa = PBXBuildFile; fileRef = BB31118A15D782E20047E5F1 /* goagent-local */; };
@@ -33,14 +31,11 @@
 		CE9128DF157B4171008C98B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9128DE157B4171008C98B1 /* main.m */; };
 		CE9128E3157B4171008C98B1 /* GAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9128E2157B4171008C98B1 /* GAppDelegate.m */; };
 		CE9128EC157B4171008C98B1 /* GViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9128EB157B4171008C98B1 /* GViewController.m */; };
-		CE912910157B43C2008C98B1 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = CE91290F157B43C2008C98B1 /* settings.png */; };
 		CE912963157B483F008C98B1 /* GSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE912962157B483F008C98B1 /* GSettingViewController.m */; };
 		CED3CDDD15DB374500FA4742 /* GUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = CED3CDDC15DB374500FA4742 /* GUtility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BB13878D16E1E39700D7679E /* fwd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fwd.png; sourceTree = "<group>"; };
-		BB13878E16E1E39700D7679E /* prev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prev.png; sourceTree = "<group>"; };
 		BB13879116E22D5800D7679E /* AppProxyCap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppProxyCap.h; path = 3rdparty/AppProxyCap/lib/AppProxyCap.h; sourceTree = "<group>"; };
 		BB13879216E22D5900D7679E /* AppProxyCap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppProxyCap.m; path = 3rdparty/AppProxyCap/lib/AppProxyCap.m; sourceTree = "<group>"; };
 		BB13879416E22D7400D7679E /* interpose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = interpose.h; path = 3rdparty/AppProxyCap/lib/inject_and_interpose/interpose.h; sourceTree = "<group>"; };
@@ -77,7 +72,6 @@
 		CE9128EA157B4171008C98B1 /* GViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GViewController.h; sourceTree = "<group>"; };
 		CE9128EB157B4171008C98B1 /* GViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GViewController.m; sourceTree = "<group>"; };
 		CE9128F3157B4171008C98B1 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		CE91290F157B43C2008C98B1 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		CE912961157B483F008C98B1 /* GSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSettingViewController.h; sourceTree = "<group>"; };
 		CE912962157B483F008C98B1 /* GSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSettingViewController.m; sourceTree = "<group>"; };
 		CED3CDDB15DB374500FA4742 /* GUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GUtility.h; sourceTree = "<group>"; };
@@ -189,8 +183,6 @@
 		CE91290E157B4382008C98B1 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				BB13878D16E1E39700D7679E /* fwd.png */,
-				BB13878E16E1E39700D7679E /* prev.png */,
 				BBBF8273167C9795002FBED5 /* goagent */,
 				BBBF825F167C52A6002FBED5 /* authrunner */,
 				BBB609971657803800D823C3 /* Default-568h@2x.png */,
@@ -202,7 +194,6 @@
 				CE0A6D00157B5C7200C46A20 /* icon_144.png */,
 				CE0A6CF7157B5B0C00C46A20 /* MainStoryboard_iPad.storyboard */,
 				CE0A6CF9157B5B0C00C46A20 /* MainStoryboard_iPhone.storyboard */,
-				CE91290F157B43C2008C98B1 /* settings.png */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -234,7 +225,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = G;
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "goagent project";
 			};
 			buildConfigurationList = CE9128C8157B4171008C98B1 /* Build configuration list for PBXProject "goagent-ios" */;
@@ -260,7 +251,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE9128DD157B4171008C98B1 /* InfoPlist.strings in Resources */,
-				CE912910157B43C2008C98B1 /* settings.png in Resources */,
 				CE0A6CFB157B5B0C00C46A20 /* MainStoryboard_iPad.storyboard in Resources */,
 				CE0A6CFC157B5B0C00C46A20 /* MainStoryboard_iPhone.storyboard in Resources */,
 				CE0A6D01157B5C7200C46A20 /* icon_57.png in Resources */,
@@ -272,8 +262,6 @@
 				BBB609981657803800D823C3 /* Default-568h@2x.png in Resources */,
 				BBBF8260167C52A6002FBED5 /* authrunner in Resources */,
 				BBBF8274167C9795002FBED5 /* goagent in Resources */,
-				BB13878F16E1E39700D7679E /* fwd.png in Resources */,
-				BB13879016E1E39700D7679E /* prev.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,11 +318,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"armv6,",
-					armv7,
-				);
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -346,11 +336,16 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
@@ -362,20 +357,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"armv6,",
-					armv7,
-				);
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -393,6 +394,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "goagent-ios/goagent-ios-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "goagent-ios/goagent-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -415,6 +417,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "goagent-ios/goagent-ios-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "goagent-ios/goagent-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (

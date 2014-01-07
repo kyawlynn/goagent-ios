@@ -28,7 +28,7 @@
         if (type == PythonTask) {
             //[task setLaunchPath:[NSString stringWithFormat:@"%@/python/bin/python",workingDir]];
             [args insertObject:[NSString stringWithFormat:@"%@/python/bin/python",workingDir] atIndex:0];
-            [task setEnvironment:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%@/python",workingDir] forKey:@"PYTHONHOME"]];
+            [task setEnvironment:@{@"PYTHONHOME": [NSString stringWithFormat:@"%@/python",workingDir]}];
         }
         else{
             [args insertObject:@"/bin/sh" atIndex:0];

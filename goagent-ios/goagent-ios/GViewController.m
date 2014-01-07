@@ -31,16 +31,6 @@
 
 @implementation GViewController
 
-@synthesize titleBar,
-            startBtn,
-            settingBtn,
-            settingViewController,
-            webViewRef,
-            addressField,
-            toolBar,
-            backBtn,
-            fowardBtn;
-
 
 - (void)viewDidUnload
 {
@@ -49,26 +39,41 @@
 
 -(void)awakeFromNib
 {
-    settingViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"SettingViewController"];
+    self.settingViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"SettingViewController"];
+    
+    self.startBtn = [[UIBarButtonItem alloc] init];
+    self.startBtn.title = @"Start";
+    self.startBtn.target = self;
+    self.startBtn.action = @selector(performStartAction:);
+    
+    self.settingBtn = [[UIBarButtonItem alloc] init];
+    self.settingBtn.title = @"Setting";
+    self.settingBtn.target = self;
+    self.settingBtn.action = @selector(performSettingAction:);
+    
+    self.navigationItem.leftBarButtonItem = self.startBtn;
+    self.navigationItem.rightBarButtonItem = self.settingBtn;
+    
+    self.addressField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.addressField.borderStyle = UITextBorderStyleRoundedRect;
+    self.addressField.font = [UIFont systemFontOfSize:17];
+    self.addressField.keyboardType = UIKeyboardTypeURL;
+    self.addressField.returnKeyType = UIReturnKeyGo;
+    self.addressField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.addressField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.addressField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    
+    [self.addressField setDelegate:self];
+    [self.webViewRef setDelegate:self];
+    [self.busyWebIcon setHidden:YES];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    addressField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    addressField.borderStyle = UITextBorderStyleRoundedRect;
-    addressField.font = [UIFont systemFontOfSize:17];
-    addressField.keyboardType = UIKeyboardTypeURL;
-    addressField.returnKeyType = UIReturnKeyGo;
-    addressField.autocorrectionType = UITextAutocorrectionTypeNo;
-    addressField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    addressField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    
-    
-    [addressField setDelegate:self];
-    [webViewRef setDelegate:self];
-    [self.busyWebIcon setHidden:YES];
+    [self.backBtn setTitleTextAttributes:@{UITextAttributeFont: [UIFont systemFontOfSize:28]} forState:UIControlStateNormal];
+    [self.fowardBtn setTitleTextAttributes:@{UITextAttributeFont:[UIFont systemFontOfSize:28]} forState:UIControlStateNormal];
     
     if (![self isRunning]) {
         [self loadWelcomeMessage];
@@ -84,8 +89,6 @@
 {
     return UIInterfaceOrientationIsPortrait(interfaceOrientation);
 }
-
-
 
 -(IBAction)performStartAction:(id)sender
 {
@@ -122,12 +125,12 @@
     
     if ([actionCmd isEqualToString:CONTROL_CMD_STOP])
     {
-        [addressField setHidden:YES];
+        [self.addressField setHidden:YES];
         [self loadWelcomeMessage];
     }
     else
     {
-        [addressField setHidden:NO];
+        [self.addressField setHidden:NO];
         dictionary* iniDic = [GAppDelegate loadGoAgentSettings];
         NSString* host = [NSString stringWithFormat:@"%s", iniparser_getstring(iniDic, "listen:ip", "127.0.0.1")];
         int port = iniparser_getint(iniDic, "listen:port" , 8087);
@@ -142,16 +145,17 @@
 -(IBAction)performSettingAction:(id)sender
 {
     NSLog(@"setting button pushed");
-    [self presentModalViewController:settingViewController animated:NO];
+    [self.navigationController pushViewController:self.settingViewController animated:YES];
+//    [self presentModalViewController:self.settingViewController animated:NO];
 }
 
 -(IBAction)performBackAction:(id)sender
 {
     NSLog(@"%@",sender);
-    if ([webViewRef canGoBack]) {
-        [webViewRef goBack];
+    if ([self.webViewRef canGoBack]) {
+        [self.webViewRef goBack];
         
-        [fowardBtn setEnabled:YES];
+        [self.fowardBtn setEnabled:YES];
     }
     else{
         [self loadWelcomeMessage];
@@ -160,22 +164,22 @@
 -(IBAction)performFowardAction:(id)sender
 {
     NSLog(@"%@",sender);
-    if ([webViewRef canGoForward]) {
-        [webViewRef goForward];
+    if ([self.webViewRef canGoForward]) {
+        [self.webViewRef goForward];
         
-        if (![webViewRef canGoForward]) {
-            [fowardBtn setEnabled:NO];
+        if (![self.webViewRef canGoForward]) {
+            [self.fowardBtn setEnabled:NO];
             [self.view setNeedsDisplay];
         }
     }
     else{
-        [fowardBtn setEnabled:NO];
+        [self.fowardBtn setEnabled:NO];
     }
 }
 -(IBAction)performReloadAction:(id)sender
 {
     NSLog(@"%@",sender);
-    [webViewRef reload];
+    [self.webViewRef reload];
 }
 
 -(IBAction)performShareAction:(id)sender
@@ -187,20 +191,20 @@
 						   cancelButtonTitle:@"Cancel"
 						   destructiveButtonTitle:nil
 						   otherButtonTitles:@"View in Safari", nil];
-	[menu showFromToolbar:toolBar];
+	[menu showFromToolbar:self.toolBar];
 }
 
 -(void)updateUIStatus;
 {
     if ([self isRunning])
     {
-        [startBtn setTitle:@"Stop"];
-        [addressField setHidden:NO];
+        [self.startBtn setTitle:@"Stop"];
+        [self.addressField setHidden:NO];
     }
     else
     {
-        [startBtn setTitle:@"Start"];
-        [addressField setHidden:YES];
+        [self.startBtn setTitle:@"Start"];
+        [self.addressField setHidden:YES];
     }
 }
 
@@ -232,7 +236,7 @@
 {
     if (!urlString)
     {
-        [webViewRef loadHTMLString:@"<html>\
+        [self.webViewRef loadHTMLString:@"<html>\
          <body>\
          <center>\
          <p><strong>GoAgent is Stopped</strong></p>\
@@ -240,7 +244,7 @@
          </center>\
          </body>\
          </html>" baseURL:nil];
-        [webViewRef setNeedsDisplay];
+        [self.webViewRef setNeedsDisplay];
     }
     else
     {
@@ -249,8 +253,8 @@
         }
         NSURL* url = [NSURL URLWithString:urlString];
         NSURLRequest* request = [NSURLRequest requestWithURL:url];
-        [webViewRef loadRequest:request];
-        [webViewRef setNeedsDisplay];
+        [self.webViewRef loadRequest:request];
+        [self.webViewRef setNeedsDisplay];
     
     }
 }
@@ -259,7 +263,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 	if (buttonIndex == 0){
-		[[UIApplication sharedApplication] openURL:[[webViewRef request] URL]];
+		[[UIApplication sharedApplication] openURL:[[self.webViewRef request] URL]];
 	}
 }
 
@@ -284,9 +288,9 @@
     [self.busyWebIcon setHidden:YES];
  	[self.busyWebIcon stopAnimating];
 	
-	if (![webViewRef canGoForward]){
+	if (![self.webViewRef canGoForward]){
 		// disable the forward button
-		[fowardBtn setEnabled:NO];
+		[self.fowardBtn setEnabled:NO];
 	}
 }
 
@@ -303,7 +307,7 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
 	NSString* url = [[request URL] absoluteString];
-    [addressField setText:url];
+    [self.addressField setText:url];
     return YES;
 }
 
