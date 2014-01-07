@@ -9,7 +9,8 @@ goagentwidget_FRAMEWORKS = UIKit CoreGraphics
 
 include $(THEOS_MAKE_PATH)/bundle.mk
 custom-install: package
-	cp -Rf _/Library ../deb-pkg-root/
+	# cp -Rf _/Library ../deb-pkg-root/
+	echo "skip goagent notification center widget"
 
 after-install::
 	install.exec "killall -9 SpringBoard"

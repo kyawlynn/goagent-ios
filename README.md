@@ -1,6 +1,8 @@
 #Introduction
 -------------
 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/goagent/goagent-ios/trend.png)](https://bitdeli.com/free "Bitdeli Badge")  
+
 GoAgent iOS Project
 
 ###goagent-ios 
