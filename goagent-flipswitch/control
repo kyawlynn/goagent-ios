@@ -1,0 +1,9 @@
+Package: org.goagent.goagentswitch
+Name: GoAgent Switch
+Depends: mobilesubstrate, com.a3tweaks.flipswitch
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: A Flipswitch for GoAgent iOS
+Maintainer: @hewigovens
+Author: @hewigovens
+Section: Addons (Flipswitch)

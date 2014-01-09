@@ -14,19 +14,14 @@ GoAgent iOS Project
 ###goagent-widget
     The GoAgent Notification Center Widget
 
+###goagent-flipswtich
+	A [Flipswitch](https://github.com/a3tweaks/Flipswitch) for GoAgent iOS
+
 ##Dependecncy
 
-*  Xcode4 + iOS5.1 SDK  
-*  theos  
+*  Xcode5 + iOS7 SDK  
+*  [theos](iphonedevwiki.net/index.php/Theos/Getting_Started)  
 
 ##How to build
 
 	./build
-
-
-
-
-
-
-	
-	

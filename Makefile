@@ -1,4 +1,4 @@
-APPS = goagent-ios
+APPS = goagent-ios goagent-flipswitch
 DEB_ID = org.goagent.local.ios
 PKG_ROOT = deb-pkg-root
 APP_ROOT = $(PKG_ROOT)/Applications/goagent-ios.app
