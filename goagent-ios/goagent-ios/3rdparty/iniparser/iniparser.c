@@ -565,7 +565,7 @@ static line_status iniparser_line(
     strcpy(line, strstrip(input_line));
     len = (int)strlen(line);
 
-    sta = LINE_UNPROCESSED ;
+    //sta = LINE_UNPROCESSED ;
     if (len<1) {
         /* Empty line */
         sta = LINE_EMPTY ;
@@ -687,7 +687,7 @@ dictionary * iniparser_load(const char * ininame)
             last=len ;
             continue ;
         } else {
-            last=0 ;
+            //last=0 ;
         }
         switch (iniparser_line(line, section, key, val)) {
             case LINE_EMPTY:

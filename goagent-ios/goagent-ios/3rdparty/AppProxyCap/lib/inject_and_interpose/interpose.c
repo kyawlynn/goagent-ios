@@ -92,12 +92,12 @@ bool interpose(const char *name, void *impl) {
     const struct mach_header_native *mach_hdr;
     bool result = false;
     uint32_t i;
-    for(i = 0; mach_hdr = (void *) _dyld_get_image_header(i); i++) {
+    for(i = 0; (mach_hdr = (void *) _dyld_get_image_header(i)); i++) {
         void **lazy = find_lazy(mach_hdr->ncmds, (void *) (mach_hdr + 1), _dyld_get_image_vmaddr_slide(i), name);
         if(lazy) {
             result = true;
             *lazy = impl;
         }
     }
-    return true;
+    return result;
 }

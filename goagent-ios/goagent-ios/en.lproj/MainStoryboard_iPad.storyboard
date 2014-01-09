@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B3116" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="crg-gs-vYa">
     <dependencies>
-        <deployment defaultVersion="1280" identifier="iOS"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
@@ -63,7 +63,7 @@
                         <outlet property="addressField" destination="IIf-7S-nhx" id="YT0-ri-CGY"/>
                         <outlet property="toolBar" destination="SvP-Ah-cMG" id="rHn-qa-X2S"/>
                         <outlet property="webViewRef" destination="zPw-C8-HDD" id="zEr-eA-T3P"/>
-                        <segue destination="UIb-5b-Tti" kind="push" id="O9N-nq-aKK"/>
+                        <segue destination="UIb-5b-Tti" kind="push" identifier="mainToSetting" id="O9N-nq-aKK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Vz-IJ-yJx" sceneMemberID="firstResponder"/>

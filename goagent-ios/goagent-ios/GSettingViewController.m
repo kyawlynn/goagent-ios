@@ -11,6 +11,8 @@
 #import "GUtility.h"
 #import "GAppDelegate.h"
 
+#import <SystemConfiguration/SystemConfiguration.h>
+
 @implementation GSettingViewController
 
 -(void)awakeFromNib
@@ -85,7 +87,7 @@
         valueField.backgroundColor = [UIColor clearColor];
         valueField.autocorrectionType = UITextAutocorrectionTypeNo;
         valueField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-        valueField.textAlignment = UITextAlignmentRight;
+        valueField.textAlignment = NSTextAlignmentRight;
         valueField.keyboardType = UIKeyboardTypeDefault;
         valueField.returnKeyType = UIReturnKeyDone;
         valueField.clearButtonMode = UITextFieldViewModeNever;
@@ -273,12 +275,6 @@
                                                             delegate:self
                                                    cancelButtonTitle:@"Cancel"
                                                    otherButtonTitles:@"OK",nil];
-            
-            /*alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-            UITextField * alertTextField = [alert textFieldAtIndex:0];
-            alertTextField.keyboardType = UIKeyboardTypeDefault;
-            alertTextField.secureTextEntry = YES;
-            alertTextField.placeholder = @"Your password";*/
             [alert show];
             
             break;
@@ -318,14 +314,9 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-
-    //Ok button
-    if (buttonIndex == 1)
+    if (buttonIndex != alertView.cancelButtonIndex)
     {
-        NSString* changeSh = [[NSBundle mainBundle] pathForResource:CHANGE_SYSPROXY_SCRIPT
-                                                             ofType:CONTROL_SCRIPT_PY
-                                                        inDirectory:GOAGENT_LOCAL_PATH];
-        [GUtility runTaskWithArgs:[NSMutableArray arrayWithObjects:changeSh, nil] taskType:PythonTask waitExit:NO];
+        //SCPreferencesRef preferenceRef = SCPreferencesCreate(NULL, CFSTR("goagent-ios"), NULL);
     }
 }
 

@@ -13,7 +13,9 @@
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        setuid(0);
+        if(!setuid(0)){
+            NSLog(@"goagent is not running as root!");
+        };
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([GAppDelegate class]));
     }
 }
