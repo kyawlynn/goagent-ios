@@ -10,6 +10,8 @@
 #import "GConfig.h"
 #import "iniparser.h"
 
+#import <Crashlytics/Crashlytics.h>
+
 static dictionary* iniDic = NULL;
 
 @implementation GAppDelegate

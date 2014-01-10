@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BB00B6E0187F976A0080042A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00B6DF187F976A0080042A /* Crashlytics.framework */; };
+		BB00B6E5187FB7D50080042A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00B6E4187FB7D50080042A /* Crashlytics.framework */; };
 		BB13879316E22D5900D7679E /* AppProxyCap.m in Sources */ = {isa = PBXBuildFile; fileRef = BB13879216E22D5900D7679E /* AppProxyCap.m */; };
 		BB13879916E22EDC00D7679E /* interpose.c in Sources */ = {isa = PBXBuildFile; fileRef = BB13879716E22EDC00D7679E /* interpose.c */; };
 		BB31118C15D782E20047E5F1 /* goagent-local in Resources */ = {isa = PBXBuildFile; fileRef = BB31118A15D782E20047E5F1 /* goagent-local */; };
@@ -37,7 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BB00B6DF187F976A0080042A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		BB00B6E4187FB7D50080042A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = "goagent-ios/3rdparty/Crashlytics.framework"; sourceTree = "<group>"; };
 		BB13879116E22D5800D7679E /* AppProxyCap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppProxyCap.h; path = 3rdparty/AppProxyCap/lib/AppProxyCap.h; sourceTree = "<group>"; };
 		BB13879216E22D5900D7679E /* AppProxyCap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppProxyCap.m; path = 3rdparty/AppProxyCap/lib/AppProxyCap.m; sourceTree = "<group>"; };
 		BB13879416E22D7400D7679E /* interpose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = interpose.h; path = 3rdparty/AppProxyCap/lib/inject_and_interpose/interpose.h; sourceTree = "<group>"; };
@@ -89,7 +89,7 @@
 				BB31119C15D7C3DA0047E5F1 /* CFNetwork.framework in Frameworks */,
 				CE9128D3157B4171008C98B1 /* UIKit.framework in Frameworks */,
 				CE9128D5157B4171008C98B1 /* Foundation.framework in Frameworks */,
-				BB00B6E0187F976A0080042A /* Crashlytics.framework in Frameworks */,
+				BB00B6E5187FB7D50080042A /* Crashlytics.framework in Frameworks */,
 				CE9128D7157B4171008C98B1 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,7 +143,7 @@
 		CE9128D1157B4171008C98B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BB00B6DF187F976A0080042A /* Crashlytics.framework */,
+				BB00B6E4187FB7D50080042A /* Crashlytics.framework */,
 				BB3111BF15D7C59C0047E5F1 /* SystemConfiguration.framework */,
 				BB31119B15D7C3DA0047E5F1 /* CFNetwork.framework */,
 				CE9128D2157B4171008C98B1 /* UIKit.framework */,
@@ -284,7 +284,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run 00294b074c27a6569db329a72df442fbff108a8c";
+			shellScript = "goagent-ios/3rdparty/Crashlytics.framework/run 00294b074c27a6569db329a72df442fbff108a8c";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -413,7 +413,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/hewig/workspace/git/goagent-ios/goagent-ios",
+					"$(SRCROOT)/goagent-ios",
+					"$(SRCROOT)/goagent-ios/3rdparty",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "goagent-ios/goagent-ios-Prefix.pch";
@@ -434,7 +435,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/hewig/workspace/git/goagent-ios/goagent-ios",
+					"$(SRCROOT)/goagent-ios",
+					"$(SRCROOT)/goagent-ios/3rdparty",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "goagent-ios/goagent-ios-Prefix.pch";
