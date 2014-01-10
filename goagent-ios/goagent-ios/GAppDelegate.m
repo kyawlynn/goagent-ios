@@ -29,6 +29,7 @@ static dictionary* iniDic = NULL;
     freopen([GOAGENT_LOCAL_LOG UTF8String],"a",stderr);
     NSLog(@"redirect logs to %@", GOAGENT_LOCAL_LOG);
 #endif
+    [Crashlytics startWithAPIKey:@"00294b074c27a6569db329a72df442fbff108a8c"];
     return YES;
 }
 							

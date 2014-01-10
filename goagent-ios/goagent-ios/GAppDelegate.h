@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Crashlytics/Crashlytics.h>
 #import "iniparser.h"
 
 @interface GAppDelegate : UIResponder <UIApplicationDelegate>
