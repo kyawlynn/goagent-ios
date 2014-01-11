@@ -48,7 +48,7 @@ function start_launchd_task()
 function copy_certs()
 {
     cp -f "$GOAGENT_HOME/goagent-local/CA.crt" /etc/ssl/certs/GOAGENT_CA.crt
-    cp -f "$GOAGENT_HOME/goagent-local/CA.key" /etc/ssl/certs/GOAGENT_CA.key
+    # cp -f "$GOAGENT_HOME/goagent-local/CA.key" /etc/ssl/certs/GOAGENT_CA.key
 }
 
 function flush_springboard()

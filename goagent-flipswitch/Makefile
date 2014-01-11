@@ -6,6 +6,6 @@ GoAgentSwitch_FRAMEWORKS = UIKit
 GoAgentSwitch_LIBRARIES = flipswitch
 GoAgentSwitch_INSTALL_PATH = /Library/Switches
 
-ADDITIONAL_LDFLAGS = -L ./.theos
+ADDITIONAL_LDFLAGS = -L ./lib
 
 include $(THEOS_MAKE_PATH)/bundle.mk

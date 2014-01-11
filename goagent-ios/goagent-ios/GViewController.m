@@ -11,7 +11,7 @@
 #import "GConfig.h"
 #import "GUtility.h"
 #import "GAppDelegate.h"
-#import "3rdparty/AppProxyCap/lib/AppProxyCap.h"
+#import "AppProxyCap.h"
 
 #pragma mark ignore ssl error, private API
 @interface NSURLRequest (NSURLRequestWithIgnoreSSL)
@@ -78,6 +78,8 @@
     if (![self isRunning]) {
         [self loadWelcomeMessage];
     }
+    
+    [self.busyWebIcon setHidesWhenStopped:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BB00B6E5187FB7D50080042A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00B6E4187FB7D50080042A /* Crashlytics.framework */; };
 		BB13879316E22D5900D7679E /* AppProxyCap.m in Sources */ = {isa = PBXBuildFile; fileRef = BB13879216E22D5900D7679E /* AppProxyCap.m */; };
 		BB13879916E22EDC00D7679E /* interpose.c in Sources */ = {isa = PBXBuildFile; fileRef = BB13879716E22EDC00D7679E /* interpose.c */; };
+		BB2CA2471881BC1C00E0A76D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB2CA2461881BC1C00E0A76D /* Crashlytics.framework */; };
 		BB31118C15D782E20047E5F1 /* goagent-local in Resources */ = {isa = PBXBuildFile; fileRef = BB31118A15D782E20047E5F1 /* goagent-local */; };
 		BB31118D15D782E20047E5F1 /* python in Resources */ = {isa = PBXBuildFile; fileRef = BB31118B15D782E20047E5F1 /* python */; };
 		BB31119C15D7C3DA0047E5F1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB31119B15D7C3DA0047E5F1 /* CFNetwork.framework */; };
@@ -37,11 +37,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BB00B6E4187FB7D50080042A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = "goagent-ios/3rdparty/Crashlytics.framework"; sourceTree = "<group>"; };
-		BB13879116E22D5800D7679E /* AppProxyCap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppProxyCap.h; path = 3rdparty/AppProxyCap/lib/AppProxyCap.h; sourceTree = "<group>"; };
-		BB13879216E22D5900D7679E /* AppProxyCap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppProxyCap.m; path = 3rdparty/AppProxyCap/lib/AppProxyCap.m; sourceTree = "<group>"; };
-		BB13879416E22D7400D7679E /* interpose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = interpose.h; path = 3rdparty/AppProxyCap/lib/inject_and_interpose/interpose.h; sourceTree = "<group>"; };
-		BB13879716E22EDC00D7679E /* interpose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = interpose.c; path = 3rdparty/AppProxyCap/lib/inject_and_interpose/interpose.c; sourceTree = "<group>"; };
+		BB13879116E22D5800D7679E /* AppProxyCap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppProxyCap.h; path = lib/AppProxyCap.h; sourceTree = "<group>"; };
+		BB13879216E22D5900D7679E /* AppProxyCap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppProxyCap.m; path = lib/AppProxyCap.m; sourceTree = "<group>"; };
+		BB13879416E22D7400D7679E /* interpose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = interpose.h; path = lib/inject_and_interpose/interpose.h; sourceTree = "<group>"; };
+		BB13879716E22EDC00D7679E /* interpose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = interpose.c; path = lib/inject_and_interpose/interpose.c; sourceTree = "<group>"; };
+		BB2CA2461881BC1C00E0A76D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = thirdparty/Crashlytics.framework; sourceTree = "<group>"; };
 		BB31118A15D782E20047E5F1 /* goagent-local */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "goagent-local"; path = "../../goagent-local"; sourceTree = "<group>"; };
 		BB31118B15D782E20047E5F1 /* python */ = {isa = PBXFileReference; lastKnownFileType = folder; name = python; path = ../../python; sourceTree = "<group>"; };
 		BB31119B15D7C3DA0047E5F1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -73,7 +73,6 @@
 		CE9128E2157B4171008C98B1 /* GAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GAppDelegate.m; sourceTree = "<group>"; };
 		CE9128EA157B4171008C98B1 /* GViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GViewController.h; sourceTree = "<group>"; };
 		CE9128EB157B4171008C98B1 /* GViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GViewController.m; sourceTree = "<group>"; };
-		CE9128F3157B4171008C98B1 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		CE912961157B483F008C98B1 /* GSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSettingViewController.h; sourceTree = "<group>"; };
 		CE912962157B483F008C98B1 /* GSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSettingViewController.m; sourceTree = "<group>"; };
 		CED3CDDB15DB374500FA4742 /* GUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GUtility.h; sourceTree = "<group>"; };
@@ -85,11 +84,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB2CA2471881BC1C00E0A76D /* Crashlytics.framework in Frameworks */,
 				BB3111C015D7C59C0047E5F1 /* SystemConfiguration.framework in Frameworks */,
 				BB31119C15D7C3DA0047E5F1 /* CFNetwork.framework in Frameworks */,
 				CE9128D3157B4171008C98B1 /* UIKit.framework in Frameworks */,
 				CE9128D5157B4171008C98B1 /* Foundation.framework in Frameworks */,
-				BB00B6E5187FB7D50080042A /* Crashlytics.framework in Frameworks */,
 				CE9128D7157B4171008C98B1 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,7 +105,16 @@
 				BB13879216E22D5900D7679E /* AppProxyCap.m */,
 			);
 			name = AppProxyCap;
-			path = "goagent-ios";
+			path = thirdparty/AppProxyCap;
+			sourceTree = "<group>";
+		};
+		BB2CA2451881BAA600E0A76D /* thirdparty */ = {
+			isa = PBXGroup;
+			children = (
+				BB13879B16E22EFE00D7679E /* AppProxyCap */,
+				BBF04DAB15D3DC180000BD41 /* iniparser */,
+			);
+			name = thirdparty;
 			sourceTree = "<group>";
 		};
 		BBF04DAB15D3DC180000BD41 /* iniparser */ = {
@@ -118,14 +126,13 @@
 				BBF04DB015D3DC180000BD41 /* iniparser.h */,
 			);
 			name = iniparser;
-			path = "goagent-ios/3rdparty/iniparser";
+			path = thirdparty/iniparser;
 			sourceTree = "<group>";
 		};
 		CE9128C3157B4171008C98B1 = {
 			isa = PBXGroup;
 			children = (
-				BB13879B16E22EFE00D7679E /* AppProxyCap */,
-				BBF04DAB15D3DC180000BD41 /* iniparser */,
+				BB2CA2451881BAA600E0A76D /* thirdparty */,
 				CE9128D8157B4171008C98B1 /* goagent-ios */,
 				CE9128D1157B4171008C98B1 /* Frameworks */,
 				CE9128CF157B4171008C98B1 /* Products */,
@@ -143,13 +150,12 @@
 		CE9128D1157B4171008C98B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BB00B6E4187FB7D50080042A /* Crashlytics.framework */,
+				BB2CA2461881BC1C00E0A76D /* Crashlytics.framework */,
 				BB3111BF15D7C59C0047E5F1 /* SystemConfiguration.framework */,
 				BB31119B15D7C3DA0047E5F1 /* CFNetwork.framework */,
 				CE9128D2157B4171008C98B1 /* UIKit.framework */,
 				CE9128D4157B4171008C98B1 /* Foundation.framework */,
 				CE9128D6157B4171008C98B1 /* CoreGraphics.framework */,
-				CE9128F3157B4171008C98B1 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -212,7 +218,7 @@
 				CE9128CA157B4171008C98B1 /* Sources */,
 				CE9128CB157B4171008C98B1 /* Frameworks */,
 				CE9128CC157B4171008C98B1 /* Resources */,
-				BB00B6DE187F97350080042A /* ShellScript */,
+				BB00B6DE187F97350080042A /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -273,18 +279,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		BB00B6DE187F97350080042A /* ShellScript */ = {
+		BB00B6DE187F97350080042A /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "goagent-ios/3rdparty/Crashlytics.framework/run 00294b074c27a6569db329a72df442fbff108a8c";
+			shellScript = "thirdparty/Crashlytics.framework/run 00294b074c27a6569db329a72df442fbff108a8c\n\necho  ${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\n\n../extra/ldid -S ${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -346,8 +353,6 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -385,8 +390,6 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
@@ -415,6 +418,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/goagent-ios",
 					"$(SRCROOT)/goagent-ios/3rdparty",
+					"/Users/hewig/workspace/git/goagent-ios/goagent-ios/thirdparty",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "goagent-ios/goagent-ios-Prefix.pch";
@@ -437,6 +441,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/goagent-ios",
 					"$(SRCROOT)/goagent-ios/3rdparty",
+					"/Users/hewig/workspace/git/goagent-ios/goagent-ios/thirdparty",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "goagent-ios/goagent-ios-Prefix.pch";
