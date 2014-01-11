@@ -16,11 +16,22 @@
 
 #include <CoreFoundation/CoreFoundation.h>
 
-int launchctl_submit_cmd(const char* label, const char* executable, const char* stdout_path, const char* stderr_path, const char* argv[]);
-int launchctl_list_cmd(const char* label);
-int launchctl_remove_cmd(const char* label);
+int
+launchctl_list_cmd(const char* label);
 
-bool launchctl_is_job_alive(const char* label);
-void launchctl_setup_system_context(void);
+int
+launchctl_remove_cmd(const char* label);
+
+int
+launchctl_submit_job(const char* label);
+
+int
+launchctl_submit_cmd(const char* label, const char* executable, const char* stdout_path, const char* stderr_path, const char* argv[]);
+
+bool
+launchctl_is_job_alive(const char* label);
+
+void
+launchctl_setup_system_context(void);
 
 #endif

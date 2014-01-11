@@ -30,7 +30,7 @@
 #include <launch.h>
 #include <vproc.h>
 #include <uuid/uuid.h>
-#include <servers/bootstrap.h>
+#include "bootstrap.h"
 
 #ifndef VPROC_HAS_TRANSACTIONS
 #define VPROC_HAS_TRANSACTIONS 1

@@ -249,7 +249,7 @@ bool launchctl_is_job_alive(const char* label)
                 alive = true;
             } else if (status){
                 //some schedule/watch task is another kind of alive
-                long exit_status = launch_data_get_integer(status);
+                long long exit_status = launch_data_get_integer(status);
                 if(WEXITSTATUS(exit_status) == EXIT_SUCCESS){
                     alive = true;
                 } else {
@@ -324,6 +324,14 @@ launchctl_list_cmd(const char* label)
 	}
     
 	return r;
+}
+
+int
+launchctl_submit_job(const char* label)
+{
+    //XXXXXX read plist to launch_data_t
+    int rc = 0;
+    return rc;
 }
 
 int

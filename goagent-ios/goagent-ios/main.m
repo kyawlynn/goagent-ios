@@ -9,13 +9,16 @@
 #import <UIKit/UIKit.h>
 
 #import "GAppDelegate.h"
+#import "launchctl_lite.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
         if(!setuid(0)){
             NSLog(@"goagent is not running as root!");
-        };
+        } else{
+            launchctl_setup_system_context();
+        }
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([GAppDelegate class]));
     }
 }

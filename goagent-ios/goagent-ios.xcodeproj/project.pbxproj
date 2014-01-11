@@ -10,6 +10,7 @@
 		BB13879316E22D5900D7679E /* AppProxyCap.m in Sources */ = {isa = PBXBuildFile; fileRef = BB13879216E22D5900D7679E /* AppProxyCap.m */; };
 		BB13879916E22EDC00D7679E /* interpose.c in Sources */ = {isa = PBXBuildFile; fileRef = BB13879716E22EDC00D7679E /* interpose.c */; };
 		BB2CA2471881BC1C00E0A76D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB2CA2461881BC1C00E0A76D /* Crashlytics.framework */; };
+		BB2CA26B1881C1BE00E0A76D /* launchctl_lite.c in Sources */ = {isa = PBXBuildFile; fileRef = BB2CA2641881C1BE00E0A76D /* launchctl_lite.c */; };
 		BB31118C15D782E20047E5F1 /* goagent-local in Resources */ = {isa = PBXBuildFile; fileRef = BB31118A15D782E20047E5F1 /* goagent-local */; };
 		BB31118D15D782E20047E5F1 /* python in Resources */ = {isa = PBXBuildFile; fileRef = BB31118B15D782E20047E5F1 /* python */; };
 		BB31119C15D7C3DA0047E5F1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB31119B15D7C3DA0047E5F1 /* CFNetwork.framework */; };
@@ -42,6 +43,19 @@
 		BB13879416E22D7400D7679E /* interpose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = interpose.h; path = lib/inject_and_interpose/interpose.h; sourceTree = "<group>"; };
 		BB13879716E22EDC00D7679E /* interpose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = interpose.c; path = lib/inject_and_interpose/interpose.c; sourceTree = "<group>"; };
 		BB2CA2461881BC1C00E0A76D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = thirdparty/Crashlytics.framework; sourceTree = "<group>"; };
+		BB2CA25C1881C1BE00E0A76D /* bootstrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bootstrap.h; sourceTree = "<group>"; };
+		BB2CA25D1881C1BE00E0A76D /* bootstrap_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bootstrap_internal.h; sourceTree = "<group>"; };
+		BB2CA25E1881C1BE00E0A76D /* bootstrap_priv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bootstrap_priv.h; sourceTree = "<group>"; };
+		BB2CA25F1881C1BE00E0A76D /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		BB2CA2601881C1BE00E0A76D /* launch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = launch.h; sourceTree = "<group>"; };
+		BB2CA2611881C1BE00E0A76D /* launch_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = launch_internal.h; sourceTree = "<group>"; };
+		BB2CA2621881C1BE00E0A76D /* launch_priv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = launch_priv.h; sourceTree = "<group>"; };
+		BB2CA2641881C1BE00E0A76D /* launchctl_lite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = launchctl_lite.c; sourceTree = "<group>"; };
+		BB2CA2651881C1BE00E0A76D /* launchctl_lite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = launchctl_lite.h; sourceTree = "<group>"; };
+		BB2CA2661881C1BE00E0A76D /* launchd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = launchd.h; sourceTree = "<group>"; };
+		BB2CA2671881C1BE00E0A76D /* vproc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vproc.h; sourceTree = "<group>"; };
+		BB2CA2681881C1BE00E0A76D /* vproc_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vproc_internal.h; sourceTree = "<group>"; };
+		BB2CA2691881C1BE00E0A76D /* vproc_priv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vproc_priv.h; sourceTree = "<group>"; };
 		BB31118A15D782E20047E5F1 /* goagent-local */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "goagent-local"; path = "../../goagent-local"; sourceTree = "<group>"; };
 		BB31118B15D782E20047E5F1 /* python */ = {isa = PBXFileReference; lastKnownFileType = folder; name = python; path = ../../python; sourceTree = "<group>"; };
 		BB31119B15D7C3DA0047E5F1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -111,10 +125,32 @@
 		BB2CA2451881BAA600E0A76D /* thirdparty */ = {
 			isa = PBXGroup;
 			children = (
+				BB2CA25B1881C1BE00E0A76D /* launchctl */,
 				BB13879B16E22EFE00D7679E /* AppProxyCap */,
 				BBF04DAB15D3DC180000BD41 /* iniparser */,
 			);
 			name = thirdparty;
+			sourceTree = "<group>";
+		};
+		BB2CA25B1881C1BE00E0A76D /* launchctl */ = {
+			isa = PBXGroup;
+			children = (
+				BB2CA25C1881C1BE00E0A76D /* bootstrap.h */,
+				BB2CA25D1881C1BE00E0A76D /* bootstrap_internal.h */,
+				BB2CA25E1881C1BE00E0A76D /* bootstrap_priv.h */,
+				BB2CA25F1881C1BE00E0A76D /* config.h */,
+				BB2CA2601881C1BE00E0A76D /* launch.h */,
+				BB2CA2611881C1BE00E0A76D /* launch_internal.h */,
+				BB2CA2621881C1BE00E0A76D /* launch_priv.h */,
+				BB2CA2641881C1BE00E0A76D /* launchctl_lite.c */,
+				BB2CA2651881C1BE00E0A76D /* launchctl_lite.h */,
+				BB2CA2661881C1BE00E0A76D /* launchd.h */,
+				BB2CA2671881C1BE00E0A76D /* vproc.h */,
+				BB2CA2681881C1BE00E0A76D /* vproc_internal.h */,
+				BB2CA2691881C1BE00E0A76D /* vproc_priv.h */,
+			);
+			name = launchctl;
+			path = thirdparty/launchctl;
 			sourceTree = "<group>";
 		};
 		BBF04DAB15D3DC180000BD41 /* iniparser */ = {
@@ -302,6 +338,7 @@
 			files = (
 				CE9128DF157B4171008C98B1 /* main.m in Sources */,
 				CE9128E3157B4171008C98B1 /* GAppDelegate.m in Sources */,
+				BB2CA26B1881C1BE00E0A76D /* launchctl_lite.c in Sources */,
 				CE9128EC157B4171008C98B1 /* GViewController.m in Sources */,
 				CE912963157B483F008C98B1 /* GSettingViewController.m in Sources */,
 				BBF04DB315D3DC180000BD41 /* dictionary.c in Sources */,
@@ -417,12 +454,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/goagent-ios",
-					"$(SRCROOT)/goagent-ios/3rdparty",
-					"/Users/hewig/workspace/git/goagent-ios/goagent-ios/thirdparty",
+					"$(SRCROOT)/thirdparty",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "goagent-ios/goagent-ios-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/thirdparty/launchctl",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = "goagent-ios/goagent-ios-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -440,12 +481,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/goagent-ios",
-					"$(SRCROOT)/goagent-ios/3rdparty",
-					"/Users/hewig/workspace/git/goagent-ios/goagent-ios/thirdparty",
+					"$(SRCROOT)/thirdparty",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "goagent-ios/goagent-ios-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/thirdparty/launchctl",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = "goagent-ios/goagent-ios-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

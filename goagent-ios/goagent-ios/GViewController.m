@@ -12,6 +12,7 @@
 #import "GUtility.h"
 #import "GAppDelegate.h"
 #import "AppProxyCap.h"
+#import "launchctl_lite.h"
 
 #pragma mark ignore ssl error, private API
 @interface NSURLRequest (NSURLRequestWithIgnoreSSL)
@@ -110,19 +111,17 @@
     if ([self isRunning])
     {
         actionCmd = CONTROL_CMD_STOP;
+        launchctl_remove_cmd([GOAGENT_JOB_LABEL UTF8String]);
     }
     else
     {
         actionCmd = CONTROL_CMD_START;
-    }
-    
-    NSString* controlSh = [[NSBundle mainBundle] pathForResource:CONTROL_SCRIPT_NAME
-                                                          ofType:CONTROL_SCRIPT_TYPE
-                                                     inDirectory:GOAGENT_LOCAL_PATH];
-    if (![GUtility runTaskWithArgs:[NSMutableArray arrayWithObjects:controlSh,actionCmd,nil] taskType:ShellTask waitExit:YES])
-    {
-        [appDelegate showAlert:@"Please check Logs for details." withTitle:@"Start GoAgent failed"];
-        return;
+        //XXXXXX launchctl_lite not implement yet.
+        if (0 != system("launchctl load org.goagent.local.ios"))
+        {
+            [appDelegate showAlert:@"Please check Logs for details." withTitle:@"Start GoAgent failed"];
+            return;
+        }
     }
     
     if ([actionCmd isEqualToString:CONTROL_CMD_STOP])

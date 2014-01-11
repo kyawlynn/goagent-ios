@@ -21,7 +21,7 @@
 #ifndef __BOOTSTRAP_PRIVATE_H__
 #define __BOOTSTRAP_PRIVATE_H__
 
-#include <servers/bootstrap.h>
+#include "bootstrap.h"
 #include <sys/types.h>
 #include <uuid/uuid.h>
 
