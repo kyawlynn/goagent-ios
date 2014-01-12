@@ -23,18 +23,18 @@ install: all
 		make -C $$i custom-install || exit 1; \
 	done
 
-package: 
+package: install
 	echo "packaging $(DEB_NAME)"
 	rm -Rf $(OUTPUT)/*.deb
 	mv $(APP_ROOT)/goagent-ios $(APP_ROOT)/goagent-ios_ ; \
 	mv $(APP_ROOT)/goagent $(APP_ROOT)/goagent-ios ; \
 	# codesign -s "iPhone Developer" $(APP_ROOT) ; 
-	extra/dpkg-deb -b $(PKG_ROOT) $(PKG_ROOT)/$(DEB_NAME)	; \
+	extra/dpkg-deb -b $(PKG_ROOT) $(OUTPUT)/$(DEB_NAME)	; \
 	echo "done"
 
 deploy: 
 	@#ssh -p 22 root\@$(DEVICE_IP) "dpkg -r $(DEB_ID)" ;
-	scp $(PKG_ROOT)/$(DEB_NAME) root\@$(DEVICE_IP):~/workspace ; \
+	scp $(OUTPUT)/$(DEB_NAME) root\@$(DEVICE_IP):~/workspace ; \
 	ssh -p 22 root\@$(DEVICE_IP) "dpkg -i ~/workspace/$(DEB_NAME)" ; \
 
 clean:

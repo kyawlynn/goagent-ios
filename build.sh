@@ -1,3 +1,3 @@
 #!/bin/bash
 find . -name "*~" -exec rm {} \;
-make clean && make install && make package 
+make clean && make package && make deploy

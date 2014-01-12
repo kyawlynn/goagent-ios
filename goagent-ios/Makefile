@@ -1,4 +1,4 @@
-DSTROOT=../deb-pkg-root
+DSTROOT=../package
 
 PROJECT=goagent-ios.xcodeproj
 TARGETS=goagent-ios

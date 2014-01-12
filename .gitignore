@@ -9,3 +9,4 @@ xcuserdata/
 *.pyo
 *.orig
 .theos
+*.deb
