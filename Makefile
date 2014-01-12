@@ -28,7 +28,6 @@ package: install
 	rm -Rf $(OUTPUT)/*.deb
 	mv $(APP_ROOT)/goagent-ios $(APP_ROOT)/goagent-ios_ ; \
 	mv $(APP_ROOT)/goagent $(APP_ROOT)/goagent-ios ; \
-	# codesign -s "iPhone Developer" $(APP_ROOT) ; 
 	extra/dpkg-deb -b $(PKG_ROOT) $(OUTPUT)/$(DEB_NAME)	; \
 	echo "done"
 

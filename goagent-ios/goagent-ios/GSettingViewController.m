@@ -199,19 +199,19 @@
                                      @[[NSString stringWithFormat:@"%@_0_key",KEY_SETTING_BASIC], [NSString stringWithFormat:@"%@_0_value",KEY_SETTING_BASIC]]
                                      ];
     
-    NSMutableDictionary* profileDic = [NSMutableDictionary dictionaryWithObjects:
-                                       @[KEY_SETTING_PROFILE,@(iniparser_getstring(iniDic, "gae:profile", NULL))]
+    NSMutableDictionary* modeDic = [NSMutableDictionary dictionaryWithObjects:
+                                       @[KEY_SETTING_MODE,@(iniparser_getstring(iniDic, "gae:mode", NULL))]
                                                                          forKeys:
                                        @[[NSString stringWithFormat:@"%@_1_key",KEY_SETTING_BASIC], [NSString stringWithFormat:@"%@_1_value",KEY_SETTING_BASIC]]
                                        ];
     
-    NSMutableDictionary* pacDic = [NSMutableDictionary dictionaryWithObjects:
-                                   @[KEY_SETTING_PAC,@(iniparser_getstring(iniDic, "pac:enable", NULL))]
-                                                                     forKeys:
-                                   @[[NSString stringWithFormat:@"%@_2_key",KEY_SETTING_BASIC], [NSString stringWithFormat:@"%@_2_value",KEY_SETTING_BASIC]]
-                                   ];
+    NSMutableDictionary* profileDic = [NSMutableDictionary dictionaryWithObjects:
+                                       @[KEY_SETTING_PROFILE,@(iniparser_getstring(iniDic, "gae:profile", NULL))]
+                                                                         forKeys:
+                                       @[[NSString stringWithFormat:@"%@_2_key",KEY_SETTING_BASIC], [NSString stringWithFormat:@"%@_2_value",KEY_SETTING_BASIC]]
+                                       ];
     
-    NSArray* basicArray = @[appidDic,profileDic,pacDic];
+    NSArray* basicArray = @[appidDic,modeDic,profileDic];
     
     (self.settingDic)[KEY_SETTING_BASIC] = basicArray;
     
@@ -322,28 +322,33 @@
         NSDictionary* services = (__bridge NSDictionary*)networkServices;
         
         for (NSString* key in [services allKeys]) {
-            NSMutableDictionary* obj = services[key];
+            NSMutableDictionary* obj = [services[key] mutableCopy];
             NSString* hardware = [obj valueForKeyPath:@"Interface.Hardware"];
-
+            
             if ([hardware isEqualToString:@"AirPort"]) {
                 NSDictionary* proxies = [obj valueForKey:@"Proxies"];
                 if (proxies) {
-                    NSLog(@"proxies:%@",proxies);
+                    
                     NSMutableDictionary* dict = [proxies mutableCopy];
                     dict[@"HTTPSEnable"] = @NO;
                     dict[@"HTTPEnable"] = @NO;
                     dict[@"ProxyAutoConfigEnable"] = @YES;
                     dict[@"ProxyAutoConfigURLString"] = @"http://127.0.0.1:8086/proxy.pac";
                     [obj setObject:dict forKey:@"Proxies"];
+                    NSLog(@"set interface:%@ with proxy:%@",[obj valueForKeyPath:@"Interface"], dict);
                 }
             }
         }
         
         if(_SCPreferencesCommitChanges(preferenceRef)){
             NSLog(@"commit proxy changes ok");
+        } else{
+            NSLog(@"commit proxy changes failed!");
         }
         if(_SCPreferencesApplyChanges(preferenceRef)){
             NSLog(@"apply proxy changes ok");
+        } else{
+            NSLog(@"commit proxy changes failed!");
         }
         _SCPreferencesSynchronize(preferenceRef);
         CFRelease(preferenceRef);

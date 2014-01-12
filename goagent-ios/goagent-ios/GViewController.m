@@ -116,9 +116,9 @@
     else
     {
         actionCmd = CONTROL_CMD_START;
-        //XXXXXX launchctl_lite not implement yet.
-        if (0 != system("launchctl load org.goagent.local.ios"))
+        if (![[NSFileManager defaultManager] createFileAtPath:GOAGENT_PID_PATH contents:nil attributes:nil])
         {
+            NSLog(@"touch goagent.pid failed!");
             [appDelegate showAlert:@"Please check Logs for details." withTitle:@"Start GoAgent failed"];
             return;
         }
@@ -137,8 +137,11 @@
         int port = iniparser_getint(iniDic, "listen:port" , 8087);
         [AppProxyCap activate];
         [AppProxyCap setProxy:AppProxy_HTTP Host:host Port:port];
-        
-        [self loadHomePage];
+        double delayInSeconds = 2.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self loadHomePage];
+        });
     }
     [self updateUIStatus];
 }
@@ -220,9 +223,6 @@
 -(void)loadHomePage
 {
     NSLog(@"load goagent homepage");
-    //wait for goagent ready, otherwise it will connect directly
-    sleep(1);
-    
     [self loadURL:GOAGENT_HOME_PAGE];
 }
 

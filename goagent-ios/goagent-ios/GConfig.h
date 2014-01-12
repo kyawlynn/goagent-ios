@@ -29,6 +29,7 @@
 #define KEY_SETTING_ADVANCED            @"Advanced"
 #define KEY_SETTING_APPID               @"AppID"
 #define KEY_SETTING_PROFILE             @"GAE Profile"
+#define KEY_SETTING_MODE                @"GAE Mode"
 #define KEY_SETTING_PAC                 @"PAC Server"
 #define KEY_SETTING_SET_SYSPROXY        @"Change System Proxy"
 #define KEY_SETTING_INSTALL_CERT        @"Install GoAgent CA"
