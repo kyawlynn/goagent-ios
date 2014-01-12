@@ -14,13 +14,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" id="ntx-Ab-ll3">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                <rect key="frame" x="0.0" y="93" width="320" height="343"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address bar" minimumFontSize="17" clearButtonMode="whileEditing" id="lp1-XJ-xf9">
-                                <rect key="frame" x="0.0" y="64.999984701473977" width="320" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES" heightSizable="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="lp1-XJ-xf9">
+                                <rect key="frame" x="0.0" y="63" width="320" height="30"/>
+                                <autoresizingMask key="autoresizingMask" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -28,12 +28,11 @@
                                 <rect key="frame" x="0.0" y="436" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem title="&lt;" width="34" style="plain" id="soD-Lz-jIj">
+                                    <barButtonItem title="&lt;" width="61" style="plain" id="soD-Lz-jIj">
                                         <connections>
                                             <action selector="performBackAction:" destination="2" id="6HJ-cn-Ykm"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="rvH-0u-ONV"/>
                                     <barButtonItem enabled="NO" title=">" width="30" style="plain" id="0oo-0T-TVZ">
                                         <connections>
                                             <action selector="performFowardAction:" destination="2" id="Ejf-35-XcB"/>

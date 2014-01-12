@@ -63,15 +63,15 @@
     self.addressField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.addressField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.addressField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    
-    [self.addressField setDelegate:self];
-    [self.webViewRef setDelegate:self];
-    [self.busyWebIcon setHidden:YES];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.addressField setDelegate:self];
+    [self.webViewRef setDelegate:self];
+    [self.busyWebIcon setHidden:YES];
     
     [self.backBtn setTitleTextAttributes:@{UITextAttributeFont: [UIFont systemFontOfSize:28]} forState:UIControlStateNormal];
     [self.fowardBtn setTitleTextAttributes:@{UITextAttributeFont:[UIFont systemFontOfSize:28]} forState:UIControlStateNormal];
@@ -268,10 +268,13 @@
 }
 
 #pragma mark NSTextField delegate
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
-    [self loadURL:[textField text]];
+    if (textField == self.addressField) {
+        [self resignFirstResponder];
+        [self loadURL:[textField text]];
+    }
     return YES;
 }
 
