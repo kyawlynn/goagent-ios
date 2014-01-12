@@ -119,8 +119,7 @@
         }
         int rc = system("killall python");
         if (rc != 0) {
-            [appDelegate showAlert:[NSString stringWithFormat:@"Stop python failed code:%d", rc] withTitle:@"Stop GoAgent failed"];
-            return;
+            NSLog(@"may no python process");
         }
     }
     else
