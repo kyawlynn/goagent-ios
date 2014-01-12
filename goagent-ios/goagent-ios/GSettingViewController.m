@@ -327,16 +327,17 @@
             
             if ([hardware isEqualToString:@"AirPort"]) {
                 NSDictionary* proxies = [obj valueForKey:@"Proxies"];
-                if (proxies) {
-                    
-                    NSMutableDictionary* dict = [proxies mutableCopy];
-                    dict[@"HTTPSEnable"] = @NO;
-                    dict[@"HTTPEnable"] = @NO;
-                    dict[@"ProxyAutoConfigEnable"] = @YES;
-                    dict[@"ProxyAutoConfigURLString"] = @"http://127.0.0.1:8086/proxy.pac";
-                    [obj setObject:dict forKey:@"Proxies"];
-                    NSLog(@"set interface:%@ with proxy:%@",[obj valueForKeyPath:@"Interface"], dict);
+                NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary:proxies];
+                if (!dict[@"ExceptionsList"]) {
+                    dict[@"ExceptionsList"] = @[@"*.local",@"169.254/16",@"127.0.0.1"];
                 }
+                dict[@"HTTPSEnable"] = @NO;
+                dict[@"HTTPEnable"] = @NO;
+                dict[@"ProxyAutoConfigEnable"] = @YES;
+                dict[@"ProxyAutoConfigURLString"] = @"http://127.0.0.1:8086/proxy.pac";
+                [obj setObject:dict forKey:@"Proxies"];
+                NSLog(@"set interface:%@ with proxy:%@",[obj valueForKeyPath:@"Interface"], dict);
+
             }
         }
         
