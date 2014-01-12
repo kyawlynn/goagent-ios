@@ -111,7 +111,17 @@
     if ([self isRunning])
     {
         actionCmd = CONTROL_CMD_STOP;
-        launchctl_remove_cmd([GOAGENT_JOB_LABEL UTF8String]);
+        NSError* error;
+        if (![[NSFileManager defaultManager] removeItemAtPath:GOAGENT_PID_PATH error:&error]) {
+            NSLog(@"remove pid failed:%@",[error description]);
+            [appDelegate showAlert:@"Can't remove GoAgent pid file" withTitle:@"Stop GoAgent failed"];
+            return;
+        }
+        int rc = system("killall python");
+        if (rc != 0) {
+            [appDelegate showAlert:[NSString stringWithFormat:@"Stop python failed code:%d", rc] withTitle:@"Stop GoAgent failed"];
+            return;
+        }
     }
     else
     {
@@ -119,7 +129,7 @@
         if (![[NSFileManager defaultManager] createFileAtPath:GOAGENT_PID_PATH contents:nil attributes:nil])
         {
             NSLog(@"touch goagent.pid failed!");
-            [appDelegate showAlert:@"Please check Logs for details." withTitle:@"Start GoAgent failed"];
+            [appDelegate showAlert:@"Can't touch GoAgent pid file" withTitle:@"Start GoAgent failed"];
             return;
         }
     }
@@ -137,7 +147,7 @@
         int port = iniparser_getint(iniDic, "listen:port" , 8087);
         [AppProxyCap activate];
         [AppProxyCap setProxy:AppProxy_HTTP Host:host Port:port];
-        double delayInSeconds = 1.5;
+        double delayInSeconds = 2.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [self loadHomePage];
@@ -217,7 +227,10 @@
     {
         return YES;
     }
-    else return NO;
+    else
+    {
+        return NO;
+    }
 }
 
 -(void)loadHomePage
