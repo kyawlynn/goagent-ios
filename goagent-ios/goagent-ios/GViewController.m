@@ -137,7 +137,7 @@
         int port = iniparser_getint(iniDic, "listen:port" , 8087);
         [AppProxyCap activate];
         [AppProxyCap setProxy:AppProxy_HTTP Host:host Port:port];
-        double delayInSeconds = 2.0;
+        double delayInSeconds = 1.5;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [self loadHomePage];

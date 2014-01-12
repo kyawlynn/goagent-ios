@@ -16,8 +16,9 @@
 	struct stat st;
     if(stat(GOAGENT_PID,&st) == 0) {
         return FSSwitchStateOn;
+    } else{
+        return FSSwitchStateOff;
     }
-    return FSSwitchStateOff;
 }
 
 - (void)applyState:(FSSwitchState)newState forSwitchIdentifier:(NSString *)switchIdentifier
