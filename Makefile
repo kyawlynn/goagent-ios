@@ -1,6 +1,7 @@
 APPS = goagent-ios
 DEB_ID = org.goagent.local.ios
-PKG_ROOT = deb-pkg-root
+PKG_ROOT = package
+OUTPUT = output
 APP_ROOT = $(PKG_ROOT)/Applications/goagent-ios.app
 DEVICE_IP=192.168.1.103
 VERSION = $(shell grep Version $(PKG_ROOT)/DEBIAN/control | cut -d ":" -f2 | tr -d " ")
@@ -24,7 +25,7 @@ install: all
 
 package: 
 	echo "packaging $(DEB_NAME)"
-	rm -Rf $(PKG_ROOT)/*.deb
+	rm -Rf $(OUTPUT)/*.deb
 	mv $(APP_ROOT)/goagent-ios $(APP_ROOT)/goagent-ios_ ; \
 	mv $(APP_ROOT)/goagent $(APP_ROOT)/goagent-ios ; \
 	# codesign -s "iPhone Developer" $(APP_ROOT) ; 
@@ -45,3 +46,4 @@ clean:
 	echo "cleaning $(PKG_ROOT)"
 	rm -Rf $(PKG_ROOT)/Applications
 	rm -Rf $(PKG_ROOT)/Library
+	rm -Rf $(OUTPUT)/*.deb

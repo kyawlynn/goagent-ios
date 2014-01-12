@@ -11,6 +11,9 @@
 		BB13879916E22EDC00D7679E /* interpose.c in Sources */ = {isa = PBXBuildFile; fileRef = BB13879716E22EDC00D7679E /* interpose.c */; };
 		BB2CA2471881BC1C00E0A76D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB2CA2461881BC1C00E0A76D /* Crashlytics.framework */; };
 		BB2CA26B1881C1BE00E0A76D /* launchctl_lite.c in Sources */ = {isa = PBXBuildFile; fileRef = BB2CA2641881C1BE00E0A76D /* launchctl_lite.c */; };
+		BB2CA271188249AB00E0A76D /* icon_76.png in Resources */ = {isa = PBXBuildFile; fileRef = BB2CA26E188249AB00E0A76D /* icon_76.png */; };
+		BB2CA272188249AB00E0A76D /* icon_120.png in Resources */ = {isa = PBXBuildFile; fileRef = BB2CA26F188249AB00E0A76D /* icon_120.png */; };
+		BB2CA273188249AB00E0A76D /* icon_152.png in Resources */ = {isa = PBXBuildFile; fileRef = BB2CA270188249AB00E0A76D /* icon_152.png */; };
 		BB31118C15D782E20047E5F1 /* goagent-local in Resources */ = {isa = PBXBuildFile; fileRef = BB31118A15D782E20047E5F1 /* goagent-local */; };
 		BB31118D15D782E20047E5F1 /* python in Resources */ = {isa = PBXBuildFile; fileRef = BB31118B15D782E20047E5F1 /* python */; };
 		BB31119C15D7C3DA0047E5F1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB31119B15D7C3DA0047E5F1 /* CFNetwork.framework */; };
@@ -56,6 +59,9 @@
 		BB2CA2671881C1BE00E0A76D /* vproc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vproc.h; sourceTree = "<group>"; };
 		BB2CA2681881C1BE00E0A76D /* vproc_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vproc_internal.h; sourceTree = "<group>"; };
 		BB2CA2691881C1BE00E0A76D /* vproc_priv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vproc_priv.h; sourceTree = "<group>"; };
+		BB2CA26E188249AB00E0A76D /* icon_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_76.png; sourceTree = "<group>"; };
+		BB2CA26F188249AB00E0A76D /* icon_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_120.png; sourceTree = "<group>"; };
+		BB2CA270188249AB00E0A76D /* icon_152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_152.png; sourceTree = "<group>"; };
 		BB31118A15D782E20047E5F1 /* goagent-local */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "goagent-local"; path = "../../goagent-local"; sourceTree = "<group>"; };
 		BB31118B15D782E20047E5F1 /* python */ = {isa = PBXFileReference; lastKnownFileType = folder; name = python; path = ../../python; sourceTree = "<group>"; };
 		BB31119B15D7C3DA0047E5F1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -153,6 +159,20 @@
 			path = thirdparty/launchctl;
 			sourceTree = "<group>";
 		};
+		BB2CA274188249B000E0A76D /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				CE0A6CFD157B5C7200C46A20 /* icon_57.png */,
+				CE0A6CFE157B5C7200C46A20 /* icon_72.png */,
+				CE0A6CFF157B5C7200C46A20 /* icon_114.png */,
+				CE0A6D00157B5C7200C46A20 /* icon_144.png */,
+				BB2CA26E188249AB00E0A76D /* icon_76.png */,
+				BB2CA26F188249AB00E0A76D /* icon_120.png */,
+				BB2CA270188249AB00E0A76D /* icon_152.png */,
+			);
+			name = icons;
+			sourceTree = "<group>";
+		};
 		BBF04DAB15D3DC180000BD41 /* iniparser */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,15 +249,12 @@
 		CE91290E157B4382008C98B1 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				BB2CA274188249B000E0A76D /* icons */,
 				BBBF8273167C9795002FBED5 /* goagent */,
 				BBBF825F167C52A6002FBED5 /* authrunner */,
 				BBB609971657803800D823C3 /* Default-568h@2x.png */,
 				BB31118A15D782E20047E5F1 /* goagent-local */,
 				BB31118B15D782E20047E5F1 /* python */,
-				CE0A6CFD157B5C7200C46A20 /* icon_57.png */,
-				CE0A6CFE157B5C7200C46A20 /* icon_72.png */,
-				CE0A6CFF157B5C7200C46A20 /* icon_114.png */,
-				CE0A6D00157B5C7200C46A20 /* icon_144.png */,
 				CE0A6CF7157B5B0C00C46A20 /* MainStoryboard_iPad.storyboard */,
 				CE0A6CF9157B5B0C00C46A20 /* MainStoryboard_iPhone.storyboard */,
 			);
@@ -297,12 +314,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB2CA272188249AB00E0A76D /* icon_120.png in Resources */,
+				BB2CA273188249AB00E0A76D /* icon_152.png in Resources */,
 				CE9128DD157B4171008C98B1 /* InfoPlist.strings in Resources */,
 				CE0A6CFB157B5B0C00C46A20 /* MainStoryboard_iPad.storyboard in Resources */,
 				CE0A6CFC157B5B0C00C46A20 /* MainStoryboard_iPhone.storyboard in Resources */,
 				CE0A6D01157B5C7200C46A20 /* icon_57.png in Resources */,
 				CE0A6D02157B5C7200C46A20 /* icon_72.png in Resources */,
 				CE0A6D03157B5C7200C46A20 /* icon_114.png in Resources */,
+				BB2CA271188249AB00E0A76D /* icon_76.png in Resources */,
 				CE0A6D04157B5C7200C46A20 /* icon_144.png in Resources */,
 				BB31118C15D782E20047E5F1 /* goagent-local in Resources */,
 				BB31118D15D782E20047E5F1 /* python in Resources */,
