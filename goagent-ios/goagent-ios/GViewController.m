@@ -147,7 +147,6 @@
 {
     NSLog(@"setting button pushed");
     [self.navigationController pushViewController:self.settingViewController animated:YES];
-//    [self presentModalViewController:self.settingViewController animated:NO];
 }
 
 -(IBAction)performBackAction:(id)sender

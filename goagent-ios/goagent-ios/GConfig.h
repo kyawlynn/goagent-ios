@@ -37,7 +37,7 @@
 
 #define APPLICATION_NAME                @"GoAgent for iOS"
 #define LOCAL_CA_URL                    @"http://127.0.0.1:8086/CA.crt"
-#define REMOTE_CA_URL                   @"http://goagent.googlecode.com/files/CA.crt"
+#define REMOTE_CA_URL                   @"https://github.com/goagent/goagent/raw/3.0/local/CA.crt"
 #define GOAGENT_HOME_PAGE               @"http://www.goagent.org"
 
 #endif

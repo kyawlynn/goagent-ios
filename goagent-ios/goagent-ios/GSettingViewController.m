@@ -285,15 +285,7 @@
         case 101:
         {
             NSLog(@"perform install CA action");
-            NSString* CA_URL=nil;
-            if ([[NSFileManager defaultManager] fileExistsAtPath:GOAGENT_PID_PATH])
-            {
-                CA_URL = LOCAL_CA_URL;
-            }
-            else
-            {
-                CA_URL = REMOTE_CA_URL;
-            }
+            NSString* CA_URL = REMOTE_CA_URL;
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:CA_URL]];
             break;
         }
@@ -319,7 +311,6 @@
     if (buttonIndex != alertView.cancelButtonIndex)
     {
         void* libHandle = dlopen("/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration", RTLD_LAZY);
-        
         SCPreferencesRef(*_SCPreferencesCreate)(CFAllocatorRef,CFStringRef,CFStringRef) = dlsym(libHandle, "SCPreferencesCreate");
         CFPropertyListRef(*_SCPreferencesGetValue)(SCPreferencesRef,CFStringRef) = dlsym(libHandle, "SCPreferencesGetValue");
         Boolean(*_SCPreferencesApplyChanges)(SCPreferencesRef) = dlsym(libHandle, "SCPreferencesApplyChanges");
@@ -349,13 +340,14 @@
         }
         
         if(_SCPreferencesCommitChanges(preferenceRef)){
-            NSLog(@"commit changes ok");
+            NSLog(@"commit proxy changes ok");
         }
         if(_SCPreferencesApplyChanges(preferenceRef)){
-            NSLog(@"apply changes ok");
+            NSLog(@"apply proxy changes ok");
         }
         _SCPreferencesSynchronize(preferenceRef);
         CFRelease(preferenceRef);
+        dlclose(libHandle);
     }
 }
 

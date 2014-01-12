@@ -18,7 +18,7 @@
     {
         return NO;
     }
-    //NSString* workingDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
     //we are running as root now
     NSString* workingDir = GOAGENT_HOME;
     NSLog(@"working dir is %@",workingDir);
@@ -26,7 +26,6 @@
     {
         NSTask* task = [NSTask alloc];
         if (type == PythonTask) {
-            //[task setLaunchPath:[NSString stringWithFormat:@"%@/python/bin/python",workingDir]];
             [args insertObject:[NSString stringWithFormat:@"%@/python/bin/python",workingDir] atIndex:0];
             [task setEnvironment:@{@"PYTHONHOME": [NSString stringWithFormat:@"%@/python",workingDir]}];
         }
