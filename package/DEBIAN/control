@@ -1,7 +1,7 @@
 Package: org.goagent.local.ios
 Name: GoAgent iOS
 Depends: firmware (>= 6.0), com.saurik.substrate.safemode, sudo, openssl,shell-cmds
-Version: 0.0.7
+Version: 0.0.8
 Architecture: iphoneos-arm
 Description: goagent client for ios
 Maintainer: @hewigovens
