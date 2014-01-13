@@ -65,15 +65,18 @@
     }
     SCPreferencesRef(*_SCPreferencesCreate)(CFAllocatorRef,CFStringRef,CFStringRef) = dlsym(libHandle, "SCPreferencesCreate");
     CFPropertyListRef(*_SCPreferencesGetValue)(SCPreferencesRef,CFStringRef) = dlsym(libHandle, "SCPreferencesGetValue");
+    
+    Boolean(*_SCPreferencesSetValue)(SCPreferencesRef,CFStringRef,CFPropertyListRef) = dlsym(libHandle, "SCPreferencesSetValue");
     Boolean(*_SCPreferencesApplyChanges)(SCPreferencesRef) = dlsym(libHandle, "SCPreferencesApplyChanges");
     Boolean(*_SCPreferencesCommitChanges)(SCPreferencesRef) = dlsym(libHandle, "SCPreferencesCommitChanges");
     void(*_SCPreferencesSynchronize)(SCPreferencesRef) = dlsym(libHandle, "SCPreferencesSynchronize");
     
     SCPreferencesRef preferenceRef = _SCPreferencesCreate(NULL, CFSTR("goagent-ios"), NULL);
     CFPropertyListRef networkServices = _SCPreferencesGetValue(preferenceRef, CFSTR("NetworkServices"));
-    NSMutableDictionary* services = (__bridge NSMutableDictionary*)networkServices;
+    NSDictionary* services = (__bridge NSDictionary*)networkServices;
     
     for (NSString* key in [services allKeys]) {
+        NSLog(@"==> check device:%@", key);
         NSMutableDictionary* obj = [services[key] mutableCopy];
         NSString* hardware = [obj valueForKeyPath:@"Interface.Hardware"];
         
@@ -91,7 +94,11 @@
             [obj setObject:dict forKey:@"Proxies"];
             @try {
                 NSLog(@"==> set interface:%@ with proxy:%@",[obj valueForKeyPath:@"Interface"], dict);
-                services[key] = obj;
+                if(_SCPreferencesSetValue(preferenceRef, (__bridge CFStringRef)key, (__bridge CFPropertyListRef)obj)){
+                    NSLog(@"<== set proxy changes successfully");
+                } else{
+                    NSLog(@"<== commit proxy changes failed");
+                }
             }
             @catch (NSException *exception) {
                 NSLog(@"<== set proxy dict failed:%@",[exception description]);
