@@ -77,7 +77,7 @@
         NSMutableDictionary* obj = [services[key] mutableCopy];
         NSString* hardware = [obj valueForKeyPath:@"Interface.Hardware"];
         
-        if ([hardware isEqualToString:@"AirPort"]) {
+        if ([hardware isEqualToString:@"AirPort"] || [hardware isEqualToString:@"com.apple.CommCenter"]) {
             NSDictionary* proxies = [obj valueForKey:@"Proxies"];
             NSLog(@"<== previous proxy:%@", proxies);
             NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary:proxies];
