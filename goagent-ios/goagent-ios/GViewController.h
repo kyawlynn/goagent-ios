@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "iniparser.h"
 
-@interface GViewController : UIViewController <UIWebViewDelegate, UITextFieldDelegate, UIActionSheetDelegate>
+@interface GViewController : UIViewController
 
 @property (nonatomic,strong) UIBarButtonItem *startBtn;
 @property (nonatomic,strong) UIBarButtonItem *settingBtn;

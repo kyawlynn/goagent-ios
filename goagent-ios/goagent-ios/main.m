@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 {
     @autoreleasepool {
         if(setuid(0) != 0){
-            NSLog(@"goagent is not running as root!");
+            NSLog(@"<== GoAgent iOS is not running as root!");
         } else{
             launchctl_setup_system_context();
         }

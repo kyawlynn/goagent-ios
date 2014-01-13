@@ -16,4 +16,5 @@
 + (GAppDelegate*)getInstance;
 + (dictionary*)loadGoAgentSettings;
 - (void)showAlert:(NSString*)message withTitle:(NSString*)title;
+
 @end

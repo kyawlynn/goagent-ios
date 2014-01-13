@@ -26,7 +26,7 @@
 }
 @end
 
-@interface GViewController ()
+@interface GViewController () <UIWebViewDelegate, UITextFieldDelegate, UIActionSheetDelegate>
 
 @end
 
@@ -38,7 +38,7 @@
     [super viewDidUnload];
 }
 
--(void)awakeFromNib
+- (void)awakeFromNib
 {
     self.settingViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"SettingViewController"];
     
@@ -70,6 +70,7 @@
     [super viewDidLoad];
     
     [self.addressField setDelegate:self];
+    self.addressField.placeholder = @"Type URL to browse";
     [self.webViewRef setDelegate:self];
     [self.busyWebIcon setHidden:YES];
     
@@ -93,10 +94,10 @@
     return UIInterfaceOrientationIsPortrait(interfaceOrientation);
 }
 
+#pragma mark IBActions
+
 -(IBAction)performStartAction:(id)sender
 {
-    NSLog(@"start button pushed");
-    
     GAppDelegate* appDelegate = [GAppDelegate getInstance];
     
     dictionary* iniDic = [GAppDelegate loadGoAgentSettings];
@@ -110,25 +111,27 @@
     NSString* actionCmd = nil;
     if ([self isRunning])
     {
+        NSLog(@"==> try stop goagent");
         actionCmd = CONTROL_CMD_STOP;
         NSError* error;
         if (![[NSFileManager defaultManager] removeItemAtPath:GOAGENT_PID_PATH error:&error]) {
-            NSLog(@"remove pid failed:%@",[error description]);
+            NSLog(@"<== remove pid failed:%@",[error description]);
             [appDelegate showAlert:@"Can't remove GoAgent pid file" withTitle:@"Stop GoAgent failed"];
             return;
         }
         int rc = system("killall python");
         if (rc != 0) {
-            [appDelegate showAlert:[NSString stringWithFormat:@"Stop python failed code:%d", rc] withTitle:@"Stop GoAgent failed"];
+            [appDelegate showAlert:[NSString stringWithFormat:@"Stop python failed code:%d, Please try again", rc] withTitle:@"Stop GoAgent failed"];
             return;
         }
     }
     else
     {
+        NSLog(@"==> try start goagent");
         actionCmd = CONTROL_CMD_START;
         if (![[NSFileManager defaultManager] createFileAtPath:GOAGENT_PID_PATH contents:nil attributes:nil])
         {
-            NSLog(@"touch goagent.pid failed!");
+            NSLog(@"<== touch goagent.pid failed!");
             [appDelegate showAlert:@"Can't touch GoAgent pid file" withTitle:@"Start GoAgent failed"];
             return;
         }
@@ -142,7 +145,6 @@
     else
     {
         [self.addressField setHidden:NO];
-        dictionary* iniDic = [GAppDelegate loadGoAgentSettings];
         NSString* host = [NSString stringWithFormat:@"%s", iniparser_getstring(iniDic, "listen:ip", "127.0.0.1")];
         int port = iniparser_getint(iniDic, "listen:port" , 8087);
         [AppProxyCap activate];
@@ -158,13 +160,11 @@
 
 -(IBAction)performSettingAction:(id)sender
 {
-    NSLog(@"setting button pushed");
     [self.navigationController pushViewController:self.settingViewController animated:YES];
 }
 
 -(IBAction)performBackAction:(id)sender
 {
-    NSLog(@"%@",sender);
     if ([self.webViewRef canGoBack]) {
         [self.webViewRef goBack];
         
@@ -176,7 +176,6 @@
 }
 -(IBAction)performFowardAction:(id)sender
 {
-    NSLog(@"%@",sender);
     if ([self.webViewRef canGoForward]) {
         [self.webViewRef goForward];
         
@@ -191,13 +190,11 @@
 }
 -(IBAction)performReloadAction:(id)sender
 {
-    NSLog(@"%@",sender);
     [self.webViewRef reload];
 }
 
 -(IBAction)performShareAction:(id)sender
 {
-    NSLog(@"%@",sender);
     UIActionSheet *menu = [[UIActionSheet alloc]
 						   initWithTitle: nil
 						   delegate:self
@@ -207,15 +204,20 @@
 	[menu showFromToolbar:self.toolBar];
 }
 
+#pragma mark helper functions
+
 -(void)updateUIStatus;
 {
+
     if ([self isRunning])
     {
+        NSLog(@"<== updateUIStatus, goagent is running");
         [self.startBtn setTitle:@"Stop"];
         [self.addressField setHidden:NO];
     }
     else
     {
+        NSLog(@"<== updateUIStatus, goagent is not running");
         [self.startBtn setTitle:@"Start"];
         [self.addressField setHidden:YES];
     }
@@ -235,13 +237,11 @@
 
 -(void)loadHomePage
 {
-    NSLog(@"load goagent homepage");
     [self loadURL:GOAGENT_HOME_PAGE];
 }
 
 -(void)loadWelcomeMessage
 {
-    NSLog(@"load welcome message");
     [self loadURL:nil];
 }
 
@@ -316,7 +316,7 @@
 	[self.busyWebIcon stopAnimating];
     
     GAppDelegate* appDelegate = [GAppDelegate getInstance];
-    NSLog(@"load page error: %@", [error localizedDescription]);
+    NSLog(@"<== load page error: %@", [error localizedDescription]);
     [appDelegate showAlert:[error localizedDescription] withTitle:@"Load Page Error"];
 }
 

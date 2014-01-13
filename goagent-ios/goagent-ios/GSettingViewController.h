@@ -9,11 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "iniparser.h"
 
-@interface GSettingViewController : UIViewController<UITableViewDelegate,
-                                                    UITableViewDataSource,
-                                                    UITextFieldDelegate,
-                                                    UIDocumentInteractionControllerDelegate,
-                                                    UIAlertViewDelegate>
+@interface GSettingViewController : UIViewController
 
 @property (nonatomic,weak) IBOutlet UITableView* settingTableView;
 @property (nonatomic,strong) UIBarButtonItem *BackBtn;
