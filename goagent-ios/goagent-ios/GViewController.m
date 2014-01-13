@@ -121,8 +121,8 @@
         }
         int rc = system("killall python");
         if (rc != 0) {
-            [appDelegate showAlert:[NSString stringWithFormat:@"Stop python failed code:%d, Please try again", rc] withTitle:@"Stop GoAgent failed"];
-            return;
+            NSLog(@"<== killall python returns:%d",rc);
+            //[appDelegate showAlert:[NSString stringWithFormat:@"Stop python failed code:%d, Please try again", rc] withTitle:@"Stop GoAgent failed"];
         }
     }
     else
