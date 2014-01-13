@@ -18,6 +18,29 @@ static dictionary* iniDic = NULL;
 
 @synthesize window = _window;
 
++ (GAppDelegate*)getInstance
+{
+    return [[UIApplication sharedApplication] delegate];
+}
+
++ (dictionary*)loadGoAgentSettings
+{
+    if (iniDic)
+    {
+        NSLog(@"<== load proxy.ini from memory");
+        return iniDic;
+    }
+    else
+    {
+        NSString* iniFile = [[NSBundle mainBundle] pathForResource:CONFIG_FILE_NAME
+                                                            ofType:CONFIG_FILE_TYPE
+                                                       inDirectory:GOAGENT_LOCAL_PATH];
+        iniDic = iniparser_load([iniFile UTF8String]);
+        NSLog(@"<== load proxy.ini from file");
+        return iniDic;
+    }
+}
+
 -(void)dealloc
 {
     if (iniDic) {
@@ -27,18 +50,16 @@ static dictionary* iniDic = NULL;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //freopen([GOAGENT_LOCAL_LOG UTF8String],"a",stderr);
-    NSLog(@"redirect logs to %@", GOAGENT_LOCAL_LOG);
+    NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
+    NSLog(@"==> GoAgent iOS finish launching, version:%@", infoDict[@"CFBundleShortVersionString"]);
+
+#ifndef DEBUG
+    NSLog(@"==> redirect logs to %@", GOAGENT_LOCAL_LOG);
+    freopen([GOAGENT_LOCAL_LOG UTF8String],"a",stderr);
+#endif
+
     [Crashlytics startWithAPIKey:@"00294b074c27a6569db329a72df442fbff108a8c"];
     return YES;
-}
-							
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -46,37 +67,13 @@ static dictionary* iniDic = NULL;
     [_window.rootViewController viewWillAppear:YES];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-}
-
-+ (GAppDelegate*)getInstance
-{
-    return [[UIApplication sharedApplication] delegate];
-}
-
-+ (dictionary*)loadGoAgentSettings
-{
-    if (iniDic) {
-        return iniDic;
-    }
-    else{
-        NSString* iniFile = [[NSBundle mainBundle] pathForResource:CONFIG_FILE_NAME
-                                                            ofType:CONFIG_FILE_TYPE
-                                                       inDirectory:GOAGENT_LOCAL_PATH];
-        iniDic = iniparser_load([iniFile UTF8String]);
-        return iniDic;
-    }
-}
-
 - (void)showAlert:(NSString*)message withTitle:(NSString*)title;
 {
-    UIAlertView *baseAlert = [[UIAlertView alloc]
-							  initWithTitle:title message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    UIAlertView *baseAlert = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:@"OK", nil];
 	[baseAlert show];
 }
 

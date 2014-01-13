@@ -16,5 +16,6 @@ enum GTaskType{
 @interface GUtility : NSObject
 
 +(BOOL) runTaskWithArgs:(NSMutableArray*)args taskType:(enum GTaskType)type waitExit:(BOOL)waitExit;
++(BOOL) setSystemProxy;
 
 @end

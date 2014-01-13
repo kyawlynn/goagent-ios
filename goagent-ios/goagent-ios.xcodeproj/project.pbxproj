@@ -271,7 +271,8 @@
 				CE9128CA157B4171008C98B1 /* Sources */,
 				CE9128CB157B4171008C98B1 /* Frameworks */,
 				CE9128CC157B4171008C98B1 /* Resources */,
-				BB00B6DE187F97350080042A /* Run Script */,
+				BB00B6DE187F97350080042A /* Set up Crashlytics */,
+				D9C31A0118838F3A005FCA9D /* Codesign */,
 			);
 			buildRules = (
 			);
@@ -335,19 +336,33 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		BB00B6DE187F97350080042A /* Run Script */ = {
+		BB00B6DE187F97350080042A /* Set up Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Run Script";
+			name = "Set up Crashlytics";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "thirdparty/Crashlytics.framework/run 00294b074c27a6569db329a72df442fbff108a8c\n\necho  ${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\n\n../extra/ldid -S ${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}";
+			shellScript = "thirdparty/Crashlytics.framework/run 00294b074c27a6569db329a72df442fbff108a8c";
+		};
+		D9C31A0118838F3A005FCA9D /* Codesign */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Codesign;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo  ${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\n../extra/ldid -S ${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}";
 		};
 /* End PBXShellScriptBuildPhase section */
 

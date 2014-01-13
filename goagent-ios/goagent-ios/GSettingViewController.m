@@ -10,21 +10,18 @@
 #import "GConfig.h"
 #import "GUtility.h"
 #import "GAppDelegate.h"
-#import <dlfcn.h>
 
-#import <SystemConfiguration/SystemConfiguration.h>
-#import <SystemConfiguration/CaptiveNetwork.h>
+@interface GSettingViewController()<UITableViewDelegate,UITableViewDataSource,
+                                    UITextFieldDelegate,UIDocumentInteractionControllerDelegate,
+                                    UIAlertViewDelegate,UIActionSheetDelegate>
+
+@end
 
 @implementation GSettingViewController
 
 -(void)awakeFromNib
 {
     [self prepareSettingForDisplay];
-}
-
--(void)dealloc
-{
-    //
 }
 
 - (void)viewDidLoad
@@ -43,7 +40,6 @@
     
     self.navigationItem.leftBarButtonItem = self.BackBtn;
     self.navigationItem.rightBarButtonItem = self.EditBtn;
-    
 
 }
 
@@ -51,6 +47,8 @@
 {
     [super viewDidUnload];
 }
+
+#pragma mark UIDocumentInteractionControllerDelegate
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -61,6 +59,8 @@
     }
 }
 
+
+#pragma mark UITableViewDelegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [_settingSections count];
@@ -118,6 +118,8 @@
     return _settingSections[section];
 }
 
+#pragma mark UITextFieldDelegate
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     int textTag = [textField tag];
@@ -135,7 +137,7 @@
     
     dictionary* iniDic = [GAppDelegate loadGoAgentSettings];
     
-    NSLog(@"tag is %d,section is %d,row is %d",textTag,section,row);
+    NSLog(@"<== textFieldShouldReturn tag:%d,section:%d,row:%d",textTag,section,row);
     
     
     NSString* key = _settingSections[section];
@@ -150,16 +152,18 @@
             iniKey="gae:appid";
             break;
         case 11:
-            iniKey="gae:profile";
+            iniKey="gae:mode";
             break;
         case 12:
-            iniKey="pac:enable";
+            iniKey="pac:profile";
             break;
         default:
             break;
     }
     if (iniKey)
     {
+        NSLog(@"==> set %@ = %@", @(iniKey), [textField text]);
+        
         iniparser_set(iniDic, iniKey,[[textField text] UTF8String]);
         FILE* fp = fopen([[[NSBundle mainBundle] pathForResource:CONFIG_FILE_NAME
                                                          ofType:CONFIG_FILE_TYPE
@@ -170,6 +174,130 @@
     
     [textField resignFirstResponder];
     return YES;
+}
+
+#pragma mark UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex)
+    {
+        [GUtility setSystemProxy];
+    }
+}
+
+#pragma mark UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString* apnConfig = nil;
+    switch (buttonIndex) {
+        case 0:
+            apnConfig = REMOTE_APN_MOBILE;
+            break;
+        case 1:
+            apnConfig = REMOTE_APN_UNICOM;
+            break;
+        case 2:
+            apnConfig = REMOTE_APN_TELECOM;
+            break;
+        default:
+            break;
+    }
+    if (apnConfig) {
+        NSLog(@"==> try to install config:%@", [apnConfig lastPathComponent]);
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:apnConfig]];
+    }
+}
+
+
+#pragma mark IBActions
+
+-(IBAction)performBackAction:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(IBAction)performEditAction:(id)sender
+{
+    NSString* proxyIni = [[NSBundle mainBundle] pathForResource:CONFIG_FILE_NAME
+                                                        ofType:CONFIG_FILE_TYPE
+                                                   inDirectory:GOAGENT_LOCAL_PATH];
+    [self openIniFile:proxyIni];
+}
+
+
+
+-(void)performPressAciton:(id)sender
+{
+    UIButton* button = (UIButton*)sender;
+    switch (button.tag)
+    {
+        //change proxy
+        case 100:
+        {
+            NSLog(@"==> perform change system proxy action");
+            
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:APPLICATION_NAME
+                                                             message:@"It won't change proxy setting for running Apps"
+                                                            delegate:self
+                                                   cancelButtonTitle:@"Cancel"
+                                                   otherButtonTitles:@"OK",nil];
+            [alert show];
+            
+            break;
+        }
+        //install cert
+        case 101:
+        {
+            NSLog(@"==> perform install CA action");
+            NSString* CA_URL = REMOTE_CA_URL;
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:CA_URL]];
+            break;
+        }
+        //install apn config
+        case 102:
+        {
+            NSLog(@"==> perform install APN action");
+            UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:APPLICATION_NAME delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"ChinaMobile", @"ChinaUnicom", @"ChinaTelecom", nil];
+            [sheet showInView:self.view];
+            break;
+        }
+        case 103:
+        {
+            NSLog(@"==> open goagent ios log");
+            [self openIniFile:GOAGENT_LOCAL_LOG];
+            break;
+        }
+        case 104:
+        {
+            NSLog(@"==> open goagent log");
+            [self openIniFile:GOAGENT_LOG];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+#pragma mark helper functions
+
+- (void)openIniFile:(NSString *)filepath
+{
+    //try iFire first, then other apps
+    NSURL* ifileReq = [NSURL URLWithString:[NSString stringWithFormat:@"ifile://localhost%@",filepath]];
+    
+    if (![[UIApplication sharedApplication] openURL:ifileReq])
+    {
+        [self setupDocumentControllerWithURL:[NSURL fileURLWithPath:filepath]];
+        
+        if (![self.docInteractionController presentOpenInMenuFromRect:CGRectZero
+                                                               inView:self.view.window
+                                                             animated:YES])
+        {
+            GAppDelegate* appDelegate = [GAppDelegate getInstance];
+            [appDelegate showAlert:[NSString stringWithFormat:@"Sorry, No other App can open %@",filepath] withTitle:APPLICATION_NAME];
+        }
+    }
 }
 
 - (void)setupDocumentControllerWithURL:(NSURL *)url
@@ -193,187 +321,52 @@
     dictionary* iniDic = [GAppDelegate loadGoAgentSettings];
     
     //basic settings
-    NSMutableDictionary* appidDic = [NSMutableDictionary dictionaryWithObjects:
-                                     @[KEY_SETTING_APPID,@(iniparser_getstring(iniDic, "gae:appid", NULL))]
-                                                                       forKeys:
-                                     @[[NSString stringWithFormat:@"%@_0_key",KEY_SETTING_BASIC], [NSString stringWithFormat:@"%@_0_value",KEY_SETTING_BASIC]]
-                                     ];
+    NSMutableDictionary* appidDic = [NSMutableDictionary new];
+    appidDic[[NSString stringWithFormat:@"%@_0_key",KEY_SETTING_BASIC]] = KEY_SETTING_APPID;
+    appidDic[[NSString stringWithFormat:@"%@_0_value",KEY_SETTING_BASIC]] = @(iniparser_getstring(iniDic, "gae:appid", NULL));
     
-    NSMutableDictionary* modeDic = [NSMutableDictionary dictionaryWithObjects:
-                                       @[KEY_SETTING_MODE,@(iniparser_getstring(iniDic, "gae:mode", NULL))]
-                                                                         forKeys:
-                                       @[[NSString stringWithFormat:@"%@_1_key",KEY_SETTING_BASIC], [NSString stringWithFormat:@"%@_1_value",KEY_SETTING_BASIC]]
-                                       ];
     
-    NSMutableDictionary* profileDic = [NSMutableDictionary dictionaryWithObjects:
-                                       @[KEY_SETTING_PROFILE,@(iniparser_getstring(iniDic, "gae:profile", NULL))]
-                                                                         forKeys:
-                                       @[[NSString stringWithFormat:@"%@_2_key",KEY_SETTING_BASIC], [NSString stringWithFormat:@"%@_2_value",KEY_SETTING_BASIC]]
-                                       ];
+    NSMutableDictionary* modeDic = [NSMutableDictionary new];
+    modeDic[[NSString stringWithFormat:@"%@_1_key",KEY_SETTING_BASIC]] = KEY_SETTING_MODE;
+    modeDic[[NSString stringWithFormat:@"%@_1_value",KEY_SETTING_BASIC]] = @(iniparser_getstring(iniDic, "gae:mode", NULL));
+    
+    
+    NSMutableDictionary* profileDic = [NSMutableDictionary new];
+    profileDic[[NSString stringWithFormat:@"%@_2_key",KEY_SETTING_BASIC]] = KEY_SETTING_PROFILE;
+    profileDic[[NSString stringWithFormat:@"%@_2_value",KEY_SETTING_BASIC]] = @(iniparser_getstring(iniDic, "gae:profile", NULL));
     
     NSArray* basicArray = @[appidDic,modeDic,profileDic];
     
-    (self.settingDic)[KEY_SETTING_BASIC] = basicArray;
+    self.settingDic[KEY_SETTING_BASIC] = basicArray;
     
     //advanced settings
-    NSMutableDictionary* sysproxyDic = [NSMutableDictionary dictionaryWithObjects:
-                                        @[KEY_SETTING_SET_SYSPROXY,KEY_SETTING_SET_SYSPROXY]
-                                                                          forKeys:
-                                        @[[NSString stringWithFormat:@"%@_0_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_0_value",KEY_SETTING_ADVANCED]]
-                                 ];
+    NSMutableDictionary* sysproxyDic = [NSMutableDictionary new];
+    sysproxyDic[[NSString stringWithFormat:@"%@_0_key",KEY_SETTING_ADVANCED]] = KEY_SETTING_SET_SYSPROXY;
+    sysproxyDic[[NSString stringWithFormat:@"%@_0_value",KEY_SETTING_ADVANCED]] = KEY_SETTING_SET_SYSPROXY;
     
-    NSMutableDictionary* installCertDic = [NSMutableDictionary dictionaryWithObjects:
-                                        @[KEY_SETTING_INSTALL_CERT,KEY_SETTING_INSTALL_CERT]
-                                                                          forKeys:
-                                        @[[NSString stringWithFormat:@"%@_1_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_1_value",KEY_SETTING_ADVANCED]]
-                                        ];
     
-    NSMutableDictionary* openLocalLogDic = [NSMutableDictionary dictionaryWithObjects:
-                                           @[KEY_SETTING_OPEN_LOCAL_LOG,KEY_SETTING_OPEN_LOCAL_LOG]
-                                                                             forKeys:
-                                           @[[NSString stringWithFormat:@"%@_2_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_2_value",KEY_SETTING_ADVANCED]]
-                                           ];
+    NSMutableDictionary* installCertDic = [NSMutableDictionary new];
+    installCertDic[[NSString stringWithFormat:@"%@_1_key",KEY_SETTING_ADVANCED]] = KEY_SETTING_INSTALL_CERT;
+    installCertDic[[NSString stringWithFormat:@"%@_1_value",KEY_SETTING_ADVANCED]] = KEY_SETTING_INSTALL_CERT;
     
-    NSMutableDictionary* openGoAgentLogDic = [NSMutableDictionary dictionaryWithObjects:
-                                           @[KEY_SETTING_OPEN_LOG,KEY_SETTING_OPEN_LOG]
-                                                                             forKeys:
-                                           @[[NSString stringWithFormat:@"%@_3_key",KEY_SETTING_ADVANCED], [NSString stringWithFormat:@"%@_3_value",KEY_SETTING_ADVANCED]]
-                                           ];
+    NSMutableDictionary* installAPNDic = [NSMutableDictionary new];
+    installAPNDic[[NSString stringWithFormat:@"%@_2_key",KEY_SETTING_ADVANCED]] = KEY_SETTING_INSTALL_APN;
+    installAPNDic[[NSString stringWithFormat:@"%@_2_value",KEY_SETTING_ADVANCED]] = KEY_SETTING_INSTALL_APN;
     
-    NSArray* advancedArray = @[sysproxyDic,installCertDic, openLocalLogDic, openGoAgentLogDic];
+    NSMutableDictionary* openLocalLogDic = [NSMutableDictionary new];
+    openLocalLogDic[[NSString stringWithFormat:@"%@_3_key",KEY_SETTING_ADVANCED]] = KEY_SETTING_OPEN_LOCAL_LOG;
+    openLocalLogDic[[NSString stringWithFormat:@"%@_3_value",KEY_SETTING_ADVANCED]] = KEY_SETTING_OPEN_LOCAL_LOG;
     
-    (self.settingDic)[KEY_SETTING_ADVANCED] = advancedArray;
+    NSMutableDictionary* openGoAgentLogDic = [NSMutableDictionary new];
+    openGoAgentLogDic[[NSString stringWithFormat:@"%@_4_key",KEY_SETTING_ADVANCED]] = KEY_SETTING_OPEN_LOG;
+    openGoAgentLogDic[[NSString stringWithFormat:@"%@_4_value",KEY_SETTING_ADVANCED]] = KEY_SETTING_OPEN_LOG;
+    
+    NSArray* advancedArray = @[sysproxyDic, installCertDic, installAPNDic, openLocalLogDic, openGoAgentLogDic];
+    
+    self.settingDic[KEY_SETTING_ADVANCED] = advancedArray;
     
     [self.settingSections addObject:KEY_SETTING_BASIC];
     [self.settingSections addObject:KEY_SETTING_ADVANCED];
-}
-
--(IBAction)performBackAction:(id)sender
-{
-    NSLog(@"back to main view");
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
--(IBAction)performEditAction:(id)sender
-{
-    NSString* proxyIni = [[NSBundle mainBundle] pathForResource:CONFIG_FILE_NAME
-                                                        ofType:CONFIG_FILE_TYPE
-                                                   inDirectory:GOAGENT_LOCAL_PATH];
-    [self openIniFile:proxyIni];
-}
-
--(void)performPressAciton:(id)sender
-{
-    UIButton* button = (UIButton*)sender;
-    switch (button.tag)
-    {
-        //change proxy
-        case 100:
-        {
-            NSLog(@"perform change system proxy action");
-            
-            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:APPLICATION_NAME
-                                                             message:@"It won't change proxy setting for running Apps"
-                                                            delegate:self
-                                                   cancelButtonTitle:@"Cancel"
-                                                   otherButtonTitles:@"OK",nil];
-            [alert show];
-            
-            break;
-        }
-        //install cert
-        case 101:
-        {
-            NSLog(@"perform install CA action");
-            NSString* CA_URL = REMOTE_CA_URL;
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:CA_URL]];
-            break;
-        }
-        case 102:
-        {
-            NSLog(@"open goagent ios log");
-            [self openIniFile:GOAGENT_LOCAL_LOG];
-            break;
-        }
-        case 103:
-        {
-            NSLog(@"open goagent log");
-            [self openIniFile:GOAGENT_LOG];
-            break;
-        }
-        default:
-            break;
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex != alertView.cancelButtonIndex)
-    {
-        void* libHandle = dlopen("/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration", RTLD_LAZY);
-        SCPreferencesRef(*_SCPreferencesCreate)(CFAllocatorRef,CFStringRef,CFStringRef) = dlsym(libHandle, "SCPreferencesCreate");
-        CFPropertyListRef(*_SCPreferencesGetValue)(SCPreferencesRef,CFStringRef) = dlsym(libHandle, "SCPreferencesGetValue");
-        Boolean(*_SCPreferencesApplyChanges)(SCPreferencesRef) = dlsym(libHandle, "SCPreferencesApplyChanges");
-        Boolean(*_SCPreferencesCommitChanges)(SCPreferencesRef) = dlsym(libHandle, "SCPreferencesCommitChanges");
-        void(*_SCPreferencesSynchronize)(SCPreferencesRef) = dlsym(libHandle, "SCPreferencesSynchronize");
-        
-        SCPreferencesRef preferenceRef = _SCPreferencesCreate(NULL, CFSTR("goagent-ios"), NULL);
-        CFPropertyListRef networkServices = _SCPreferencesGetValue(preferenceRef, CFSTR("NetworkServices"));
-        NSDictionary* services = (__bridge NSDictionary*)networkServices;
-        
-        for (NSString* key in [services allKeys]) {
-            NSMutableDictionary* obj = [services[key] mutableCopy];
-            NSString* hardware = [obj valueForKeyPath:@"Interface.Hardware"];
-            
-            if ([hardware isEqualToString:@"AirPort"]) {
-                NSDictionary* proxies = [obj valueForKey:@"Proxies"];
-                NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary:proxies];
-                if (!dict[@"ExceptionsList"]) {
-                    dict[@"ExceptionsList"] = @[@"*.local",@"169.254/16",@"127.0.0.1"];
-                }
-                dict[@"HTTPSEnable"] = @NO;
-                dict[@"HTTPEnable"] = @NO;
-                dict[@"ProxyAutoConfigEnable"] = @YES;
-                dict[@"ProxyAutoConfigURLString"] = @"http://127.0.0.1:8086/proxy.pac";
-                [obj setObject:dict forKey:@"Proxies"];
-                NSLog(@"set interface:%@ with proxy:%@",[obj valueForKeyPath:@"Interface"], dict);
-
-            }
-        }
-        
-        if(_SCPreferencesCommitChanges(preferenceRef)){
-            NSLog(@"commit proxy changes ok");
-        } else{
-            NSLog(@"commit proxy changes failed!");
-        }
-        if(_SCPreferencesApplyChanges(preferenceRef)){
-            NSLog(@"apply proxy changes ok");
-        } else{
-            NSLog(@"commit proxy changes failed!");
-        }
-        _SCPreferencesSynchronize(preferenceRef);
-        CFRelease(preferenceRef);
-        dlclose(libHandle);
-    }
-}
-
-- (void)openIniFile:(NSString *)filepath
-{
-    //try iFire first, then other apps
-    NSURL* ifileReq = [NSURL URLWithString:[NSString stringWithFormat:@"ifile://localhost%@",filepath]];
-
-    if (![[UIApplication sharedApplication] openURL:ifileReq])
-    {
-        [self setupDocumentControllerWithURL:[NSURL fileURLWithPath:filepath]];
-        
-        if (![self.docInteractionController presentOpenInMenuFromRect:CGRectZero
-                                                               inView:self.view.window
-                                                             animated:YES])
-        {
-            GAppDelegate* appDelegate = [GAppDelegate getInstance];
-            [appDelegate showAlert:[NSString stringWithFormat:@"Sorry, No other App can open %@",filepath] withTitle:APPLICATION_NAME];
-        }
-    }
 }
 
 @end

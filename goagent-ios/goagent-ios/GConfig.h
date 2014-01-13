@@ -33,12 +33,16 @@
 #define KEY_SETTING_PAC                 @"PAC Server"
 #define KEY_SETTING_SET_SYSPROXY        @"Change System Proxy"
 #define KEY_SETTING_INSTALL_CERT        @"Install GoAgent CA"
+#define KEY_SETTING_INSTALL_APN         @"Install APN proxy config"
 #define KEY_SETTING_OPEN_LOCAL_LOG      @"Open GoAgent iOS Log"
 #define KEY_SETTING_OPEN_LOG            @"Open GoAgent Log"
 
 #define APPLICATION_NAME                @"GoAgent for iOS"
 #define LOCAL_CA_URL                    @"http://127.0.0.1:8086/CA.crt"
 #define REMOTE_CA_URL                   @"https://github.com/goagent/goagent/raw/3.0/local/CA.crt"
+#define REMOTE_APN_TELECOM              @"https://github.com/goagent/goagent-ios/raw/master/extra/apns/ChinaTelecom.mobileconfig"
+#define REMOTE_APN_MOBILE               @"https://github.com/goagent/goagent-ios/raw/master/extra/apns/ChinaMobile.mobileconfig"
+#define REMOTE_APN_UNICOM               @"https://github.com/goagent/goagent-ios/raw/master/extra/apns/ChinaUnicom.mobileconfig"
 #define GOAGENT_HOME_PAGE               @"http://www.goagent.org"
 
 #endif
