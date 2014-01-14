@@ -51,6 +51,7 @@ static dictionary* iniDic = NULL;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
+    NSLog(NSLocalizedString(KEY_SETTING_APPID, nil));
     NSLog(@"==> GoAgent iOS finish launching, version:%@", infoDict[@"CFBundleShortVersionString"]);
 
 #ifndef DEBUG

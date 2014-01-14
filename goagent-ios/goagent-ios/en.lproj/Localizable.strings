@@ -1,0 +1,55 @@
+/* 
+  Localizable.strings
+  goagent-ios
+ 
+  Copyright (c) 2014 goagent project. All rights reserved.
+*/
+
+APPLICATION_NAME                = "GoAgent for iOS";
+
+KEY_SETTING_BASIC               = "Basic";
+KEY_SETTING_CUSTOM              = "Custom URL";
+KEY_SETTING_ADVANCED            = "Advanced";
+KEY_SETTING_APPID               = "AppID";
+KEY_SETTING_PROFILE             = "GAE Profile";
+KEY_SETTING_MODE                = "GAE Mode";
+KEY_SETTING_PAC                 = "PAC Server";
+KEY_SETTING_SET_SYSPROXY        = "Change System Proxy";
+KEY_SETTING_INSTALL_CERT        = "Install GoAgent CA";
+KEY_SETTING_INSTALL_APN         = "Install APN proxy config";
+KEY_SETTING_OPEN_LOCAL_LOG      = "Open GoAgent iOS Log";
+KEY_SETTING_OPEN_LOG            = "Open GoAgent Log";
+
+
+BUTTON_TITLE_START              = "Start";
+BUTTON_TITLE_STOP               = "Stop";
+BUTTON_TITLE_OK                 = "OK";
+BUTTON_TITLE_CANCEL             = "Cancel";
+BUTTON_TITLE_SETTING            = "Setting";
+BUTTON_TITLE_BACK               = "Back";
+BUTTON_TITLE_EDIT               = "Edit File";
+
+CARRIER_CHINA_MOBILE            = "ChinaMobile";
+CARRIER_CHINA_UNICOM            = "ChinaUnicom";
+CARRIER_CHINA_TELECOM           = "ChinaTelecom";
+
+VIEW_IN_SAFARI                  = "View in Safari";
+LOAD_PAGE_ERROR                 = "Load Page Error";
+EDIT_FILE_ERROR                 = "Sorry, No other App can open %@";
+START_GOAGENT_ERROR_TITLE       = "Start GoAgent failed";
+START_GOAGENT_ERROR_MESSAGE     = "Can't touch GoAgent pid file";
+STOP_GOAGENT_ERROR_TITLE        = "Stop GoAgent failed";
+STOP_GOAGENT_ERROR_TITLE        = "Can't remove GoAgent pid file";
+DEFAULT_APPID_TITLE             = "Default appid detected";
+DEFAULT_APPID_MESSAGE           = "Have you edit your appid?";
+
+ADDRESS_BAR_PLACEHOLDER         = "Type URL to browse";
+CHANGE_PROXY_ALERT_MESSAGE      = "It won't change proxy setting for running Apps";
+WELCOME_MESSAGE                 = "<html>\
+                                    <body>\
+                                    <center>\
+                                    <p><strong>GoAgent is Stopped</strong></p>\
+                                    <p>GoAgent for iOS is open source and freely distributable.</p>\
+                                    </center>\
+                                    </body>\
+                                    </html>";

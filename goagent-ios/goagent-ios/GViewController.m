@@ -43,12 +43,12 @@
     self.settingViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"SettingViewController"];
     
     self.startBtn = [[UIBarButtonItem alloc] init];
-    self.startBtn.title = @"Start";
+    self.startBtn.title = NSLocalizedString(@"BUTTON_TITLE_START",nil);
     self.startBtn.target = self;
     self.startBtn.action = @selector(performStartAction:);
     
     self.settingBtn = [[UIBarButtonItem alloc] init];
-    self.settingBtn.title = @"Setting";
+    self.settingBtn.title = NSLocalizedString(@"BUTTON_TITLE_SETTING",nil);
     self.settingBtn.target = self;
     self.settingBtn.action = @selector(performSettingAction:);
     
@@ -70,7 +70,7 @@
     [super viewDidLoad];
     
     [self.addressField setDelegate:self];
-    self.addressField.placeholder = @"Type URL to browse";
+    self.addressField.placeholder = NSLocalizedString(@"ADDRESS_BAR_PLACEHOLDER",nil);
     [self.webViewRef setDelegate:self];
     [self.busyWebIcon setHidden:YES];
     
@@ -104,7 +104,7 @@
     
     NSString* appid = [NSString stringWithFormat:@"%s",iniparser_getstring(iniDic, "gae:appid", "goagent")];
     if ([appid isEqualToString:@"goagent"]) {
-        [appDelegate showAlert:@"Have you edit your appid?" withTitle:@"Default appid detected"];
+        [appDelegate showAlert:NSLocalizedString(@"DEFAULT_APPID_MESSAGE",nil) withTitle:NSLocalizedString(@"DEFAULT_APPID_TITLE",nil)];
         return;
     }
 
@@ -116,7 +116,7 @@
         NSError* error;
         if (![[NSFileManager defaultManager] removeItemAtPath:GOAGENT_PID_PATH error:&error]) {
             NSLog(@"<== remove pid failed:%@",[error description]);
-            [appDelegate showAlert:@"Can't remove GoAgent pid file" withTitle:@"Stop GoAgent failed"];
+            [appDelegate showAlert:NSLocalizedString(@"STOP_GOAGENT_ERROR_MESSAGE",nil) withTitle:NSLocalizedString(@"STOP_GOAGENT_ERROR_TITLE",nil)];
             return;
         }
         int rc = system("killall python");
@@ -132,7 +132,7 @@
         if (![[NSFileManager defaultManager] createFileAtPath:GOAGENT_PID_PATH contents:nil attributes:nil])
         {
             NSLog(@"<== touch goagent.pid failed!");
-            [appDelegate showAlert:@"Can't touch GoAgent pid file" withTitle:@"Start GoAgent failed"];
+            [appDelegate showAlert:NSLocalizedString(@"START_GOAGENT_ERROR_MESSAGE",nil) withTitle:NSLocalizedString(@"START_GOAGENT_ERROR_TITLE",nil)];
             return;
         }
     }
@@ -198,9 +198,9 @@
     UIActionSheet *menu = [[UIActionSheet alloc]
 						   initWithTitle: nil
 						   delegate:self
-						   cancelButtonTitle:@"Cancel"
+						   cancelButtonTitle:NSLocalizedString(@"BUTTON_TITLE_CANCEL",nil)
 						   destructiveButtonTitle:nil
-						   otherButtonTitles:@"View in Safari", nil];
+						   otherButtonTitles:NSLocalizedString(@"VIEW_IN_SAFARI",nil), nil];
 	[menu showFromToolbar:self.toolBar];
 }
 
@@ -212,13 +212,13 @@
     if ([self isRunning])
     {
         NSLog(@"<== updateUIStatus, goagent is running");
-        [self.startBtn setTitle:@"Stop"];
+        [self.startBtn setTitle:NSLocalizedString(@"BUTTON_TITLE_STOP",nil)];
         [self.addressField setHidden:NO];
     }
     else
     {
         NSLog(@"<== updateUIStatus, goagent is not running");
-        [self.startBtn setTitle:@"Start"];
+        [self.startBtn setTitle:NSLocalizedString(@"BUTTON_TITLE_START",nil)];
         [self.addressField setHidden:YES];
     }
 }
@@ -249,14 +249,7 @@
 {
     if (!urlString)
     {
-        [self.webViewRef loadHTMLString:@"<html>\
-         <body>\
-         <center>\
-         <p><strong>GoAgent is Stopped</strong></p>\
-         <p>GoAgent for iOS is open source and freely distributable.</p>\
-         </center>\
-         </body>\
-         </html>" baseURL:nil];
+        [self.webViewRef loadHTMLString:NSLocalizedString(@"WELCOME_MESSAGE",nil) baseURL:nil];
         [self.webViewRef setNeedsDisplay];
     }
     else
@@ -317,7 +310,7 @@
     
     GAppDelegate* appDelegate = [GAppDelegate getInstance];
     NSLog(@"<== load page error: %@", [error localizedDescription]);
-    [appDelegate showAlert:[error localizedDescription] withTitle:@"Load Page Error"];
+    [appDelegate showAlert:[error localizedDescription] withTitle:NSLocalizedString(@"LOAD_PAGE_ERROR",nil)];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType

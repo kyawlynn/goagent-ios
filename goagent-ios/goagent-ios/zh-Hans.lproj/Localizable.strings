@@ -1,0 +1,53 @@
+/* 
+  Localizable.strings
+  goagent-ios
+
+  Copyright (c) 2014 goagent project. All rights reserved.
+*/
+
+KEY_SETTING_BASIC               = "基本设置";
+KEY_SETTING_CUSTOM              = "自定义URL";
+KEY_SETTING_ADVANCED            = "高级设置";
+KEY_SETTING_APPID               = "AppID";
+KEY_SETTING_PROFILE             = "GAE Profile";
+KEY_SETTING_MODE                = "GAE Mode";
+KEY_SETTING_PAC                 = "PAC Server";
+KEY_SETTING_SET_SYSPROXY        = "设置系统代理";
+KEY_SETTING_INSTALL_CERT        = "安装GoAgent证书";
+KEY_SETTING_INSTALL_APN         = "安装APN代理配置";
+KEY_SETTING_OPEN_LOCAL_LOG      = "查看GoAgent iOS日志";
+KEY_SETTING_OPEN_LOG            = "查看proxy.py日志";
+APPLICATION_NAME                = "GoAgent for iOS";
+
+BUTTON_TITLE_START              = "启动";
+BUTTON_TITLE_STOP               = "停止";
+BUTTON_TITLE_OK                 = "OK";
+BUTTON_TITLE_CANCEL             = "取消";
+BUTTON_TITLE_SETTING            = "设置";
+BUTTON_TITLE_BACK               = "返回";
+BUTTON_TITLE_EDIT               = "编辑";
+
+CARRIER_CHINA_MOBILE            = "中国移动";
+CARRIER_CHINA_UNICOM            = "中国联通";
+CARRIER_CHINA_TELECOM           = "中国电信";
+
+VIEW_IN_SAFARI                  = "用Safari打开";
+LOAD_PAGE_ERROR                 = "加载网页失败";
+EDIT_FILE_ERROR                 = "抱歉, 似乎没有App可以编辑 %@";
+START_GOAGENT_ERROR_TITLE       = "启动GoAgent异常";
+START_GOAGENT_ERROR_MESSAGE     = "无法创建GoAgent pid文件";
+STOP_GOAGENT_ERROR_TITLE        = "停止GoAgent异常";
+STOP_GOAGENT_ERROR_TITLE        = "无法删除GoAgent pid文件";
+DEFAULT_APPID_TITLE             = "检测到默认Appid";
+DEFAULT_APPID_MESSAGE           = "你是不是忘记填你的Appid了?";
+
+ADDRESS_BAR_PLACEHOLDER         = "这里可以输入URL";
+CHANGE_PROXY_ALERT_MESSAGE      = "注意, 对正在运行的App可能暂时无法生效";
+WELCOME_MESSAGE                 = "<html>\
+<body>\
+<center>\
+<p><strong>GoAgent停止工作了</strong></p>\
+<p>GoAgent for iOS是可以任意分发的开源软件</p>\
+</center>\
+</body>\
+</html>";

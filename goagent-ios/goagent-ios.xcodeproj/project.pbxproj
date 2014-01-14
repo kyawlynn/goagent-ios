@@ -38,6 +38,7 @@
 		CE9128EC157B4171008C98B1 /* GViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9128EB157B4171008C98B1 /* GViewController.m */; };
 		CE912963157B483F008C98B1 /* GSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE912962157B483F008C98B1 /* GSettingViewController.m */; };
 		CED3CDDD15DB374500FA4742 /* GUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = CED3CDDC15DB374500FA4742 /* GUtility.m */; };
+		D9AC1FAE188500A000E5B563 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9AC1FB0188500A000E5B563 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +98,11 @@
 		CE912962157B483F008C98B1 /* GSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSettingViewController.m; sourceTree = "<group>"; };
 		CED3CDDB15DB374500FA4742 /* GUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GUtility.h; sourceTree = "<group>"; };
 		CED3CDDC15DB374500FA4742 /* GUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GUtility.m; sourceTree = "<group>"; };
+		D9AC1FA91884F9E700E5B563 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/MainStoryboard_iPad.storyboard"; sourceTree = "<group>"; };
+		D9AC1FAA1884F9E700E5B563 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/MainStoryboard_iPhone.storyboard"; sourceTree = "<group>"; };
+		D9AC1FAB1884F9E700E5B563 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		D9AC1FAF188500A000E5B563 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D9AC1FB1188500A300E5B563 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				CE9128DA157B4171008C98B1 /* goagent-ios-Info.plist */,
+				D9AC1FB0188500A000E5B563 /* Localizable.strings */,
 				CE9128DB157B4171008C98B1 /* InfoPlist.strings */,
 				CE9128DE157B4171008C98B1 /* main.m */,
 				CE9128E0157B4171008C98B1 /* goagent-ios-Prefix.pch */,
@@ -299,6 +306,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
 			);
 			mainGroup = CE9128C3157B4171008C98B1;
 			productRefGroup = CE9128CF157B4171008C98B1 /* Products */;
@@ -328,6 +336,7 @@
 				BB31118C15D782E20047E5F1 /* goagent-local in Resources */,
 				BB31118D15D782E20047E5F1 /* python in Resources */,
 				BBB609981657803800D823C3 /* Default-568h@2x.png in Resources */,
+				D9AC1FAE188500A000E5B563 /* Localizable.strings in Resources */,
 				BBBF8260167C52A6002FBED5 /* authrunner in Resources */,
 				BBBF8274167C9795002FBED5 /* goagent in Resources */,
 			);
@@ -391,6 +400,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				CE0A6CF8157B5B0C00C46A20 /* en */,
+				D9AC1FA91884F9E700E5B563 /* zh-Hans */,
 			);
 			name = MainStoryboard_iPad.storyboard;
 			sourceTree = "<group>";
@@ -399,6 +409,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				CE0A6CFA157B5B0C00C46A20 /* en */,
+				D9AC1FAA1884F9E700E5B563 /* zh-Hans */,
 			);
 			name = MainStoryboard_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -407,8 +418,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				CE9128DC157B4171008C98B1 /* en */,
+				D9AC1FAB1884F9E700E5B563 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D9AC1FB0188500A000E5B563 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9AC1FAF188500A000E5B563 /* en */,
+				D9AC1FB1188500A300E5B563 /* zh-Hans */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

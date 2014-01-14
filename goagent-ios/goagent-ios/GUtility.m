@@ -52,11 +52,11 @@
     return YES;
 }
 
-+(BOOL) setSystemProxy
++(BOOL)setProxyForDynamicStore
 {
     BOOL result = NO;
     
-    NSLog(@"==> setSystemProxy");
+    NSLog(@"==> setProxyForDynamicStore");
     
     void* libHandle = dlopen("/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration", RTLD_LAZY);
     if (!libHandle) {
@@ -65,17 +65,16 @@
     }
     
     // Set dynamic store, current proxy
-    
     SCDynamicStoreRef
     (*_SCDynamicStoreCreate)(CFAllocatorRef,CFStringRef,SCDynamicStoreCallBack,SCDynamicStoreContext*)
-        = dlsym(libHandle, "SCDynamicStoreCreate");
+    = dlsym(libHandle, "SCDynamicStoreCreate");
     CFStringRef(*_SCDynamicStoreKeyCreateProxies)(CFAllocatorRef)
-        = dlsym(libHandle, "SCDynamicStoreKeyCreateProxies");
+    = dlsym(libHandle, "SCDynamicStoreKeyCreateProxies");
     Boolean
     (*_SCDynamicStoreSetValue)(SCDynamicStoreRef,CFStringRef,CFPropertyListRef)
-        = dlsym(libHandle, "SCDynamicStoreSetValue");
+    = dlsym(libHandle, "SCDynamicStoreSetValue");
     CFDictionaryRef(*_SCDynamicStoreCopyProxies)(SCDynamicStoreRef)
-        = dlsym(libHandle, "SCDynamicStoreCopyProxies");
+    = dlsym(libHandle, "SCDynamicStoreCopyProxies");
     
     SCDynamicStoreRef dynamicStore = _SCDynamicStoreCreate(NULL, CFSTR("goagent-ios"), NULL, NULL);
     CFDictionaryRef dynamicProxies = _SCDynamicStoreCopyProxies(dynamicStore);
@@ -113,7 +112,23 @@
     CFRelease(dynamicProxies);
     CFRelease(dynamicStore);
     
+    dlclose(libHandle);
     
+    return result;
+}
+
++(BOOL) setProxyForPreferences
+{
+    BOOL result = NO;
+    
+    NSLog(@"==> setProxyForPreferences");
+    
+    void* libHandle = dlopen("/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration", RTLD_LAZY);
+    if (!libHandle) {
+        NSLog(@"<== dlopen SystemConfiguration failed");
+        return result;
+    }
+
     //set preference file
     SCPreferencesRef(*_SCPreferencesCreate)(CFAllocatorRef,CFStringRef,CFStringRef)
         = dlsym(libHandle, "SCPreferencesCreate");

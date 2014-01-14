@@ -29,17 +29,19 @@
     [super viewDidLoad];
     
     self.BackBtn = [[UIBarButtonItem alloc] init];
-    self.BackBtn.title = @"Back";
+    self.BackBtn.title = NSLocalizedString(@"BUTTON_TITLE_BACK",nil);
     self.BackBtn.target = self;
     self.BackBtn.action = @selector(performBackAction:);
     
     self.EditBtn = [[UIBarButtonItem alloc] init];
-    self.EditBtn.title = @"Edit File";
+    self.EditBtn.title = NSLocalizedString(@"BUTTON_TITLE_EDIT",nil);
     self.EditBtn.target = self;
     self.EditBtn.action = @selector(performEditAction:);
     
     self.navigationItem.leftBarButtonItem = self.BackBtn;
     self.navigationItem.rightBarButtonItem = self.EditBtn;
+    
+    self.navigationItem.title = NSLocalizedString(@"BUTTON_TITLE_SETTING",nil);
 
 }
 
@@ -115,7 +117,7 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return _settingSections[section];
+    return NSLocalizedString(_settingSections[section],nil);
 }
 
 #pragma mark UITextFieldDelegate
@@ -182,7 +184,7 @@
 {
     if (buttonIndex != alertView.cancelButtonIndex)
     {
-        [GUtility setSystemProxy];
+        [GUtility setProxyForPreferences];
     }
 }
 
@@ -230,6 +232,7 @@
 -(void)performPressAciton:(id)sender
 {
     UIButton* button = (UIButton*)sender;
+    NSString* appTitle = NSLocalizedString(@"APPLICATION_NAME",nil);
     switch (button.tag)
     {
         //change proxy
@@ -237,11 +240,11 @@
         {
             NSLog(@"==> perform change system proxy action");
             
-            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:APPLICATION_NAME
-                                                             message:@"It won't change proxy setting for running Apps"
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:appTitle
+                                                             message:NSLocalizedString(@"CHANGE_PROXY_ALERT_MESSAGE",nil)
                                                             delegate:self
-                                                   cancelButtonTitle:@"Cancel"
-                                                   otherButtonTitles:@"OK",nil];
+                                                   cancelButtonTitle:NSLocalizedString(@"BUTTON_TITLE_CANCEL",nil)
+                                                   otherButtonTitles:NSLocalizedString(@"BUTTON_TITLE_OK",nil),nil];
             [alert show];
             
             break;
@@ -258,7 +261,11 @@
         case 102:
         {
             NSLog(@"==> perform install APN action");
-            UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:APPLICATION_NAME delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"ChinaMobile", @"ChinaUnicom", @"ChinaTelecom", nil];
+            UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:appTitle
+                                                               delegate:self
+                                                      cancelButtonTitle:NSLocalizedString(@"BUTTON_TITLE_CANCEL",nil)
+                                                 destructiveButtonTitle:nil
+                                                      otherButtonTitles:NSLocalizedString(@"CARRIER_CHINA_MOBILE",nil), NSLocalizedString(@"CARRIER_CHINA_UNICOM",nil), NSLocalizedString(@"CARRIER_CHINA_TELECOM",nil), nil];
             [sheet showInView:self.view];
             break;
         }
@@ -295,7 +302,7 @@
                                                              animated:YES])
         {
             GAppDelegate* appDelegate = [GAppDelegate getInstance];
-            [appDelegate showAlert:[NSString stringWithFormat:@"Sorry, No other App can open %@",filepath] withTitle:APPLICATION_NAME];
+            [appDelegate showAlert:[NSString stringWithFormat:NSLocalizedString(@"EDIT_FILE_ERROR",nil),filepath] withTitle:APPLICATION_NAME];
         }
     }
 }
@@ -322,17 +329,17 @@
     
     //basic settings
     NSMutableDictionary* appidDic = [NSMutableDictionary new];
-    appidDic[[NSString stringWithFormat:@"%@_0_key",KEY_SETTING_BASIC]] = KEY_SETTING_APPID;
+    appidDic[[NSString stringWithFormat:@"%@_0_key",KEY_SETTING_BASIC]] = NSLocalizedString(KEY_SETTING_APPID,nil);
     appidDic[[NSString stringWithFormat:@"%@_0_value",KEY_SETTING_BASIC]] = @(iniparser_getstring(iniDic, "gae:appid", NULL));
     
     
     NSMutableDictionary* modeDic = [NSMutableDictionary new];
-    modeDic[[NSString stringWithFormat:@"%@_1_key",KEY_SETTING_BASIC]] = KEY_SETTING_MODE;
+    modeDic[[NSString stringWithFormat:@"%@_1_key",KEY_SETTING_BASIC]] = NSLocalizedString(KEY_SETTING_MODE,nil);
     modeDic[[NSString stringWithFormat:@"%@_1_value",KEY_SETTING_BASIC]] = @(iniparser_getstring(iniDic, "gae:mode", NULL));
     
     
     NSMutableDictionary* profileDic = [NSMutableDictionary new];
-    profileDic[[NSString stringWithFormat:@"%@_2_key",KEY_SETTING_BASIC]] = KEY_SETTING_PROFILE;
+    profileDic[[NSString stringWithFormat:@"%@_2_key",KEY_SETTING_BASIC]] = NSLocalizedString(KEY_SETTING_PROFILE,nil);
     profileDic[[NSString stringWithFormat:@"%@_2_value",KEY_SETTING_BASIC]] = @(iniparser_getstring(iniDic, "gae:profile", NULL));
     
     NSArray* basicArray = @[appidDic,modeDic,profileDic];
@@ -342,24 +349,24 @@
     //advanced settings
     NSMutableDictionary* sysproxyDic = [NSMutableDictionary new];
     sysproxyDic[[NSString stringWithFormat:@"%@_0_key",KEY_SETTING_ADVANCED]] = KEY_SETTING_SET_SYSPROXY;
-    sysproxyDic[[NSString stringWithFormat:@"%@_0_value",KEY_SETTING_ADVANCED]] = KEY_SETTING_SET_SYSPROXY;
+    sysproxyDic[[NSString stringWithFormat:@"%@_0_value",KEY_SETTING_ADVANCED]] = NSLocalizedString(KEY_SETTING_SET_SYSPROXY,nil);
     
     
     NSMutableDictionary* installCertDic = [NSMutableDictionary new];
     installCertDic[[NSString stringWithFormat:@"%@_1_key",KEY_SETTING_ADVANCED]] = KEY_SETTING_INSTALL_CERT;
-    installCertDic[[NSString stringWithFormat:@"%@_1_value",KEY_SETTING_ADVANCED]] = KEY_SETTING_INSTALL_CERT;
+    installCertDic[[NSString stringWithFormat:@"%@_1_value",KEY_SETTING_ADVANCED]] = NSLocalizedString(KEY_SETTING_INSTALL_CERT,nil);
     
     NSMutableDictionary* installAPNDic = [NSMutableDictionary new];
     installAPNDic[[NSString stringWithFormat:@"%@_2_key",KEY_SETTING_ADVANCED]] = KEY_SETTING_INSTALL_APN;
-    installAPNDic[[NSString stringWithFormat:@"%@_2_value",KEY_SETTING_ADVANCED]] = KEY_SETTING_INSTALL_APN;
+    installAPNDic[[NSString stringWithFormat:@"%@_2_value",KEY_SETTING_ADVANCED]] = NSLocalizedString(KEY_SETTING_INSTALL_APN,nil);
     
     NSMutableDictionary* openLocalLogDic = [NSMutableDictionary new];
     openLocalLogDic[[NSString stringWithFormat:@"%@_3_key",KEY_SETTING_ADVANCED]] = KEY_SETTING_OPEN_LOCAL_LOG;
-    openLocalLogDic[[NSString stringWithFormat:@"%@_3_value",KEY_SETTING_ADVANCED]] = KEY_SETTING_OPEN_LOCAL_LOG;
+    openLocalLogDic[[NSString stringWithFormat:@"%@_3_value",KEY_SETTING_ADVANCED]] = NSLocalizedString(KEY_SETTING_OPEN_LOCAL_LOG,nil);
     
     NSMutableDictionary* openGoAgentLogDic = [NSMutableDictionary new];
     openGoAgentLogDic[[NSString stringWithFormat:@"%@_4_key",KEY_SETTING_ADVANCED]] = KEY_SETTING_OPEN_LOG;
-    openGoAgentLogDic[[NSString stringWithFormat:@"%@_4_value",KEY_SETTING_ADVANCED]] = KEY_SETTING_OPEN_LOG;
+    openGoAgentLogDic[[NSString stringWithFormat:@"%@_4_value",KEY_SETTING_ADVANCED]] = NSLocalizedString(KEY_SETTING_OPEN_LOG,nil);
     
     NSArray* advancedArray = @[sysproxyDic, installCertDic, installAPNDic, openLocalLogDic, openGoAgentLogDic];
     
