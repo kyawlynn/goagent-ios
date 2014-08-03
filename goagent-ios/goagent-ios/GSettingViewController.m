@@ -168,7 +168,7 @@
         
         iniparser_set(iniDic, iniKey,[[textField text] UTF8String]);
         FILE* fp = fopen([[[NSBundle mainBundle] pathForResource:CONFIG_FILE_NAME
-                                                         ofType:CONFIG_FILE_TYPE
+                                                          ofType:CONFIG_FILE_TYPE
                                                      inDirectory:GOAGENT_LOCAL_PATH] UTF8String],"w+");
         iniparser_dump_ini(iniDic,fp);
         fclose(fp);

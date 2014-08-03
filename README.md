@@ -32,7 +32,7 @@
 	Add http://repo.goagent.org/cydia in Cydia
 
 ##Quick manual
-1. Open App->Setting, type your appid
+1. Open App->Setting, type your appid or edit in iFile
 2. Click "Install GoAgent CA", You can pass this step if you did it before
 3. Click "Change System Proxy", If not work, Open Settings -> Wi-Fi -> CurrentWiFi? -> HTTP Proxy -> Auto -> http://127.0.0.1:8086/proxy.pac
 4. Click "Install APN proxy config" for 3G, hope works :)

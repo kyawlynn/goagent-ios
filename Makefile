@@ -1,4 +1,5 @@
-DEVICE_IP=192.168.1.103
+DEVICE_IP=$(THEOS_DEVICE_IP)
+DEVICE_IP?=192.168.1.13
 
 APPS = goagent-ios
 
@@ -42,8 +43,8 @@ package: install
 
 deploy: 
 	@#ssh -p 22 root\@$(DEVICE_IP) "dpkg -r $(DEB_ID)" ;
-	scp $(OUTPUT)/$(DEB_NAME) root\@$(DEVICE_IP):~/workspace ; \
-	ssh -p 22 root\@$(DEVICE_IP) "dpkg -i ~/workspace/$(DEB_NAME)" ; \
+	scp $(OUTPUT)/$(DEB_NAME) root\@$(DEVICE_IP):~/; \
+	ssh -p 22 root\@$(DEVICE_IP) "dpkg -i ~/$(DEB_NAME)" ; \
 
 clean:
 	@for i in $(APPS) ; do \
