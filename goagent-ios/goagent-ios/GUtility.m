@@ -191,8 +191,9 @@
         NSLog(@"<== commit proxy preference changes failed!");
     }
     _SCPreferencesSynchronize(preferenceRef);
-    
-    CFRelease(preferenceRef);
+    if (preferenceRef) {
+        CFRelease(preferenceRef);
+    }
     dlclose(libHandle);
     
     return result;
